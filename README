@@ -1,0 +1,53 @@
+Ninja - version 1.0.0
+
+Author: Tiziano Peraro
+
+Ninja implements the Laurent series expansion method for the
+computation of one-loop integrals. 
+
+It is based on:
+
+    P. Mastrolia, E. Mirabella and T. Peraro,
+    "Integrand reduction of one-loop scattering amplitudes through
+    Laurent series expansion,"
+    JHEP 1206 (2012) 095  [arXiv:1203.0291 [hep-ph]].
+
+It can be compiled and installed with the commands
+
+    ./configure
+    make
+    make install
+
+In order to compile and link the built-in interface to the OneLoop
+library use --with-avholo[=FLAGS] during configuration e.g.
+
+    ./configure --with-avholo='-L/path/to/avh_olo -lavh_olo'
+    make
+    make install
+
+In order to compile the built-in interface to the LoopTools library
+use --with-looptools[=FLAGS] during configuration e.g.
+
+    ./configure --with-looptools='-L/path/to/looptools -looptools'
+    make
+    make install
+
+note: since LoopTools is a static library, you will also need to link
+your executables with it.
+
+For a full list of available options type
+
+    ./configure --help
+
+The Python package NinjaNumGen can be used both as a Python module and
+as a script in order to generate the input needed for Ninja.  You can
+install it with
+
+    cd utils
+    python setup.py install
+
+The command
+    
+    python setup.py --help
+
+will give a list of installation options.
