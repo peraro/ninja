@@ -40,19 +40,13 @@ m4/l*.m4
 src/ninja/ninja_config.h
 run*.sh
 
-# ignore executables of the examples and files generated with
-# NinjaNumGen
+# ignore executables of the examples
 examples/4photons
 examples/6photons
 examples/simple_higher_rank_test
 examples/simple_test
 examples/ttbarh
 examples/thread_6photons
-examples/4photons_num.cc
-examples/6photons_num.cc
-examples/mynumhr.cc
-examples/mynum.cc
-examples/ttbarh_num.cc
 
 
 syntax: regexp
