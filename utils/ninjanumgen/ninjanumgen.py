@@ -5,6 +5,7 @@ __all__ = ['NinjaPP', 'DiagramExpansion',
 
 import subprocess
 import os
+import sys
 import errno
 import re
 import tokenize
@@ -233,7 +234,8 @@ class DiagramExpansion(object):
                  inline_mu2expansion = [],
                  inline_t3expansion = [], inline_t2expansion = [],
                  loop_prefix = None,
-                 language=CPP):
+                 language=CPP,
+                 verbose = False):
         '''Constructor of the DiagramExpansion class.
 
 
@@ -297,7 +299,10 @@ class DiagramExpansion(object):
 
         inline_t2expansion -- list of code lines to be inlined inside
                               the generated 't2Expansion' method
-        
+
+        verbose -- set to True for printing information of the ongoing
+                   computations
+
         '''
 
         self._dname = diagname
@@ -324,6 +329,7 @@ class DiagramExpansion(object):
         self._inline_mu2 = inline_mu2expansion
         self._inline_t3 = inline_t3expansion
         self._inline_t2 = inline_t2expansion
+        self._verbose = verbose
         self._args = [self._formexec,
                       '-D', 'DIAGNAME='+self._dname,
                       '-D', 'DIAGN='+str(self._n),
@@ -353,13 +359,21 @@ class DiagramExpansion(object):
         subprocess.check_call(self._args + extra_args, stdout=DEVNULL)
 
     def _performOptimizations(self):
+        if self._verbose:
+            print "- optimizing evaluate method..."
         self._performFormOptimization('SAMURAINUM')
+        if self._verbose:
+            print "- optimizing t3expansion method..."
         self._performFormOptimization('31')
         if self._n >= 3:
             self._performFormOptimization('32')
+        if self._verbose:
+            print "- optimizing t2expansion method..."
         self._performFormOptimization('21')
         self._performFormOptimization('22')
         if (self._n >= 4) and (self._r >= self._n):
+            if self._verbose:
+                print "- optimizing mu2expansion method..."
             self._performFormOptimization('Mu2')
 
     def _preprocessor(self):
@@ -456,8 +470,14 @@ class DiagramExpansion(object):
             silent_delete(self._out+'.'+f)
 
     def _writeSource(self):
+        if self._verbose:
+            print "Form is performing the Laurent expansions..."
         self._performExpansions()
+        if self._verbose:
+            print "Form is optimizing the expressions:"
         self._performOptimizations()
+        if self._verbose:
+            print "NinjaNumGen is writing the output source..."
         process = self._preprocessor()
         if (self._lang is CPP) or (self._lang is C):
             if self._header is None:
@@ -475,11 +495,18 @@ class DiagramExpansion(object):
             with open(fname) as f:
                 for l in f:
                     process(l,out)
+        if self._verbose:
+            print "NinjaNumGen is done!"
 
     def writeSource(self):
         "Perform the expansions and writes the source code"
         try:
             self._writeSource()
+        except:
+            sys.stderr.write('ERROR IN NINJANUMGEN: Something went wrong!\n')
+            sys.stderr.write('ERROR IN NINJANUMGEN: Please check your input'
+                             ' and your Form expression.\n')
+            raise
         finally:
             self._cleanup()
 

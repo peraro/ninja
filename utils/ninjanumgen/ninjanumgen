@@ -2,6 +2,7 @@
 # -*- python -*- script
 
 import argparse
+import sys
 from ninjanumgen import *
 
 def list_args(arg):
@@ -32,8 +33,12 @@ def main(args):
                            inline_t2expansion = \
                                list_args(args.inline_t2expansion),
                            inline_mu2expansion = \
-                               list_args(args.inline_mu2expansion))
-    exp.writeSource()
+                               list_args(args.inline_mu2expansion),
+                           verbose = not args.quiet)
+    try:
+        exp.writeSource()
+    except:
+        sys.stderr.write('ERROR IN NINJANUMGEN: Failed to write the source!\n')
 
 
 if __name__ == "__main__":
@@ -41,26 +46,26 @@ if __name__ == "__main__":
                                      'Generates numerator methods'
                                      ' for the Ninja library.')
     parser.add_argument('--nlegs','-n',required=True,
-                        help='Number of external legs, i.e. of loop propagators'
+                        help='number of external legs, i.e. of loop propagators'
                         ' of the diagram')
     parser.add_argument('--rank','-r',
-                        help='Maximum rank of the numerator'
+                        help='maximum rank of the numerator'
                         ' [default=NLEGS]')
     parser.add_argument('--diagname','-d',default='Diagram',
-                        help='Name of the numerator expression'
+                        help='name of the numerator expression'
                         ' in the form file [default=Diagram]')
     parser.add_argument('--formexec',default='form',
-                        help='Name of the form executable [default=form]')
+                        help='name of the form executable [default=form]')
     parser.add_argument('--formflags',default='',
-                        help="Extra flags to be passed to the form executable")
+                        help="extra flags to be passed to the form executable")
     parser.add_argument('--qvar',default='Q',
-                        help='Name of the loop momentum variable [default=Q]')
+                        help='name of the loop momentum variable [default=Q]')
     parser.add_argument('--mu2var',default='Mu2',
-                        help='Name of the loop variable Mu2 [default=Mu2]')
+                        help='name of the loop variable Mu2 [default=Mu2]')
     parser.add_argument('file',
-                        help='Input form file')
+                        help='input form file')
     parser.add_argument('--output','-o', default='ninjanumgen.cc',
-                        help='Output source file [default=ninjanumgen.cc]')
+                        help='output source file [default=ninjanumgen.cc]')
     parser.add_argument('--cdiagname','-c', default=None,
                         help='Name of the C++ diagram class,'
                         #' or prefix of the C/Fortran routines for the numerators'
@@ -88,29 +93,31 @@ if __name__ == "__main__":
                         help='C++ namespace where the numerator should be put'
                         ' [default=global namespace]')
     parser.add_argument('--inline', action='append',
-                        help='Code to be inlined in the generated'
+                        help='code to be inlined in the generated'
                         ' source file, inside the definition of every method'
                         ' which computes the'
                         ' numerator and its expansions'
                         ' (can be specified multiple times)')
     parser.add_argument('--inline_evaluate', action='append',
-                        help='Code to be inlined in the generated'
+                        help='code to be inlined in the generated'
                         ' source file, inside the definition of the method'
                         ' "evaluate"'
                         ' (can be specified multiple times)')
     parser.add_argument('--inline_t3expansion', action='append',
-                        help='Code to be inlined in the generated'
+                        help='code to be inlined in the generated'
                         ' source file, inside the definition of the method'
                         ' "t3Expansion"'
                         ' (can be specified multiple times)')
     parser.add_argument('--inline_t2expansion', action='append',
-                        help='Code to be inlined in the generated'
+                        help='code to be inlined in the generated'
                         ' source file, inside the definition of the method'
                         ' "t2Expansion"'
                         ' (can be specified multiple times)')
     parser.add_argument('--inline_mu2expansion', action='append',
-                        help='Code to be inlined in the generated'
+                        help='code to be inlined in the generated'
                         ' source file, inside the definition of the method'
                         ' "mu2Expansion"'
                         ' (can be specified multiple times)')
+    parser.add_argument("-q", "--quiet", help="switch off the verbosity",
+                        action="store_true")
     main(parser.parse_args())
