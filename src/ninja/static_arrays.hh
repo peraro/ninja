@@ -30,44 +30,44 @@
 namespace ninja {
   namespace details {
 
-	template<typename T>
-	struct Array3D {
+    template<typename T>
+    struct Array3D {
 
-	  Array3D(const T & v0, const T & v1, const T & v2)
-		: data{v0,v1,v2} {}
+      Array3D(const T & v0, const T & v1, const T & v2)
+        : data{v0,v1,v2} {}
 
-	  const T operator[] (unsigned i) const
-	  {
-		return data[i];
-	  }
+      const T operator[] (unsigned i) const
+      {
+        return data[i];
+      }
 
-	  T & operator[] (unsigned i)
-	  {
-		return data[i];
-	  }
+      T & operator[] (unsigned i)
+      {
+        return data[i];
+      }
 
-	  T data[3];
-	};
+      T data[3];
+    };
 
 
-	template<typename T>
-	struct Array4D {
+    template<typename T>
+    struct Array4D {
 
-	  Array4D(const T & v0, const T & v1, const T & v2, const T & v3)
-		: data{v0,v1,v2,v3} {}
+      Array4D(const T & v0, const T & v1, const T & v2, const T & v3)
+        : data{v0,v1,v2,v3} {}
 
-	  const T & operator[] (unsigned i) const
-	  {
-		return data[i];
-	  }
+      const T & operator[] (unsigned i) const
+      {
+        return data[i];
+      }
 
-	  T & operator[] (unsigned i)
-	  {
-		return data[i];
-	  }
+      T & operator[] (unsigned i)
+      {
+        return data[i];
+      }
 
-	  T data[4];
-	};
+      T data[4];
+    };
 
   } // namespace details
 } // namespace ninja
@@ -81,58 +81,58 @@ namespace ninja {
 namespace ninja {
   namespace details {
 
-	template<typename T>
-	struct Array3D {
+    template<typename T>
+    struct Array3D {
 
-	  Array3D(const T & v0, const T & v1, const T & v2)
-	  {
-		data[0]=v0; data[1]=v1; data[2]=v2;
-	  }
+      Array3D(const T & v0, const T & v1, const T & v2)
+      {
+        data[0]=v0; data[1]=v1; data[2]=v2;
+      }
 
-	  const T operator[] (unsigned i) const
-	  {
-		return data[i];
-	  }
+      const T operator[] (unsigned i) const
+      {
+        return data[i];
+      }
 
-	  T & operator[] (unsigned i)
-	  {
-		return data[i];
-	  }
+      T & operator[] (unsigned i)
+      {
+        return data[i];
+      }
 
-	  T data[3];
-	};
+      T data[3];
+    };
 
 
-	template<typename T>
-	struct Array4D {
+    template<typename T>
+    struct Array4D {
 
-	  Array4D(const T & v0)
-	  {
-		data[0]=v0;
-	  }
+      Array4D(const T & v0)
+      {
+        data[0]=v0;
+      }
 
-	  Array4D(const T & v0, const T & v1)
-	  {
-		data[0]=v0; data[1]=v1;
-	  }
+      Array4D(const T & v0, const T & v1)
+      {
+        data[0]=v0; data[1]=v1;
+      }
 
-	  Array4D(const T & v0, const T & v1, const T & v2, const T & v3)
-	  {
-		data[0]=v0; data[1]=v1; data[2]=v2; data[3]=v3;
-	  }
+      Array4D(const T & v0, const T & v1, const T & v2, const T & v3)
+      {
+        data[0]=v0; data[1]=v1; data[2]=v2; data[3]=v3;
+      }
 
-	  const T & operator[] (unsigned i) const
-	  {
-		return data[i];
-	  }
+      const T & operator[] (unsigned i) const
+      {
+        return data[i];
+      }
 
-	  T & operator[] (unsigned i)
-	  {
-		return data[i];
-	  }
+      T & operator[] (unsigned i)
+      {
+        return data[i];
+      }
 
-	  T data[4];
-	};
+      T data[4];
+    };
 
   } // namespace details
 } // namespace ninja

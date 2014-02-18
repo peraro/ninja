@@ -17,88 +17,88 @@ namespace ninja {
 
   class AvHOneLoop : public IntegralLibrary {
   public:
-	AvHOneLoop() {}
+    AvHOneLoop() {}
 
     // This method sets the numerical infrared threshold (default =
     // 1.0e-10)
     static void setInfraredThreshold(Real threshold);
 
-	// This method clears the computed MIs but keeps the allocated
-	// buckets in memory.  This avoids rehashing in future calls of
-	// MIs.  It is suggested to be called after every phase-space
-	// point, especially for amplitudes with many external legs.
-	static void clearIntegralCache();
+    // This method clears the computed MIs but keeps the allocated
+    // buckets in memory.  This avoids rehashing in future calls of
+    // MIs.  It is suggested to be called after every phase-space
+    // point, especially for amplitudes with many external legs.
+    static void clearIntegralCache();
 
-	// This method completely frees the memory allocated by the cache
-	// of MIs.  There is no obvious case when this should be called.
-	// The method clearIntegralCache() should in general be preferred.
-	static void freeIntegralCache();
+    // This method completely frees the memory allocated by the cache
+    // of MIs.  There is no obvious case when this should be called.
+    // The method clearIntegralCache() should in general be preferred.
+    static void freeIntegralCache();
 
-	virtual void init(Real muRsq);
+    virtual void init(Real muRsq);
 
-	// 4-point MIs
-	// - real masses
-	virtual void getBoxIntegralRM(Complex rslt[3],
-								  Real s21, Real s32, Real s43,
-								  Real s14, Real s31, Real s42,
-								  Real m1, Real m2, Real m3, Real m4);
-	// - complex masses
-	virtual void getBoxIntegralCM(Complex rslt[3],
-								  Real s21, Real s32, Real s43,
-								  Real s14, Real s31, Real s42,
-								  const Complex & m1, const Complex & m2,
-								  const Complex & m3, const Complex & m4);
-	// - massless
-	virtual void getBoxIntegralNM(Complex rslt[3],
-								  Real s21, Real s32, Real s43,
-								  Real s14, Real s31, Real s42);
+    // 4-point MIs
+    // - real masses
+    virtual void getBoxIntegralRM(Complex rslt[3],
+                                  Real s21, Real s32, Real s43,
+                                  Real s14, Real s31, Real s42,
+                                  Real m1, Real m2, Real m3, Real m4);
+    // - complex masses
+    virtual void getBoxIntegralCM(Complex rslt[3],
+                                  Real s21, Real s32, Real s43,
+                                  Real s14, Real s31, Real s42,
+                                  const Complex & m1, const Complex & m2,
+                                  const Complex & m3, const Complex & m4);
+    // - massless
+    virtual void getBoxIntegralNM(Complex rslt[3],
+                                  Real s21, Real s32, Real s43,
+                                  Real s14, Real s31, Real s42);
   
-	// 3-point MIs
-	// - real massses
-	virtual void getTriangleIntegralRM(Complex rslt[3],
-									   Real s21, Real s32, Real s13,
-									   Real m1, Real m2, Real m3);
-	// - complex massses
-	virtual void getTriangleIntegralCM(Complex rslt[3],
-									   Real s21, Real s32, Real s13,
-									   const Complex & m1, const Complex & m2,
-									   const Complex & m3);
-	// - massless
-	virtual void getTriangleIntegralNM(Complex rslt[3],
-									   Real s21, Real s32, Real s13);
+    // 3-point MIs
+    // - real massses
+    virtual void getTriangleIntegralRM(Complex rslt[3],
+                                       Real s21, Real s32, Real s13,
+                                       Real m1, Real m2, Real m3);
+    // - complex massses
+    virtual void getTriangleIntegralCM(Complex rslt[3],
+                                       Real s21, Real s32, Real s13,
+                                       const Complex & m1, const Complex & m2,
+                                       const Complex & m3);
+    // - massless
+    virtual void getTriangleIntegralNM(Complex rslt[3],
+                                       Real s21, Real s32, Real s13);
   
-	// scalar 2-point MIs.  Not cached
-	// - real masses
-	virtual void getBubbleIntegralRM(Complex rslt[3],
-									 Real s21, Real m1, Real m2);
-	// - complex massses
-	virtual void getBubbleIntegralCM(Complex rslt[3],
-									 Real s21,
-									 const Complex & m1, const Complex & m2);
+    // scalar 2-point MIs.  Not cached
+    // - real masses
+    virtual void getBubbleIntegralRM(Complex rslt[3],
+                                     Real s21, Real m1, Real m2);
+    // - complex massses
+    virtual void getBubbleIntegralCM(Complex rslt[3],
+                                     Real s21,
+                                     const Complex & m1, const Complex & m2);
 
-	// rank-2 2-point MIs
-	// - real masses
-	virtual void getRank2BubbleIntegralRM(Complex b11[3],
-										  Complex b1[3], Complex b0[3],
-										  Real s21, Real m1, Real m2);
-	// - complex massses
-	virtual void getRank2BubbleIntegralCM(Complex b11[3],
-										  Complex b1[3], Complex b0[3],
-										  Real s21,
-										  const Complex & m1,
-										  const Complex & m2);
-	// - massless
-	virtual void getRank2BubbleIntegralNM(Complex b11[3],
-										  Complex b1[3], Complex b0[3],
-										  Real s21);
+    // rank-2 2-point MIs
+    // - real masses
+    virtual void getRank2BubbleIntegralRM(Complex b11[3],
+                                          Complex b1[3], Complex b0[3],
+                                          Real s21, Real m1, Real m2);
+    // - complex massses
+    virtual void getRank2BubbleIntegralCM(Complex b11[3],
+                                          Complex b1[3], Complex b0[3],
+                                          Real s21,
+                                          const Complex & m1,
+                                          const Complex & m2);
+    // - massless
+    virtual void getRank2BubbleIntegralNM(Complex b11[3],
+                                          Complex b1[3], Complex b0[3],
+                                          Real s21);
 
 
-	// 1-point MIs
-	virtual void getTadpoleIntegralRM(Complex rslt[3], Real m0);
-	virtual void getTadpoleIntegralCM(Complex rslt[3], const Complex & m0);
+    // 1-point MIs
+    virtual void getTadpoleIntegralRM(Complex rslt[3], Real m0);
+    virtual void getTadpoleIntegralCM(Complex rslt[3], const Complex & m0);
 
   private:
-	static Real mur2_, ir_threshold_;
+    static Real mur2_, ir_threshold_;
 
   }; // class AvHOneLoop
 

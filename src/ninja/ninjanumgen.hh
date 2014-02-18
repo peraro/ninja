@@ -10,15 +10,15 @@ namespace {
 
   //template<unsigned N>
   //struct NinjaFormAbbr {
-  //	ninja::Complex data_[N];
-  //	ninja::Complex & operator[](unsigned i)
-  //	{
-  //	  return data_[i-1];
-  //	}
-  //	ninja::Complex & operator[](unsigned i) const
-  //	{
-  //	  return data_[i-1];
-  //	}
+  //    ninja::Complex data_[N];
+  //    ninja::Complex & operator[](unsigned i)
+  //    {
+  //      return data_[i-1];
+  //    }
+  //    ninja::Complex & operator[](unsigned i) const
+  //    {
+  //      return data_[i-1];
+  //    }
   //};
 
   // Integer powers.  Inline implementation, avoids calls to pow
@@ -26,73 +26,73 @@ namespace {
   template <typename T>
   inline T powi1(const T & x)
   {
-	return x;
+    return x;
   }
   template <typename T>
   inline T powi2(const T & x)
   {
-	return x*x;
+    return x*x;
   }
   template <typename T>
   inline T powi3(const T & x)
   {
-	return x*x*x;
+    return x*x*x;
   }
   template <typename T>
   inline T powi4(const T & x) 
   {
-	T temp = x*x; // x^2
-	return temp*temp;
+    T temp = x*x; // x^2
+    return temp*temp;
   }
   template <typename T>
   inline T powi5(const T & x) 
   {
-	T temp = x*x;
-	return temp*temp*x;
+    T temp = x*x;
+    return temp*temp*x;
   }
   template <typename T>
   inline T powi6(const T & x) 
   {
-	T temp = x*x*x;
-	return temp*temp;
+    T temp = x*x*x;
+    return temp*temp;
   }
   template <typename T>
   inline T powi7(const T & x) 
   {
-	T temp = x*x*x;
-	return temp*temp*x;
+    T temp = x*x*x;
+    return temp*temp*x;
   }
   template <typename T>
   inline T powi8(const T & x) 
   {
-	T temp = x*x; // x^2
-	temp *= temp; // x^4
-	return temp*temp;
+    T temp = x*x; // x^2
+    temp *= temp; // x^4
+    return temp*temp;
   }
   template <typename T>
   inline T powi9(const T & x) 
   {
-	T temp = x*x*x;
-	return temp*temp*temp;
+    T temp = x*x*x;
+    return temp*temp*temp;
   }
   template <typename T>
   inline T powi(T x, unsigned y) 
   {
-	T res(1);
+    T res(1);
     while (y) {
-	  if (y & 1)
-		res *= x;
-	  x *= x;
-	  y >>= 1;
-	}
-	return res;
+      if (y & 1)
+        res *= x;
+      x *= x;
+      y >>= 1;
+    }
+    return res;
   }
 
   // Minkosvki product
   template <typename T, typename U>
   inline ninja::Complex ninjaMP(const T & p, const U & u)
   {
-	return ninja::mp(p,u);
+    return ninja::mp(p,u);
   }
 
 } // namespace

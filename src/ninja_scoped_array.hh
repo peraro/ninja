@@ -14,36 +14,36 @@ namespace ninja {
 
   public:
 
-	explicit ScopedArray(std::size_t n) : data_(new T[n]) {}
+    explicit ScopedArray(std::size_t n) : data_(new T[n]) {}
 
     ~ScopedArray()
     {
-	  delete [] data_;
+      delete [] data_;
     }
 
     const T & operator[]( std::size_t i) const
     {
-	  return data_[i];
+      return data_[i];
     }
 
     T & operator[]( std::size_t i)
     {
-	  return data_[i];
+      return data_[i];
     }
 
     const T * data() const
     {
-	  return data_;
+      return data_;
     }
 
     T * data()
     {
-	  return data_;
+      return data_;
     }
 
   private:
 
-	// disable copy and assignment
+    // disable copy and assignment
     ScopedArray(ScopedArray const &);
     ScopedArray & operator=(ScopedArray const &);
 

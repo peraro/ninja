@@ -48,37 +48,37 @@ namespace ninja {
   class Spinor {
   public:
 
-	// Default constructor
-	Spinor(): ap(0.), ame(0.), bp(0.), bme(0.) {}
+    // Default constructor
+    Spinor(): ap(0.), ame(0.), bp(0.), bme(0.) {}
 
-	// Copy constructor
-	Spinor(const Spinor & s): ap(s.ap), ame(s.ame), bp(s.bp), bme(s.bme) {}
+    // Copy constructor
+    Spinor(const Spinor & s): ap(s.ap), ame(s.ame), bp(s.bp), bme(s.bme) {}
 
-	// Independent construction of angle and square brackets
-	Spinor(const Spinor & a, const Spinor & b)
-	  : ap(a.ap), ame(a.ame), bp(b.bp), bme(b.bme) {}
+    // Independent construction of angle and square brackets
+    Spinor(const Spinor & a, const Spinor & b)
+      : ap(a.ap), ame(a.ame), bp(b.bp), bme(b.bme) {}
 
-	// Constructors from Momentum types
-	explicit Spinor(const RealMomentum & p);
-	explicit Spinor(const ComplexMomentum & p);
+    // Constructors from Momentum types
+    explicit Spinor(const RealMomentum & p);
+    explicit Spinor(const ComplexMomentum & p);
 
-	friend Complex spaa(const Spinor & i, const Spinor & j);
-	friend Complex spbb(const Spinor & i, const Spinor & j);
-	friend ComplexMomentum momentumFromSpinors(const Spinor & i,
-											   const Spinor & j);
-	friend ComplexMomentum polarizationVectorR(const Spinor & r,
-											   const Spinor & k);
+    friend Complex spaa(const Spinor & i, const Spinor & j);
+    friend Complex spbb(const Spinor & i, const Spinor & j);
+    friend ComplexMomentum momentumFromSpinors(const Spinor & i,
+                                               const Spinor & j);
+    friend ComplexMomentum polarizationVectorR(const Spinor & r,
+                                               const Spinor & k);
     friend ComplexMomentum polarizationVectorR(const RealMomentum & r,
-											   const RealMomentum & k);
+                                               const RealMomentum & k);
     friend ComplexMomentum polarizationVectorL(const Spinor & r,
-											   const Spinor & k);
+                                               const Spinor & k);
     friend ComplexMomentum polarizationVectorL(const RealMomentum & r,
-											   const RealMomentum & k);
-	friend std::ostream & operator << (std::ostream & os,
-									   const Spinor & s);
+                                               const RealMomentum & k);
+    friend std::ostream & operator << (std::ostream & os,
+                                       const Spinor & s);
 
   private:
-	Complex ap, ame, bp, bme;
+    Complex ap, ame, bp, bme;
   
   };
 
@@ -86,13 +86,13 @@ namespace ninja {
   // Angle product <i,j>
   inline Complex spaa(const Spinor & i, const Spinor & j)
   {
-	return i.ame*j.ap-i.ap*j.ame;
+    return i.ame*j.ap-i.ap*j.ame;
   }
 
   // Bracket product [i,j]
   inline Complex spbb(const Spinor & i, const Spinor & j)
   {
-	return -i.bme*j.bp+i.bp*j.bme;
+    return -i.bme*j.bp+i.bp*j.bme;
   }
 
   // Complex momentum from two spinors.
@@ -100,10 +100,10 @@ namespace ninja {
   inline ComplexMomentum
   momentumFromSpinors(const Spinor & i, const Spinor & j)
   {
-	return ComplexMomentum(HALF * (i.ame*j.bme + i.ap*j.bp),
-						   HALF * (i.ap*j.bme + i.ame*j.bp),
-						   HALF * I * (i.ap*j.bme - i.ame*j.bp),
-						   HALF * (-i.ame*j.bme + i.ap*j.bp));
+    return ComplexMomentum(HALF * (i.ame*j.bme + i.ap*j.bp),
+                           HALF * (i.ap*j.bme + i.ame*j.bp),
+                           HALF * I * (i.ap*j.bme - i.ame*j.bp),
+                           HALF * (-i.ame*j.bme + i.ap*j.bp));
   }
 
 
@@ -112,12 +112,12 @@ namespace ninja {
   inline ComplexMomentum
   polarizationVectorR(const Spinor & r, const Spinor & k)
   {
-	Complex spaark = spaa(r,k);
-	return ComplexMomentum
-	  ( INVSQRT2 *	(  r.ame*k.bme + r.ap*k.bp   )/spaark,
-		INVSQRT2 * (  r.ap*k.bme + r.ame*k.bp  )/spaark,
-		INVSQRT2 * I * (  r.ap*k.bme - r.ame*k.bp  )/spaark,
-		INVSQRT2 * (  -r.ame*k.bme + r.ap*k.bp   )/spaark  );
+    Complex spaark = spaa(r,k);
+    return ComplexMomentum
+      ( INVSQRT2 *    (  r.ame*k.bme + r.ap*k.bp   )/spaark,
+        INVSQRT2 * (  r.ap*k.bme + r.ame*k.bp  )/spaark,
+        INVSQRT2 * I * (  r.ap*k.bme - r.ame*k.bp  )/spaark,
+        INVSQRT2 * (  -r.ame*k.bme + r.ap*k.bp   )/spaark  );
   }
 
   // Right handed polarization vector from two spinors.
@@ -125,28 +125,28 @@ namespace ninja {
   inline ComplexMomentum
   polarizationVectorL(const Spinor & r, const Spinor & k)
   {
-	Complex spbbkr = spbb(k,r);
-	return ComplexMomentum
-	  ( INVSQRT2 * (  k.ame*r.bme + k.ap*r.bp   )/spbbkr,
-		INVSQRT2 * (  k.ap*r.bme + k.ame*r.bp  )/spbbkr,
-		INVSQRT2 * I * (  k.ap*r.bme - k.ame*r.bp  )/spbbkr,
-		INVSQRT2 * (  -k.ame*r.bme + k.ap*r.bp   )/spbbkr  );
+    Complex spbbkr = spbb(k,r);
+    return ComplexMomentum
+      ( INVSQRT2 * (  k.ame*r.bme + k.ap*r.bp   )/spbbkr,
+        INVSQRT2 * (  k.ap*r.bme + k.ame*r.bp  )/spbbkr,
+        INVSQRT2 * I * (  k.ap*r.bme - k.ame*r.bp  )/spbbkr,
+        INVSQRT2 * (  -k.ame*r.bme + k.ap*r.bp   )/spbbkr  );
   }
 
   // Left handed polarization vector from two momenta.
   // Returns <r | \gamma^/mu | k ]/sqrt2/<r,k>
   inline ComplexMomentum polarizationVectorR(const RealMomentum & r,
-											 const RealMomentum & k)
+                                             const RealMomentum & k)
   {
-	return polarizationVectorR(Spinor(r), Spinor(k));
+    return polarizationVectorR(Spinor(r), Spinor(k));
   }
 
   // Right handed polarization vector from two momenta.
   // Returns <k | \gamma^/mu | r ]/sqrt2/[k,r]
   inline ComplexMomentum polarizationVectorL(const RealMomentum & r,
-											 const RealMomentum & k)
+                                             const RealMomentum & k)
   {
-	return polarizationVectorL(Spinor(r), Spinor(k));
+    return polarizationVectorL(Spinor(r), Spinor(k));
   }
   
   // printing (mostly for debugging)

@@ -38,7 +38,8 @@ namespace ninja {
     char ninja_banner[] = 
       "  +----------------------------------------------------------------+\n"
       "  |                                                                |\n"
-      "  |  Ninja - version 1.0.0                                         |\n"
+      "  |  Ninja - version " VERSION
+      "                                         |\n"
       "  |                                                                |\n"
       "  |  Author: Tiziano Peraro                                        |\n"
       "  |                                                                |\n"
@@ -55,12 +56,12 @@ namespace ninja {
   // Print the banner
   void printBanner(std::ostream & banner_out, bool force_print)
   {
-	if (force_print || !Options::quiet) {
-	  banner_out << endl;
-	  banner_out << ninja_banner << endl;
-	  banner_out << endl;
-	}
-	Options::quiet = true;
+    if (force_print || !Options::quiet) {
+      banner_out << endl;
+      banner_out << ninja_banner << endl;
+      banner_out << endl;
+    }
+    Options::quiet = true;
   }
 
   // Initialize Options
@@ -93,343 +94,343 @@ namespace ninja {
   int Amplitude<MassType>::evaluate(Numerator & num)
   {
 
-	if (!Options::quiet)
-	  printBanner(std::cout,false);
+    if (!Options::quiet)
+      printBanner(std::cout,false);
 
-	// Checks the rank.  In this implementation it prints a message in
-	// to stderr and throws an invalid_argument exception
+    // Checks the rank.  In this implementation it prints a message in
+    // to stderr and throws an invalid_argument exception
 
 #ifdef NINJA_X1RANK
-	if (rank>n+1) {
-	  cerr << "ERROR IN NINJA: "
-		   << "The rank is too high: maximum_rank = n_denominators+1" << endl;
-	  NINJA_THROW (invalid_argument("Rank is too high."));
-	} else if (rank==n+1) {
-	  return higherRankEvaluate(num);
-	}
+    if (rank>n+1) {
+      cerr << "ERROR IN NINJA: "
+           << "The rank is too high: maximum_rank = n_denominators+1" << endl;
+      NINJA_THROW (invalid_argument("Rank is too high."));
+    } else if (rank==n+1) {
+      return higherRankEvaluate(num);
+    }
 #else // NINJA_X1RANK
-	if (rank>n) {
-	  cerr << "ERROR IN NINJA: "
-		   << "The rank is too high: maximum_rank = n_denominators\n";
-	  cerr << "NOTE: Configuring with --enable-higher_rank"
-		   << "would make maximum_rank = n_denominators+1" << endl;
-	  NINJA_THROW (invalid_argument("Rank is too high."));
-	}
+    if (rank>n) {
+      cerr << "ERROR IN NINJA: "
+           << "The rank is too high: maximum_rank = n_denominators\n";
+      cerr << "NOTE: Configuring with --enable-higher_rank"
+           << "would make maximum_rank = n_denominators+1" << endl;
+      NINJA_THROW (invalid_argument("Rank is too high."));
+    }
 #endif // ! NINJA_X1RANK
 
 
-	if (Options::verb) {
-	  (*Options::out) << "----------------------------"
-					  << "----------------------------\n\n" << endl;
-	  (*Options::out) << "Ninja is evaluating a loop integral\n\n" << endl;
-	  (*Options::out) << "Loop propagators:" << endl;
-	  for (int i=0; i<n; ++i)
-		(*Options::out) << "D(" << i << ") : "
-						<< "momentum = " << V[i] << ", " << endl
-						<< "       mass^2 = " << m2[i] << endl;
-	  (*Options::out) << endl << endl;
-	}
+    if (Options::verb) {
+      (*Options::out) << "----------------------------"
+                      << "----------------------------\n\n" << endl;
+      (*Options::out) << "Ninja is evaluating a loop integral\n\n" << endl;
+      (*Options::out) << "Loop propagators:" << endl;
+      for (int i=0; i<n; ++i)
+        (*Options::out) << "D(" << i << ") : "
+                        << "momentum = " << V[i] << ", " << endl
+                        << "       mass^2 = " << m2[i] << endl;
+      (*Options::out) << endl << endl;
+    }
 
 
-	// If S-mat is not set, compute it
+    // If S-mat is not set, compute it
     WrapSMatrix wrap_s_mat(s_mat,n,V);
 
 
     // flags
-	bool tests;
-	bool local_test;
-	bool global_test = Options::test & Test::GLOBAL;
-	int ret = Amplitude::SUCCESS;
+    bool tests;
+    bool local_test;
+    bool global_test = Options::test & Test::GLOBAL;
+    int ret = Amplitude::SUCCESS;
 
 
-	///////////////////
-	// Quintuple cut //
-	///////////////////
+    ///////////////////
+    // Quintuple cut //
+    ///////////////////
   
-	// create Pentagons
-	tests = global_test;
-	bool anyPentagon = (n >= 5) && (min_cut <= 5)
-	  && (tests || (Options::verb & Verbose::C5) || !use_mu_exp);
-	int n5cuts = anyPentagon ? combinations5(n) : 0;
-	CutsVector<Pentagon> pentagons(n5cuts,n);
+    // create Pentagons
+    tests = global_test;
+    bool anyPentagon = (n >= 5) && (min_cut <= 5)
+      && (tests || (Options::verb & Verbose::C5) || !use_mu_exp);
+    int n5cuts = anyPentagon ? combinations5(n) : 0;
+    CutsVector<Pentagon> pentagons(n5cuts,n);
 
-	// store the results
-	if (anyPentagon) {
-	  evaluatePentagons(num, pentagons);
-	  if (Options::verb & Verbose::C5)
-		print(pentagons);
-	}
+    // store the results
+    if (anyPentagon) {
+      evaluatePentagons(num, pentagons);
+      if (Options::verb & Verbose::C5)
+        print(pentagons);
+    }
 
 
-	///////////////////
-	// Quadruple cut //
-	///////////////////
+    ///////////////////
+    // Quadruple cut //
+    ///////////////////
   
-	// create Boxes
-	local_test = Options::test & Test::LOCAL_4;
-	tests = global_test || local_test;
-	bool anyBox = n >= 4 && min_cut <= 4;
-	int n4cuts = anyBox ? combinations4(n) : 0;
-	CutsVector<Box> boxes(n4cuts,n);
+    // create Boxes
+    local_test = Options::test & Test::LOCAL_4;
+    tests = global_test || local_test;
+    bool anyBox = n >= 4 && min_cut <= 4;
+    int n4cuts = anyBox ? combinations4(n) : 0;
+    CutsVector<Box> boxes(n4cuts,n);
 
-	// store the results
-	if (anyBox) {
-	  if (tests || (Options::verb & Verbose::C4)) {
-		evaluateFullBoxes(num, pentagons, boxes);
-		if (Options::verb & Verbose::C4)
-		  print(boxes);
-		if (local_test)
-		  ret = local4NeqNtests(num, pentagons, boxes) | ret;
-	  }
-	  else evaluateBoxes(num, pentagons, boxes);
-	}
+    // store the results
+    if (anyBox) {
+      if (tests || (Options::verb & Verbose::C4)) {
+        evaluateFullBoxes(num, pentagons, boxes);
+        if (Options::verb & Verbose::C4)
+          print(boxes);
+        if (local_test)
+          ret = local4NeqNtests(num, pentagons, boxes) | ret;
+      }
+      else evaluateBoxes(num, pentagons, boxes);
+    }
 
 
-	////////////////
-	// Triple cut //
-	////////////////
+    ////////////////
+    // Triple cut //
+    ////////////////
   
-	// create Triangles
-	local_test = Options::test & Test::LOCAL_3;
-	tests = global_test || local_test;
-	bool anyTriangle = n >= 3 && min_cut <= 3 && rank - n + 3 >= 0;
-	int n3cuts = anyTriangle ? combinations3(n) : 0;
-	CutsVector<Triangle> triangles(n3cuts,n);
+    // create Triangles
+    local_test = Options::test & Test::LOCAL_3;
+    tests = global_test || local_test;
+    bool anyTriangle = n >= 3 && min_cut <= 3 && rank - n + 3 >= 0;
+    int n3cuts = anyTriangle ? combinations3(n) : 0;
+    CutsVector<Triangle> triangles(n3cuts,n);
 
-	// store the results
-	if (anyTriangle) {
-	  evaluateTriangles(num, triangles);
-	  if (Options::verb & Verbose::C3)
-		print(triangles);
-	  if (Options::test & Test::LOCAL_3)
-		ret = local3NeqNtests(num, pentagons, boxes, triangles) | ret;
-	}
+    // store the results
+    if (anyTriangle) {
+      evaluateTriangles(num, triangles);
+      if (Options::verb & Verbose::C3)
+        print(triangles);
+      if (Options::test & Test::LOCAL_3)
+        ret = local3NeqNtests(num, pentagons, boxes, triangles) | ret;
+    }
 
 
-	////////////////
-	// double cut //
-	////////////////
+    ////////////////
+    // double cut //
+    ////////////////
   
-	// create Bubbles
-	local_test = Options::test & Test::LOCAL_2;
-	tests = global_test || local_test;
-	bool anyBubble = n >= 2 && min_cut <= 2 && rank - n + 2 >= 0 ;
-	int n2cuts = anyBubble ? combinations2(n) : 0;
-	CutsVector<Bubble> bubbles(n2cuts,n);
+    // create Bubbles
+    local_test = Options::test & Test::LOCAL_2;
+    tests = global_test || local_test;
+    bool anyBubble = n >= 2 && min_cut <= 2 && rank - n + 2 >= 0 ;
+    int n2cuts = anyBubble ? combinations2(n) : 0;
+    CutsVector<Bubble> bubbles(n2cuts,n);
 
-	// store the results
-	if (anyBubble) {
-	  evaluateBubbles(num, triangles, bubbles);
-	  if (Options::verb & Verbose::C2)
-		print(bubbles);
-	  if (local_test)
-		ret = local2NeqNtests(num, pentagons, boxes, triangles,
-							  bubbles) | ret;
-	  }
+    // store the results
+    if (anyBubble) {
+      evaluateBubbles(num, triangles, bubbles);
+      if (Options::verb & Verbose::C2)
+        print(bubbles);
+      if (local_test)
+        ret = local2NeqNtests(num, pentagons, boxes, triangles,
+                              bubbles) | ret;
+      }
 
 
-	////////////////
-	// Single cut //
-	////////////////
+    ////////////////
+    // Single cut //
+    ////////////////
   
-	// create Tadpoles
-	local_test = Options::test & Test::LOCAL_1;
-	tests = global_test || local_test;
-	bool anyTadpole = n >= 1 && min_cut <= 1 && rank - n + 1 >= 0 ;
-	int n1cuts = anyTadpole ? n : 0;
-	CutsVector<Tadpole> tadpoles(n1cuts,n);
+    // create Tadpoles
+    local_test = Options::test & Test::LOCAL_1;
+    tests = global_test || local_test;
+    bool anyTadpole = n >= 1 && min_cut <= 1 && rank - n + 1 >= 0 ;
+    int n1cuts = anyTadpole ? n : 0;
+    CutsVector<Tadpole> tadpoles(n1cuts,n);
 
-	// store the results
-	if (anyTadpole) {
-	  if (tests || (Options::verb & Verbose::C1)) {
-		evaluateFullTadpoles(num, triangles, bubbles, tadpoles);
-		if (Options::verb & Verbose::C1)
-		  print(tadpoles);
-		if (local_test)
-		  ret = local1NeqNtests(num, pentagons, boxes, triangles, bubbles,
-								tadpoles) | ret;
-	  }
-	  else evaluateTadpoles(num, triangles, bubbles, tadpoles);
-	}
-
-
-	/////////////////////////
-	// N = N test (global) //
-	/////////////////////////
-
-	if (global_test && min_cut <= 1)
-	  ret = NeqNtest(num, pentagons, boxes, triangles, bubbles, tadpoles,
-					 ComplexMomentum(10.3,10.3,10.3,10.3), 13.) | ret;
+    // store the results
+    if (anyTadpole) {
+      if (tests || (Options::verb & Verbose::C1)) {
+        evaluateFullTadpoles(num, triangles, bubbles, tadpoles);
+        if (Options::verb & Verbose::C1)
+          print(tadpoles);
+        if (local_test)
+          ret = local1NeqNtests(num, pentagons, boxes, triangles, bubbles,
+                                tadpoles) | ret;
+      }
+      else evaluateTadpoles(num, triangles, bubbles, tadpoles);
+    }
 
 
-	////////////////
-	// Power test //
-	////////////////
+    /////////////////////////
+    // N = N test (global) //
+    /////////////////////////
 
-	if ((global_test || local_test) && (Options::verb & Verbose::LOCAL_TEST_1)
-		&& (min_cut <= 1) && (rank == n)) {
-	  Complex ptest = 0.;
-	  for(unsigned int i =0;i<tadpoles.size();++i) 
-		for(unsigned int j =1;j<5;++j) ptest += tadpoles[i].c[j]; 
-	  (*Options::out) << "Power test                     :  "
-					  << ptest << endl << endl;
-	}
+    if (global_test && min_cut <= 1)
+      ret = NeqNtest(num, pentagons, boxes, triangles, bubbles, tadpoles,
+                     ComplexMomentum(10.3,10.3,10.3,10.3), 13.) | ret;
 
 
-	/////////
-	// MIs //
-	/////////
+    ////////////////
+    // Power test //
+    ////////////////
 
-	Complex rational_part_temp = Real();
-	Complex result_temp[3] = {Real(),Real(),Real()};
+    if ((global_test || local_test) && (Options::verb & Verbose::LOCAL_TEST_1)
+        && (min_cut <= 1) && (rank == n)) {
+      Complex ptest = 0.;
+      for(unsigned int i =0;i<tadpoles.size();++i) 
+        for(unsigned int j =1;j<5;++j) ptest += tadpoles[i].c[j]; 
+      (*Options::out) << "Power test                     :  "
+                      << ptest << endl << endl;
+    }
 
-	{
-	  // This will call mis->init now and mis->exit at the end of this
-	  // scope
-	  WrapIntegralLibrary wrap_mis(mis,scale);
 
-	  if (Options::verb & Verbose::INTEGRALS)
-		(*Options::out) << "Master Integrals :" << endl << endl;
+    /////////
+    // MIs //
+    /////////
 
-	  // 4-point
-	  if (anyBox) {
-		for (BoxesIter i = boxes.begin(); i!=boxes.end(); ++i) {
-		  Complex integral[3];
-		  int i1 = (*i).p[0];
-		  int i2 = (*i).p[1];
-		  int i3 = (*i).p[2];
-		  int i4 = (*i).p[3];
-		  wrap_mis.getBoxIntegral(integral,
+    Complex rational_part_temp = Real();
+    Complex result_temp[3] = {Real(),Real(),Real()};
+
+    {
+      // This will call mis->init now and mis->exit at the end of this
+      // scope
+      WrapIntegralLibrary wrap_mis(mis,scale);
+
+      if (Options::verb & Verbose::INTEGRALS)
+        (*Options::out) << "Master Integrals :" << endl << endl;
+
+      // 4-point
+      if (anyBox) {
+        for (BoxesIter i = boxes.begin(); i!=boxes.end(); ++i) {
+          Complex integral[3];
+          int i1 = (*i).p[0];
+          int i2 = (*i).p[1];
+          int i3 = (*i).p[2];
+          int i4 = (*i).p[3];
+          wrap_mis.getBoxIntegral(integral,
                                   s_mat(i2,i1), s_mat(i3,i2), s_mat(i4,i3),
                                   s_mat(i1,i4), s_mat(i3,i1), s_mat(i4,i2),
                                   m2[i1], m2[i2], m2[i3], m2[i4]);
-		  if (Options::verb & Verbose::INTEGRALS) {
-			(*Options::out) << "I("
-							<< i1 << "," << i2 << ","
-							<< i3 << "," << i4 << ") = "
-							<< integral[0] << integral[1]
-							<< integral[2] << endl;
-		  }
-		  result_temp[0] += (*i).c[0]*integral[0];
-		  result_temp[1] += (*i).c[0]*integral[1];
-		  result_temp[2] += (*i).c[0]*integral[2];
-		  rational_part_temp +=  - (*i).c[4]/SIX;
-		}
-		if (Options::verb & Verbose::INTEGRALS)
-		  (*Options::out) << endl;
-	  }
+          if (Options::verb & Verbose::INTEGRALS) {
+            (*Options::out) << "I("
+                            << i1 << "," << i2 << ","
+                            << i3 << "," << i4 << ") = "
+                            << integral[0] << integral[1]
+                            << integral[2] << endl;
+          }
+          result_temp[0] += (*i).c[0]*integral[0];
+          result_temp[1] += (*i).c[0]*integral[1];
+          result_temp[2] += (*i).c[0]*integral[2];
+          rational_part_temp +=  - (*i).c[4]/SIX;
+        }
+        if (Options::verb & Verbose::INTEGRALS)
+          (*Options::out) << endl;
+      }
 
-	  // 3-point
-	  if (anyTriangle) {
-		for (TrianglesIter i = triangles.begin(); i!=triangles.end(); ++i) {
-		  Complex integral[3];
-		  int i1 = (*i).p[0];
-		  int i2 = (*i).p[1];
-		  int i3 = (*i).p[2];
-		  wrap_mis.getTriangleIntegral(integral,
+      // 3-point
+      if (anyTriangle) {
+        for (TrianglesIter i = triangles.begin(); i!=triangles.end(); ++i) {
+          Complex integral[3];
+          int i1 = (*i).p[0];
+          int i2 = (*i).p[1];
+          int i3 = (*i).p[2];
+          wrap_mis.getTriangleIntegral(integral,
                                        s_mat(i2,i1), s_mat(i3,i2),
                                        s_mat(i1,i3),
                                        m2[i1],m2[i2],m2[i3]);
-		  if (Options::verb & Verbose::INTEGRALS) {
-			(*Options::out) << "I(" << i1 << "," << i2 << "," << i3 << ") = "
-							<< integral[0] << integral[1]
-							<< integral[2] << endl;
-		  }
-		  result_temp[0] += (*i).c[0]*integral[0];
-		  result_temp[1] += (*i).c[0]*integral[1];
-		  result_temp[2] += (*i).c[0]*integral[2];
-		  rational_part_temp += HALF*(*i).c[7];
-		}
-		if (Options::verb & Verbose::INTEGRALS)
-		  (*Options::out) << endl;
-	  }
+          if (Options::verb & Verbose::INTEGRALS) {
+            (*Options::out) << "I(" << i1 << "," << i2 << "," << i3 << ") = "
+                            << integral[0] << integral[1]
+                            << integral[2] << endl;
+          }
+          result_temp[0] += (*i).c[0]*integral[0];
+          result_temp[1] += (*i).c[0]*integral[1];
+          result_temp[2] += (*i).c[0]*integral[2];
+          rational_part_temp += HALF*(*i).c[7];
+        }
+        if (Options::verb & Verbose::INTEGRALS)
+          (*Options::out) << endl;
+      }
 
-	  // 2-point
-	  if (anyBubble) {
-		for (BubblesIter i = bubbles.begin(); i!=bubbles.end(); ++i) {
-		  int i1 = (*i).p[0];
-		  int i2 = (*i).p[1];
-		  Real k = s_mat(i2,i1);
-		  if ((m2[i1] == ZERO) && (m2[i2] == ZERO) && taxicab_norm(k)<CUTSTOLL)
-			continue;
-		  Complex b11[3], b1[3], b0[3];
-		  wrap_mis.getRank2BubbleIntegral(b11, b1, b0, k, m2[i1], m2[i2]);
-		  if (Options::verb & Verbose::INTEGRALS) {
-			(*Options::out) << "B11(" << i1 << "," << i2 << ") = "
-							<< b11[0] << b11[1] << b11[2] << endl;
-			(*Options::out) << " B1(" << i1 << "," << i2 << ") = "
-							<< b1[0] << b1[1] << b1[2] << endl;
-			(*Options::out) << " B0(" << i1 << "," << i2 << ") = "
-							<< b0[0] << b0[1] << b0[2] << endl;
-		  }
-		  Complex ke2 = mp(V[i2]-V[i1] ,(*i).e2);
-		  Complex B06 = -( k-THREE*(m2[i1]+m2[i2]) )/SIX;
-		  result_temp[0] += (*i).c[0]*b0[0] + (*i).c[1]*ke2*b1[0]
-			+ (*i).c[2]*ke2*ke2*b11[0];
-		  result_temp[1] += (*i).c[0]*b0[1] + (*i).c[1]*ke2*b1[1]
-			+ (*i).c[2]*ke2*ke2*b11[1];
-		  result_temp[2] += (*i).c[0]*b0[2] + (*i).c[1]*ke2*b1[2]
-			+ (*i).c[2]*ke2*ke2*b11[2];
-		  rational_part_temp += B06*(*i).c[9];
-		}
-		if (Options::verb & Verbose::INTEGRALS)
-		  (*Options::out) << endl;
-	  }
+      // 2-point
+      if (anyBubble) {
+        for (BubblesIter i = bubbles.begin(); i!=bubbles.end(); ++i) {
+          int i1 = (*i).p[0];
+          int i2 = (*i).p[1];
+          Real k = s_mat(i2,i1);
+          if ((m2[i1] == ZERO) && (m2[i2] == ZERO) && taxicab_norm(k)<CUTSTOLL)
+            continue;
+          Complex b11[3], b1[3], b0[3];
+          wrap_mis.getRank2BubbleIntegral(b11, b1, b0, k, m2[i1], m2[i2]);
+          if (Options::verb & Verbose::INTEGRALS) {
+            (*Options::out) << "B11(" << i1 << "," << i2 << ") = "
+                            << b11[0] << b11[1] << b11[2] << endl;
+            (*Options::out) << " B1(" << i1 << "," << i2 << ") = "
+                            << b1[0] << b1[1] << b1[2] << endl;
+            (*Options::out) << " B0(" << i1 << "," << i2 << ") = "
+                            << b0[0] << b0[1] << b0[2] << endl;
+          }
+          Complex ke2 = mp(V[i2]-V[i1] ,(*i).e2);
+          Complex B06 = -( k-THREE*(m2[i1]+m2[i2]) )/SIX;
+          result_temp[0] += (*i).c[0]*b0[0] + (*i).c[1]*ke2*b1[0]
+            + (*i).c[2]*ke2*ke2*b11[0];
+          result_temp[1] += (*i).c[0]*b0[1] + (*i).c[1]*ke2*b1[1]
+            + (*i).c[2]*ke2*ke2*b11[1];
+          result_temp[2] += (*i).c[0]*b0[2] + (*i).c[1]*ke2*b1[2]
+            + (*i).c[2]*ke2*ke2*b11[2];
+          rational_part_temp += B06*(*i).c[9];
+        }
+        if (Options::verb & Verbose::INTEGRALS)
+          (*Options::out) << endl;
+      }
 
-	  // 1-point
-	  if (anyTadpole) {
-		for (TadpolesIter i = tadpoles.begin(); i!=tadpoles.end(); ++i) {
-		  int i1 = (*i).p[0];
-		  if (m2[i1]==ZERO)
-			continue;
-		  Complex integral[3];
-		  wrap_mis.getTadpoleIntegral(integral, m2[i1]);
-		  if (Options::verb & Verbose::INTEGRALS) {
-			(*Options::out) << "I(" << i1 << ") = "
-							<< integral[0] << integral[1]
-							<< integral[2] << endl;
-		  }
-		  result_temp[0] += (*i).c[0]*integral[0];
-		  result_temp[1] += (*i).c[0]*integral[1];
-		  result_temp[2] += (*i).c[0]*integral[2];
-		}
-		if (Options::verb & Verbose::INTEGRALS)
-		  (*Options::out) << endl;
-	  }
-	}
+      // 1-point
+      if (anyTadpole) {
+        for (TadpolesIter i = tadpoles.begin(); i!=tadpoles.end(); ++i) {
+          int i1 = (*i).p[0];
+          if (m2[i1]==ZERO)
+            continue;
+          Complex integral[3];
+          wrap_mis.getTadpoleIntegral(integral, m2[i1]);
+          if (Options::verb & Verbose::INTEGRALS) {
+            (*Options::out) << "I(" << i1 << ") = "
+                            << integral[0] << integral[1]
+                            << integral[2] << endl;
+          }
+          result_temp[0] += (*i).c[0]*integral[0];
+          result_temp[1] += (*i).c[0]*integral[1];
+          result_temp[2] += (*i).c[0]*integral[2];
+        }
+        if (Options::verb & Verbose::INTEGRALS)
+          (*Options::out) << endl;
+      }
+    }
 
-	// add to the total
-	cut_constr += result_temp[0];
-	result_temp[0] += rational_part_temp;
-	result[0] += result_temp[0];
-	result[1] += result_temp[1];
-	result[2] += result_temp[2];
+    // add to the total
+    cut_constr += result_temp[0];
+    result_temp[0] += rational_part_temp;
+    result[0] += result_temp[0];
+    result[1] += result_temp[1];
+    result[2] += result_temp[2];
 
 
-	////////////
-	// Return //
-	////////////
+    ////////////
+    // Return //
+    ////////////
 
-	if (Options::verb) {
-	  (*Options::out) << endl;
-	  if (Verbose::RESULT) {
-		(*Options::out) << "Partial Result:" << endl;
-		(*Options::out) << "eps^0  =" << result_temp[0] << endl;
-		(*Options::out) << "eps^-1 =" << result_temp[1] << endl;
-		(*Options::out) << "eps^-2 =" << result_temp[2] << endl;
-		(*Options::out) << "rat.   =" << rational_part_temp << endl;
-		(*Options::out) << endl;
-	  }
-	  if (ret == Amplitude::SUCCESS) {
-		(*Options::out) << "ninja::Amplitude is returning SUCCESS" << endl;
-	  } else {
-		(*Options::out) << "ninja::Amplitude is returning TEST_FAILED" << endl;
-	  }
-	  (*Options::out) << "\n\n----------------------------"
-					  << "----------------------------" << endl;
-	}
+    if (Options::verb) {
+      (*Options::out) << endl;
+      if (Verbose::RESULT) {
+        (*Options::out) << "Partial Result:" << endl;
+        (*Options::out) << "eps^0  =" << result_temp[0] << endl;
+        (*Options::out) << "eps^-1 =" << result_temp[1] << endl;
+        (*Options::out) << "eps^-2 =" << result_temp[2] << endl;
+        (*Options::out) << "rat.   =" << rational_part_temp << endl;
+        (*Options::out) << endl;
+      }
+      if (ret == Amplitude::SUCCESS) {
+        (*Options::out) << "ninja::Amplitude is returning SUCCESS" << endl;
+      } else {
+        (*Options::out) << "ninja::Amplitude is returning TEST_FAILED" << endl;
+      }
+      (*Options::out) << "\n\n----------------------------"
+                      << "----------------------------" << endl;
+    }
 
-	return ret;
+    return ret;
   }
 
   using namespace cuts_utils;

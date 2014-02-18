@@ -62,27 +62,27 @@ namespace ninja {
   // Put complex sqrt in ninja-namespace
   inline Complex sqrt(const Complex & z)
   {
-	return std::sqrt(z);
+    return std::sqrt(z);
   }
   // Put real in ninja-namespace
   inline Real real(const Complex & z)
   {
-	return std::real(z);
+    return std::real(z);
   }
   // Put imag in ninja-namespace
   inline Real imag(const Complex & z)
   {
-	return std::imag(z);
+    return std::imag(z);
   }
   // Put conj in ninja-namespace
   inline Complex conj(const Complex & z)
   {
-	return std::conj(z);
+    return std::conj(z);
   }
   // Put abs in ninja-namespace
   inline Real abs(const Complex & z)
   {
-	return std::abs(z);
+    return std::abs(z);
   }
 
   // The taxicab norm (or Manhattan norm) in the complex plane
@@ -92,37 +92,37 @@ namespace ninja {
   // Its computation should be faster than std::abs(z)
   inline Real taxicab_norm (const Complex & z)
   {
-	return std::abs(real(z))+std::abs(imag(z));
+    return std::abs(real(z))+std::abs(imag(z));
   }
 
   // overrides taxicab_norm for real types
   inline Real taxicab_norm(const Real & x)
   {
-	return std::abs(x);
+    return std::abs(x);
   }
 
 
   // const pointer type
   template<typename X> struct const_pointer
   {
-	typedef const X* type;
+    typedef const X* type;
   };
 
 
   // Convert Zero-Floats to reals by asking for real part
   inline Real real (ZeroFloat)
   {
-	return Real();
+    return Real();
   }
 
   // Converting ZeroFloats to Complex
   inline Complex toCmplx (const Complex & z)
   {
-	return z;
+    return z;
   }
   inline Complex toCmplx (const ZeroFloat &)
   {
-	return Complex();
+    return Complex();
   }
 
 

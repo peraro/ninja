@@ -27,70 +27,70 @@ namespace ninja {
   void setChopTolerance(Real chop_tolerance);
 
   namespace cuts {
-	class Pentagon;
-	class Box;
-	class Triangle;
-	class Bubble;
-	class Tadpole;
-	void print (const CutsVector<Pentagon> & pentagon);
-	void print (const CutsVector<Box> & box);
-	void print (const CutsVector<Triangle> & triangle);
-	void print (const CutsVector<Bubble> & bubble);
-	void print (const CutsVector<Tadpole> & tadpole);
+    class Pentagon;
+    class Box;
+    class Triangle;
+    class Bubble;
+    class Tadpole;
+    void print (const CutsVector<Pentagon> & pentagon);
+    void print (const CutsVector<Box> & box);
+    void print (const CutsVector<Triangle> & triangle);
+    void print (const CutsVector<Bubble> & bubble);
+    void print (const CutsVector<Tadpole> & tadpole);
   } // namespace cuts
 
   //higher rank
   namespace x1cuts {
-	class Pentagon;
-	class Box;
-	class Triangle;
-	class Bubble;
-	class Tadpole;
-	void print (const CutsVector<Pentagon> & pentagon);
-	void print (const CutsVector<Box> & box);
-	void print (const CutsVector<Triangle> & triangle);
-	void print (const CutsVector<Bubble> & bubble);
-	void print (const CutsVector<Tadpole> & tadpole);
+    class Pentagon;
+    class Box;
+    class Triangle;
+    class Bubble;
+    class Tadpole;
+    void print (const CutsVector<Pentagon> & pentagon);
+    void print (const CutsVector<Box> & box);
+    void print (const CutsVector<Triangle> & triangle);
+    void print (const CutsVector<Bubble> & bubble);
+    void print (const CutsVector<Tadpole> & tadpole);
   } // namespace x1cuts
 
 
   class Options {
   private:
 
-	// data options
-	static std::ostream * out;
-	static IntegralLibrary * mis;
-	static Real chop_tol, test_tol;
-	static unsigned verb, test;
-	static bool quiet;
+    // data options
+    static std::ostream * out;
+    static IntegralLibrary * mis;
+    static Real chop_tol, test_tol;
+    static unsigned verb, test;
+    static bool quiet;
 
-	// private methods using options
-	static Real chop(Real x);
-	static Complex chop(const Complex & z);
+    // private methods using options
+    static Real chop(Real x);
+    static Complex chop(const Complex & z);
 
-	// friends
-	friend void setDefaultIntegralLibrary(IntegralLibrary & lib);
-	friend ninja::IntegralLibrary * getIntegralLibrary();
-	friend void printBanner(std::ostream & banner_out, bool force_print);
-	friend void setTest(unsigned flag);
-	friend void setChopTolerance(Real chop_tolerance);
-	friend void setTestTolerance(Real test_tolerance);
-	friend void setOutputStream(std::ostream & outs);
-	friend void setVerbosity(unsigned flag);
-	template<typename MassType> friend class Amplitude;
-	friend void cuts::print (const CutsVector<cuts::Pentagon> & pentagon);
-	friend void cuts::print (const CutsVector<cuts::Box> & box);
-	friend void cuts::print (const CutsVector<cuts::Triangle> & triangle);
-	friend void cuts::print (const CutsVector<cuts::Bubble> & bubble);
-	friend void cuts::print (const CutsVector<cuts::Tadpole> & tadpole);
-	friend void x1cuts::print (const CutsVector<x1cuts::Pentagon> & pentagon);
-	friend void x1cuts::print (const CutsVector<x1cuts::Box> & box);
-	friend void x1cuts::print (const CutsVector<x1cuts::Triangle> & triangle);
-	friend void x1cuts::print (const CutsVector<x1cuts::Bubble> & bubble);
-	friend void x1cuts::print (const CutsVector<x1cuts::Tadpole> & tadpole);
+    // friends
+    friend void setDefaultIntegralLibrary(IntegralLibrary & lib);
+    friend ninja::IntegralLibrary * getIntegralLibrary();
+    friend void printBanner(std::ostream & banner_out, bool force_print);
+    friend void setTest(unsigned flag);
+    friend void setChopTolerance(Real chop_tolerance);
+    friend void setTestTolerance(Real test_tolerance);
+    friend void setOutputStream(std::ostream & outs);
+    friend void setVerbosity(unsigned flag);
+    template<typename MassType> friend class Amplitude;
+    friend void cuts::print (const CutsVector<cuts::Pentagon> & pentagon);
+    friend void cuts::print (const CutsVector<cuts::Box> & box);
+    friend void cuts::print (const CutsVector<cuts::Triangle> & triangle);
+    friend void cuts::print (const CutsVector<cuts::Bubble> & bubble);
+    friend void cuts::print (const CutsVector<cuts::Tadpole> & tadpole);
+    friend void x1cuts::print (const CutsVector<x1cuts::Pentagon> & pentagon);
+    friend void x1cuts::print (const CutsVector<x1cuts::Box> & box);
+    friend void x1cuts::print (const CutsVector<x1cuts::Triangle> & triangle);
+    friend void x1cuts::print (const CutsVector<x1cuts::Bubble> & bubble);
+    friend void x1cuts::print (const CutsVector<x1cuts::Tadpole> & tadpole);
 
-	// do not instantiate
-	Options();
+    // do not instantiate
+    Options();
   }; // class Options
 
 } // namespace ninja

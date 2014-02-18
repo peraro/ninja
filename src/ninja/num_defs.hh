@@ -23,12 +23,12 @@ namespace samurai {
 
   public:
 
-	virtual ninja::Complex evaluate(const ninja::ComplexMomentum & q,
-									const ninja::Complex & muq,
-									int cut,
-									const ninja::PartitionInt part[]) = 0;
+    virtual ninja::Complex evaluate(const ninja::ComplexMomentum & q,
+                                    const ninja::Complex & muq,
+                                    int cut,
+                                    const ninja::PartitionInt part[]) = 0;
 
-	virtual ~Numerator() {}
+    virtual ~Numerator() {}
 
   };
 
@@ -41,35 +41,35 @@ namespace ninja {
 
   public:
 
-	virtual Complex evaluate(const ninja::ComplexMomentum & q,
-							 const ninja::Complex & muq,
-							 int cut, const ninja::PartitionInt part[]) = 0;
+    virtual Complex evaluate(const ninja::ComplexMomentum & q,
+                             const ninja::Complex & muq,
+                             int cut, const ninja::PartitionInt part[]) = 0;
 
-	virtual void muExpansion(const ninja::ComplexMomentum v_perp[],
-							 const ninja::PartitionInt part[],
-							 ninja::Complex c[])
-	{
-	  (void)(v_perp); (void)(part); (void)(c);
-	}
+    virtual void muExpansion(const ninja::ComplexMomentum v_perp[],
+                             const ninja::PartitionInt part[],
+                             ninja::Complex c[])
+    {
+      (void)(v_perp); (void)(part); (void)(c);
+    }
 
-	virtual void t3Expansion(const ninja::ComplexMomentum & a,
-							 const ninja::ComplexMomentum & e3,
-							 const ninja::ComplexMomentum & e4,
-							 const ninja::Complex & param,
-							 int mindeg,
-							 int cut, const ninja::PartitionInt part[],
-							 ninja::Complex c[]) = 0;
+    virtual void t3Expansion(const ninja::ComplexMomentum & a,
+                             const ninja::ComplexMomentum & e3,
+                             const ninja::ComplexMomentum & e4,
+                             const ninja::Complex & param,
+                             int mindeg,
+                             int cut, const ninja::PartitionInt part[],
+                             ninja::Complex c[]) = 0;
 
-	virtual void t2Expansion(const ninja::ComplexMomentum & a0,
-							 const ninja::ComplexMomentum & a1,
-							 const ninja::ComplexMomentum & e3,
-							 const ninja::ComplexMomentum & e4,
-							 const ninja::Complex param[],
-							 int mindeg,
-							 int cut, const ninja::PartitionInt part[],
-							 ninja::Complex c[]) = 0;
+    virtual void t2Expansion(const ninja::ComplexMomentum & a0,
+                             const ninja::ComplexMomentum & a1,
+                             const ninja::ComplexMomentum & e3,
+                             const ninja::ComplexMomentum & e4,
+                             const ninja::Complex param[],
+                             int mindeg,
+                             int cut, const ninja::PartitionInt part[],
+                             ninja::Complex c[]) = 0;
 
-	virtual ~Numerator() {}
+    virtual ~Numerator() {}
 
   };
 

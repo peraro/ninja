@@ -15,15 +15,15 @@ namespace NINJA_NUM_NAMESPACE {
 #endif
 
   ninja::Complex NINJA_NUM::evaluate(const ninja::ComplexMomentum & ninjaQ,
-									 const ninja::Complex & ninjaMu2,
-									 int ninja_cut,
-									 const ninja::PartitionInt ninja_cutidx[])
+                                     const ninja::Complex & ninjaMu2,
+                                     int ninja_cut,
+                                     const ninja::PartitionInt ninja_cutidx[])
   {
-	ninja::Complex ninja_result;
+    ninja::Complex ninja_result;
     (void)(ninjaQ);
-	(void)(ninjaMu2);
-	(void)(ninja_cut);
-	(void)(ninja_cutidx);
+    (void)(ninjaMu2);
+    (void)(ninja_cut);
+    (void)(ninja_cutidx);
     NinjaAbbrType ninjanumabbr[130];  (void)(ninjanumabbr);
   
     ninjanumabbr[-1+1]= ninjaMP ( ninjaQ , ninjaQ ) ; 
@@ -292,51 +292,51 @@ namespace NINJA_NUM_NAMESPACE {
       ninjanumabbr[-1+124]+ ninjanumabbr[-1+125]+ ninjanumabbr[-1+126]+ 
       ninjanumabbr[-1+127]+ ninjanumabbr[-1+128]+ ninjanumabbr[-1+129]+ 
       ninjanumabbr[-1+130]; 
-  	return ninja_result;
+      return ninja_result;
   }
 
   void NINJA_NUM::muExpansion(const ninja::ComplexMomentum ninjaV[],
-							  const ninja::PartitionInt ninja_cutidx[],
-							  ninja::Complex ninjaC[])
+                              const ninja::PartitionInt ninja_cutidx[],
+                              ninja::Complex ninjaC[])
   {
-	ninja::ComplexMomentum ninjaA0 = ninjaV[0];
+    ninja::ComplexMomentum ninjaA0 = ninjaV[0];
 #if (NINJA_RANK_MINUS_N > 0)
-	ninja::ComplexMomentum ninjaA1 = ninjaV[1];
-	(void)(ninjaA1);
+    ninja::ComplexMomentum ninjaA1 = ninjaV[1];
+    (void)(ninjaA1);
 #endif
-	(void)(ninjaA0);
-	(void)(ninja_cutidx);
-	(void)(ninjaC);
+    (void)(ninjaA0);
+    (void)(ninja_cutidx);
+    (void)(ninjaC);
   }
 
   void NINJA_NUM::t3Expansion(const ninja::ComplexMomentum & ninjaA,
-							  const ninja::ComplexMomentum & ninjaE3,
-							  const ninja::ComplexMomentum & ninjaE4,
-							  const ninja::Complex & ninjaP,
-							  int ninja_mindeg, int ninja_cut,
-							  const ninja::PartitionInt ninja_cutidx[],
-							  ninja::Complex ninjaC[])
+                              const ninja::ComplexMomentum & ninjaE3,
+                              const ninja::ComplexMomentum & ninjaE4,
+                              const ninja::Complex & ninjaP,
+                              int ninja_mindeg, int ninja_cut,
+                              const ninja::PartitionInt ninja_cutidx[],
+                              ninja::Complex ninjaC[])
   {
     const int ninjaidxt2mu0 = 0;
     const int ninjaidxt1mu0 = 1;
     const int ninjaidxt0mu0 = 2;
     const int ninjaidxt0mu2 = 3;
-	(void)(ninjaA);
-	(void)(ninjaE3);
-	(void)(ninjaE4);
-	(void)(ninjaP);
-	(void)(ninja_mindeg);
-	(void)(ninja_cut);
-	(void)(ninja_cutidx);
-	(void)(ninjaC);
-	{
+    (void)(ninjaA);
+    (void)(ninjaE3);
+    (void)(ninjaE4);
+    (void)(ninjaP);
+    (void)(ninja_mindeg);
+    (void)(ninja_cut);
+    (void)(ninja_cutidx);
+    (void)(ninjaC);
+    {
       NinjaAbbrType ninjanumabbr[1];  (void)(ninjanumabbr);
   
  
       ninjaC[0+ninjaidxt2mu0]= 
         NINJA_REAL(0); 
-  	}
-	if (ninja_mindeg > 1+NINJA_RANK_MINUS_N) {
+      }
+    if (ninja_mindeg > 1+NINJA_RANK_MINUS_N) {
       NinjaAbbrType ninjanumabbr[154];  (void)(ninjanumabbr);
   
       ninjanumabbr[-1+1]= ninjaMP ( ninjaA , ninjaE3 ) ; 
@@ -729,43 +729,43 @@ namespace NINJA_NUM_NAMESPACE {
   
       ninjaC[0+ninjaidxt0mu2]= 
         ninjanumabbr[-1+134]; 
-  	}
+      }
   }
 
   void NINJA_NUM::t2Expansion(const ninja::ComplexMomentum & ninjaA0,
-							  const ninja::ComplexMomentum & ninjaA1,
-							  const ninja::ComplexMomentum & ninjaE3,
-							  const ninja::ComplexMomentum & ninjaE4,
-							  const ninja::Complex ninjaP[],
-							  int ninja_mindeg, int ninja_cut,
-							  const ninja::PartitionInt ninja_cutidx[],
-							  ninja::Complex ninjaC[])
+                              const ninja::ComplexMomentum & ninjaA1,
+                              const ninja::ComplexMomentum & ninjaE3,
+                              const ninja::ComplexMomentum & ninjaE4,
+                              const ninja::Complex ninjaP[],
+                              int ninja_mindeg, int ninja_cut,
+                              const ninja::PartitionInt ninja_cutidx[],
+                              ninja::Complex ninjaC[])
   {
     const int ninjaidxt1x0mu0 = 0;
     const int ninjaidxt0x0mu0 = 1;
     const int ninjaidxt0x1mu0 = 2;
-	const ninja::Complex ninjaP0 = ninjaP[0];
-	const ninja::Complex ninjaP1 = ninjaP[1];
-	const ninja::Complex ninjaP2 = ninjaP[2];
-	(void)(ninjaA0);
-	(void)(ninjaA1);
-	(void)(ninjaE3);
-	(void)(ninjaE4);
-	(void)(ninjaP0);
-	(void)(ninjaP1);
-	(void)(ninjaP2);
-	(void)(ninja_mindeg);
-	(void)(ninja_cut);
-	(void)(ninja_cutidx);
-	(void)(ninjaC);
-	{
+    const ninja::Complex ninjaP0 = ninjaP[0];
+    const ninja::Complex ninjaP1 = ninjaP[1];
+    const ninja::Complex ninjaP2 = ninjaP[2];
+    (void)(ninjaA0);
+    (void)(ninjaA1);
+    (void)(ninjaE3);
+    (void)(ninjaE4);
+    (void)(ninjaP0);
+    (void)(ninjaP1);
+    (void)(ninjaP2);
+    (void)(ninja_mindeg);
+    (void)(ninja_cut);
+    (void)(ninja_cutidx);
+    (void)(ninjaC);
+    {
       NinjaAbbrType ninjanumabbr[1];  (void)(ninjanumabbr);
   
  
       ninjaC[0+ninjaidxt1x0mu0]= 
         NINJA_REAL(0); 
-  	}
-	if (ninja_mindeg > 1+NINJA_RANK_MINUS_N) {
+      }
+    if (ninja_mindeg > 1+NINJA_RANK_MINUS_N) {
       NinjaAbbrType ninjanumabbr[59];  (void)(ninjanumabbr);
   
       ninjanumabbr[-1+1]= ninjaMP ( ninjaA0 , ninjaE3 ) ; 
@@ -874,7 +874,7 @@ namespace NINJA_NUM_NAMESPACE {
   
       ninjaC[0+ninjaidxt0x1mu0]= 
         NINJA_REAL(0); 
-  	}
+      }
   }
 
 #if NINJA_NUM_NAMESPACE

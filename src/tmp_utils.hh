@@ -17,10 +17,10 @@
 namespace ninja{
   namespace details{
 
-	template<typename T, typename U>
-	struct common_type {
-	  typedef typename std::common_type<T,U>::type type;
-	};
+    template<typename T, typename U>
+    struct common_type {
+      typedef typename std::common_type<T,U>::type type;
+    };
 
   }
 }
@@ -35,24 +35,24 @@ namespace ninja{
 namespace ninja {
   namespace details {
 
-	// Choose return type in mixed floating point operations
-	template<typename T, typename U>
-	struct common_type;
-	template<> struct common_type<ninja::Complex, ninja::Real> {
-	  typedef ninja::Complex type;
-	};
-	template<>
-	struct common_type<ninja::Real,ninja::Complex> {
-	  typedef ninja::Complex type;
-	};
-	template<>
-	struct common_type<ninja::Complex,ninja::Complex> {
-	  typedef ninja::Complex type;
-	};
-	template<typename T>
-	struct common_type<T,T> {
-	  typedef T type;
-	};
+    // Choose return type in mixed floating point operations
+    template<typename T, typename U>
+    struct common_type;
+    template<> struct common_type<ninja::Complex, ninja::Real> {
+      typedef ninja::Complex type;
+    };
+    template<>
+    struct common_type<ninja::Real,ninja::Complex> {
+      typedef ninja::Complex type;
+    };
+    template<>
+    struct common_type<ninja::Complex,ninja::Complex> {
+      typedef ninja::Complex type;
+    };
+    template<typename T>
+    struct common_type<T,T> {
+      typedef T type;
+    };
 
   } // namespace details
 } // namespace ninja

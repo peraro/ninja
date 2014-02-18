@@ -13,49 +13,49 @@ namespace ninja {
 
   class ComplexQuadruple {
   public:
-	ComplexQuadruple()
-	  : m_(0) {}
-	ComplexQuadruple(const __complex128 & oth)
-	  : m_(oth) {}
-	ComplexQuadruple(const ComplexQuadruple & oth)
-	  : m_(oth.m_) {}
-	ComplexQuadruple(const Quadruple & r, const Quadruple & i = 0)
-	  : m_(r+(__extension__ 1.0iQ)*i) {}
-	operator __complex128() const
-	{
-	  return m_;
-	}
-	ComplexQuadruple & operator + ()
-	{
-	  return *this;
-	}
-	ComplexQuadruple operator - ()
-	{
-	  return -m_;
-	}
-	ComplexQuadruple & operator += (const ComplexQuadruple & z)
-	{
-	  m_ += z.m_;
-	  return *this;
-	}
-	ComplexQuadruple & operator -= (const ComplexQuadruple & z)
-	{
-	  m_ -= z.m_;
-	  return *this;
-	}
-	ComplexQuadruple & operator *= (const ComplexQuadruple & z)
-	{
-	  m_ *= z.m_;
-	  return *this;
-	}
-	ComplexQuadruple & operator /= (const ComplexQuadruple & z)
-	{
-	  m_ /= z.m_;
-	  return *this;
-	}
+    ComplexQuadruple()
+      : m_(0) {}
+    ComplexQuadruple(const __complex128 & oth)
+      : m_(oth) {}
+    ComplexQuadruple(const ComplexQuadruple & oth)
+      : m_(oth.m_) {}
+    ComplexQuadruple(const Quadruple & r, const Quadruple & i = 0)
+      : m_(r+(__extension__ 1.0iQ)*i) {}
+    operator __complex128() const
+    {
+      return m_;
+    }
+    ComplexQuadruple & operator + ()
+    {
+      return *this;
+    }
+    ComplexQuadruple operator - ()
+    {
+      return -m_;
+    }
+    ComplexQuadruple & operator += (const ComplexQuadruple & z)
+    {
+      m_ += z.m_;
+      return *this;
+    }
+    ComplexQuadruple & operator -= (const ComplexQuadruple & z)
+    {
+      m_ -= z.m_;
+      return *this;
+    }
+    ComplexQuadruple & operator *= (const ComplexQuadruple & z)
+    {
+      m_ *= z.m_;
+      return *this;
+    }
+    ComplexQuadruple & operator /= (const ComplexQuadruple & z)
+    {
+      m_ /= z.m_;
+      return *this;
+    }
 
   private :
-	__complex128 m_;
+    __complex128 m_;
   };
 
 } // namespace ninja
@@ -67,204 +67,204 @@ namespace std {
 
   inline ninja::Quadruple acos (const ninja::Quadruple & x)
   {
-	return acosq (x);
+    return acosq (x);
   }
 
   inline ninja::Quadruple acosh (const ninja::Quadruple & x)
   {
-	return acoshq(x);
+    return acoshq(x);
   }
 
   inline ninja::Quadruple asin (const ninja::Quadruple & x)
   {
-	return asinq(x);
+    return asinq(x);
   }
 
   inline ninja::Quadruple asinh (const ninja::Quadruple & x)
   {
-	return asinhq(x);
+    return asinhq(x);
   }
 
   inline ninja::Quadruple atan (const ninja::Quadruple & x)
   {
-	return atanq(x);
+    return atanq(x);
   }
 
   inline ninja::Quadruple atanh (const ninja::Quadruple & x)
   {
-	return atanhq(x);
+    return atanhq(x);
   }
 
   inline ninja::Quadruple atan2 (const ninja::Quadruple & x,
-								 const ninja::Quadruple & y)
+                                 const ninja::Quadruple & y)
   {
-	return atan2q(x,y);
+    return atan2q(x,y);
   }
 
   inline ninja::Quadruple cbrt (const ninja::Quadruple & x)
   {
-	return cbrtq(x);
+    return cbrtq(x);
   }
 
   inline ninja::Quadruple ceil (const ninja::Quadruple & x)
   {
-	return ceilq(x);
+    return ceilq(x);
   }
 
   inline ninja::Quadruple copysign (const ninja::Quadruple & x,
-									const ninja::Quadruple & y)
+                                    const ninja::Quadruple & y)
   {
-	return copysignq(x,y);
+    return copysignq(x,y);
   }
 
   inline ninja::Quadruple cosh (const ninja::Quadruple & x)
   {
-	return coshq(x);
+    return coshq(x);
   }
 
   inline ninja::Quadruple cos (const ninja::Quadruple & x)
   {
-	return cosq(x);
+    return cosq(x);
   }
 
   inline ninja::Quadruple erf (const ninja::Quadruple & x)
   {
-	return erfq(x);
+    return erfq(x);
   }
 
   inline ninja::Quadruple erfc (const ninja::Quadruple & x)
   {
-	return erfcq(x);
+    return erfcq(x);
   }
 
   inline ninja::Quadruple exp (const ninja::Quadruple & x)
   {
-	return expq(x);
+    return expq(x);
   }
 
   inline ninja::Quadruple expm1 (const ninja::Quadruple & x)
   {
-	return expm1q(x);
+    return expm1q(x);
   }
 
   inline ninja::Quadruple abs(const ninja::Quadruple & r)
   {
-	return fabsq (r);
+    return fabsq (r);
   }
 
   inline ninja::Quadruple fabs (const ninja::Quadruple & x)
   {
-	return fabsq(x);
+    return fabsq(x);
   }
 
   inline ninja::Quadruple floor (const ninja::Quadruple & x)
   {
-	return floorq(x);
+    return floorq(x);
   }
 
 
   inline ninja::Quadruple hypot (const ninja::Quadruple & x,
-								 const ninja::Quadruple & y)
+                                 const ninja::Quadruple & y)
   {
-	return hypotq(x,y);
+    return hypotq(x,y);
   }
 
   inline ninja::Quadruple ldexp (const ninja::Quadruple & x, int n)
   {
-	return ldexpq(x,n);
+    return ldexpq(x,n);
   }
 
   inline ninja::Quadruple lgamma (const ninja::Quadruple & x)
   {
-	return lgammaq(x);
+    return lgammaq(x);
   }
 
   inline ninja::Quadruple log (const ninja::Quadruple & x)
   {
-	return logq(x);
+    return logq(x);
   }
 
   inline ninja::Quadruple log10 (const ninja::Quadruple & x)
   {
-	return log10q(x);
+    return log10q(x);
   }
 
   inline ninja::Quadruple log2 (const ninja::Quadruple & x)
   {
-	return log2q(x);
+    return log2q(x);
   }
 
   inline ninja::Quadruple log1p (const ninja::Quadruple & x)
   {
-	return log1pq(x);
+    return log1pq(x);
   }
 
   inline ninja::Quadruple nearbyint (const ninja::Quadruple & x)
   {
-	return nearbyintq(x);
+    return nearbyintq(x);
   }
 
   inline ninja::Quadruple nextafter (const ninja::Quadruple & x,
-									 const ninja::Quadruple & y)
+                                     const ninja::Quadruple & y)
   {
-	return nextafterq(x,y);
+    return nextafterq(x,y);
   }
 
   inline ninja::Quadruple pow (const ninja::Quadruple & x,
-							   const ninja::Quadruple & y)
+                               const ninja::Quadruple & y)
   {
-	return powq(x,y);
+    return powq(x,y);
   }
 
   inline ninja::Quadruple remainder (const ninja::Quadruple & x,
-									 const ninja::Quadruple & y)
+                                     const ninja::Quadruple & y)
   {
-	return remainderq(x,y);
+    return remainderq(x,y);
   }
 
   inline ninja::Quadruple rint (const ninja::Quadruple & x)
   {
-	return rintq(x);
+    return rintq(x);
   }
 
   inline ninja::Quadruple round (const ninja::Quadruple & x)
   {
-	return roundq(x);
+    return roundq(x);
   }
 
   inline ninja::Quadruple sinh (const ninja::Quadruple & x)
   {
-	return sinhq(x);
+    return sinhq(x);
   }
 
   inline ninja::Quadruple sin (const ninja::Quadruple & x)
   {
-	return sinq(x);
+    return sinq(x);
   }
 
   inline ninja::Quadruple sqrt (const ninja::Quadruple & x)
   {
-	return sqrtq(x);
+    return sqrtq(x);
   }
 
   inline ninja::Quadruple tan (const ninja::Quadruple & x)
   {
-	return tanq(x);
+    return tanq(x);
   }
 
   inline ninja::Quadruple tanh (const ninja::Quadruple & x)
   {
-	return tanhq(x);
+    return tanhq(x);
   }
 
   inline ninja::Quadruple tgamma (const ninja::Quadruple & x)
   {
-	return tgammaq(x);
+    return tgammaq(x);
   }
 
   inline ninja::Quadruple trunc (const ninja::Quadruple & x)
   {
-	return truncq(x);
+    return truncq(x);
   }
 
 
@@ -272,27 +272,27 @@ namespace std {
 
   inline ninja::Quadruple abs(const ninja::ComplexQuadruple & z)
   {
-	return cabsq(z);
+    return cabsq(z);
   }
 
   inline ninja::Quadruple real(const ninja::ComplexQuadruple & z)
   {
-	return crealq(z);
+    return crealq(z);
   }
 
   inline ninja::Quadruple imag(const ninja::ComplexQuadruple & z)
   {
-	return cimagq(z);
+    return cimagq(z);
   }
 
   inline ninja::Quadruple arg(const ninja::ComplexQuadruple & z)
   {
-	return cargq(z);
+    return cargq(z);
   }
 
   inline ninja::ComplexQuadruple conj(const ninja::ComplexQuadruple & z)
   {
-	return conjq(z);
+    return conjq(z);
   }
 
   inline ninja::ComplexQuadruple acos(const ninja::ComplexQuadruple & z)
@@ -386,17 +386,17 @@ namespace std {
   // stream operators
   inline ostream & operator << (std::ostream & os, const ninja::Quadruple & a)
   {
-	int width = 30;
-	char buf[128];
-	quadmath_snprintf (buf, sizeof buf, "%-#*.30Qe", width, a);
-	return os << buf;
+    int width = 30;
+    char buf[128];
+    quadmath_snprintf (buf, sizeof buf, "%-#*.30Qe", width, a);
+    return os << buf;
   }
 
   // stream operators
   inline ostream & operator << (std::ostream & os,
-								const __complex128 & a)
+                                const __complex128 & a)
   {
-	return os << "(" << std::real(a) << "," << std::imag(a) << ")";
+    return os << "(" << std::real(a) << "," << std::imag(a) << ")";
   }
 
 } // namespace std

@@ -20,22 +20,22 @@ namespace ninja {
 
   class ZeroFloat {
   public:
-	ZeroFloat() {}
+    ZeroFloat() {}
 
-	// +0 = 0
-	ZeroFloat operator + () const
-	{
-	  return ZeroFloat();
-	}
-	
-	// -0 = 0
-	ZeroFloat operator - () const
-	{
-	  return ZeroFloat();
-	}
-	
+    // +0 = 0
+    ZeroFloat operator + () const
+    {
+      return ZeroFloat();
+    }
+    
+    // -0 = 0
+    ZeroFloat operator - () const
+    {
+      return ZeroFloat();
+    }
+    
   private:
-	// no-data
+    // no-data
   };
 
   // 0+0 = 0
@@ -43,17 +43,17 @@ namespace ninja {
   // 0+x = 0
   inline ZeroFloat operator + (ZeroFloat, ZeroFloat)
   {
-	return ZeroFloat();
+    return ZeroFloat();
   }
   template<typename T>
   inline T operator + (const T & x, ZeroFloat)
   {
-	return x;
+    return x;
   }
   template<typename T>
   inline T operator + (ZeroFloat, const T & x)
   {
-	return x;
+    return x;
   }
 
   // 0-0 = 0
@@ -61,17 +61,17 @@ namespace ninja {
   // 0-x = -x
   inline ZeroFloat operator - (ZeroFloat, ZeroFloat)
   {
-	return ZeroFloat();
+    return ZeroFloat();
   }
   template<typename T>
   inline T operator - (const T & x, ZeroFloat)
   {
-	return x;
+    return x;
   }
   template<typename T>
   inline T operator - (ZeroFloat, const T & x)
   {
-	return -x;
+    return -x;
   }
 
   // 0*0 = 0
@@ -79,62 +79,62 @@ namespace ninja {
   // x*0 = 0
   inline ZeroFloat operator * (ZeroFloat, ZeroFloat)
   {
-	return ZeroFloat();
+    return ZeroFloat();
   }
   template<typename T>
   inline ZeroFloat operator * (const T &, ZeroFloat)
   {
-	return ZeroFloat();
+    return ZeroFloat();
   }
   template<typename T>
   inline ZeroFloat operator * (ZeroFloat, const T &)
   {
-	return ZeroFloat();
+    return ZeroFloat();
   }
 
   // 0/x = 0
   template<typename T>
   inline ZeroFloat operator / (ZeroFloat, const T &)
   {
-	return ZeroFloat();
+    return ZeroFloat();
   }
 
   // Comparosions with 0
   template<typename T>
   inline bool operator == (ZeroFloat, const T & x)
   {
-	return (x==0.);
+    return (x==0.);
   }
   template<typename T>
   inline bool operator == (const T & x, ZeroFloat)
   {
-	return (x==0.);
+    return (x==0.);
   }
   template<typename T>
   inline bool operator != (ZeroFloat, const T & x)
   {
-	return (x!=0.);
+    return (x!=0.);
   }
   template<typename T>
   inline bool operator != (const T & x, ZeroFloat)
   {
-	return (x!=0.);
+    return (x!=0.);
   }
   template<typename T>
   inline bool operator < (ZeroFloat, const T & x)
   {
-	return (x>0.);
+    return (x>0.);
   }
   template<typename T>
   inline bool operator < (const T & x, ZeroFloat)
   {
-	return (x<0.);
+    return (x<0.);
   }
 
   // Standard output stream
   inline std::ostream & operator << (std::ostream & os, ZeroFloat)
   {
-	return os << "(zero)";
+    return os << "(zero)";
   }
 
 
@@ -143,53 +143,53 @@ namespace ninja {
 
   public:
 
-	ZeroFloatArray() {}
+    ZeroFloatArray() {}
 
-	template<typename T> ZeroFloatArray(T *) {}
+    template<typename T> ZeroFloatArray(T *) {}
 
-	ZeroFloat operator [] (int)
-	{
-	  return ZeroFloat();
-	}
+    ZeroFloat operator [] (int)
+    {
+      return ZeroFloat();
+    }
 
   private:
-	// no-data
+    // no-data
   };
 
   
   // Specialize ninja::const_pointer<ZeroFloat> (defined in ninja/types.hh)
   template<typename X> struct const_pointer;
   template<> struct const_pointer<ZeroFloat> {
-	typedef ZeroFloatArray type;
+    typedef ZeroFloatArray type;
   };
 
 
   namespace details {
 
-	// Specialize ninja::details::common_type<...> (defined in
-	// tmp_utils.hh internal header)
-	template<typename T, typename U> struct common_type;
-	template<typename T>
-	struct common_type<ZeroFloat, T> {
-	  typedef T type;
-	};
-	template<typename T>
-	struct common_type<T,ZeroFloat> {
-	  typedef T type;
-	};
-	template<>
-	struct common_type<ZeroFloat,ZeroFloat> {
-	  typedef ZeroFloat type;
-	};
+    // Specialize ninja::details::common_type<...> (defined in
+    // tmp_utils.hh internal header)
+    template<typename T, typename U> struct common_type;
+    template<typename T>
+    struct common_type<ZeroFloat, T> {
+      typedef T type;
+    };
+    template<typename T>
+    struct common_type<T,ZeroFloat> {
+      typedef T type;
+    };
+    template<>
+    struct common_type<ZeroFloat,ZeroFloat> {
+      typedef ZeroFloat type;
+    };
 
 
-	// compile-time check: if a type is massless
-	template <typename MassType>
-	struct MasslessTypeError {};
-	template <>
-	struct MasslessTypeError<ZeroFloat> {
-	  static void MassType_must_be_massless() {}
-	};
+    // compile-time check: if a type is massless
+    template <typename MassType>
+    struct MasslessTypeError {};
+    template <>
+    struct MasslessTypeError<ZeroFloat> {
+      static void MassType_must_be_massless() {}
+    };
 
   } // namespace details
 

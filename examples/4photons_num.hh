@@ -18,31 +18,31 @@ namespace NINJA_NUM_NAMESPACE {
 
   public:
 
-	virtual ninja::Complex evaluate(const ninja::ComplexMomentum & ninjaQ,
-									const ninja::Complex & ninjaMu2,
-									int ninja_cut,
-									const ninja::PartitionInt ninja_cutidx[]);
+    virtual ninja::Complex evaluate(const ninja::ComplexMomentum & ninjaQ,
+                                    const ninja::Complex & ninjaMu2,
+                                    int ninja_cut,
+                                    const ninja::PartitionInt ninja_cutidx[]);
   
-	virtual void muExpansion(const ninja::ComplexMomentum ninjaV[],
-							 const ninja::PartitionInt ninja_cutidx[],
-							 ninja::Complex ninjaC[]);
+    virtual void muExpansion(const ninja::ComplexMomentum ninjaV[],
+                             const ninja::PartitionInt ninja_cutidx[],
+                             ninja::Complex ninjaC[]);
   
-	virtual void t3Expansion(const ninja::ComplexMomentum & ninjaA,
-							 const ninja::ComplexMomentum & ninjaE3,
-							 const ninja::ComplexMomentum & ninjaE4,
-							 const ninja::Complex & ninjaP,
-							 int ninja_mindeg, int ninja_cut,
-							 const ninja::PartitionInt ninja_cutidx[],
-							 ninja::Complex ninjaC[]);
+    virtual void t3Expansion(const ninja::ComplexMomentum & ninjaA,
+                             const ninja::ComplexMomentum & ninjaE3,
+                             const ninja::ComplexMomentum & ninjaE4,
+                             const ninja::Complex & ninjaP,
+                             int ninja_mindeg, int ninja_cut,
+                             const ninja::PartitionInt ninja_cutidx[],
+                             ninja::Complex ninjaC[]);
   
-	virtual void t2Expansion(const ninja::ComplexMomentum & ninjaA0,
-							 const ninja::ComplexMomentum & ninjaA1,
-							 const ninja::ComplexMomentum & ninjaE3,
-							 const ninja::ComplexMomentum & ninjaE4,
-							 const ninja::Complex ninjaP[],
-							 int ninja_mindeg, int ninja_cut,
-							 const ninja::PartitionInt ninja_cutidx[],
-							 ninja::Complex ninjaC[]);
+    virtual void t2Expansion(const ninja::ComplexMomentum & ninjaA0,
+                             const ninja::ComplexMomentum & ninjaA1,
+                             const ninja::ComplexMomentum & ninjaE3,
+                             const ninja::ComplexMomentum & ninjaE4,
+                             const ninja::Complex ninjaP[],
+                             int ninja_mindeg, int ninja_cut,
+                             const ninja::PartitionInt ninja_cutidx[],
+                             ninja::Complex ninjaC[]);
   
   public:
 

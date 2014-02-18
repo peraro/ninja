@@ -73,14 +73,13 @@ if __name__ == "__main__":
                         help='Form optimization level [default=2]')
     parser.add_argument('--include','-I', action='append',
                         help='C++ header file to be included in the generated'
-                        #'C/C++ or Fortran77 header file,'
+                        #'C++ or Fortran77 header file,'
                         #' or Fortran90 module to be included in the generated'
                         ' source file (can be specified multiple times)')
     parser.add_argument('--header', default=None,
-                        help='C/C++ header file containing numerator'
-                        ' declarartions: if the file does not exists, one will'
-                        ' be created, and it will always be included in the'
-                        ' output source file.'
+                        help='C++ header file containing the definition of the'
+                        ' numerator class: if the file does not exists,'
+                        ' one will be created.'
                         ' [default= same name as OUTPUT,'
                         #' but with .hh (C++) or .h (C) extension)'
                         ' but with .hh extension]'
