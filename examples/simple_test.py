@@ -8,7 +8,7 @@ def main():
     input_file = 'mynum.frm'
     output_file = 'mynum.cc'
     
-    # define an istance of the class DiagramExpansion
+    # define an instance of the class DiagramExpansion
     mynum = ninjanumgen.DiagramExpansion(input_file,
                                          output_file,
                                          n_legs,rank=4)

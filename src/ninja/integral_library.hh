@@ -146,6 +146,14 @@ namespace ninja {
                                           Real s21);
     virtual void getTadpoleIntegralNM(Complex rslt[3]);
 
+
+    // this is not used at the moment
+    virtual bool requiresOrderedCalls()
+    {
+      return false;
+    }
+
+
     virtual ~IntegralLibrary() {}
 
   }; // class IntegralLibrary

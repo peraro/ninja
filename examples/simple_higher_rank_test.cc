@@ -14,7 +14,7 @@ int main()
   // External legs of the loop
   const int N_LEGS = 5;
 
-  // Centre of mass energy
+  // Center of mass energy
   const Real ENERGY_CM = 14;
 
   // Invariant s
@@ -37,7 +37,7 @@ int main()
   // Define external momenta
   RealMomentum k[N_LEGS];
 
-  // Create an istance of Rambo phase-space generator
+  // Create an instance of Rambo phase-space generator
   Rambo phase_space(S,N_LEGS);
 
   // get a random phase-space point

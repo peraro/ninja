@@ -103,32 +103,32 @@ namespace ninja {
   template<typename T>
   inline bool operator == (ZeroFloat, const T & x)
   {
-    return (x==0.);
+    return (x==T(0));
   }
   template<typename T>
   inline bool operator == (const T & x, ZeroFloat)
   {
-    return (x==0.);
+    return (x==T(0));
   }
   template<typename T>
   inline bool operator != (ZeroFloat, const T & x)
   {
-    return (x!=0.);
+    return (x!=T(0));
   }
   template<typename T>
   inline bool operator != (const T & x, ZeroFloat)
   {
-    return (x!=0.);
+    return (x!=T(0));
   }
   template<typename T>
   inline bool operator < (ZeroFloat, const T & x)
   {
-    return (x>0.);
+    return (x>T(0));
   }
   template<typename T>
   inline bool operator < (const T & x, ZeroFloat)
   {
-    return (x<0.);
+    return (x<T(0));
   }
 
   // Standard output stream
@@ -145,7 +145,7 @@ namespace ninja {
 
     ZeroFloatArray() {}
 
-    template<typename T> ZeroFloatArray(T *) {}
+    template<typename T> ZeroFloatArray(const T *) {}
 
     ZeroFloat operator [] (int)
     {

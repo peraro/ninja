@@ -489,7 +489,7 @@ namespace ninja {
       s_mat(0,0),
       V(p),
       mis(Options::mis),
-      m2(static_cast<MassType*>(0)),
+      m2(static_cast<const MassType*>(0)),
       cut_constr(),
       scale(1.),
       n(nn), rank(rr), 
