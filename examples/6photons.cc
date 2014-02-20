@@ -50,7 +50,7 @@ namespace {
 
 int main()
 {
-  const int N_EVENTS = 100;
+  const int N_EVENTS = 1;
   const Real CM_ENERGY = 100;
 
   // helicities
@@ -96,7 +96,7 @@ int main()
       // avoid double counting of diagrams where loop is reversed
       if (permutation[1]>permutation[5])
         continue;
-    
+
       // fill momenta and helicities
       for (int i=0; i<6; ++i) {
         k_in[i] = k[permutation[i]];

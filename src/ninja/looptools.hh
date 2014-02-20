@@ -25,6 +25,8 @@ namespace ninja {
     static void callLTini();
     static void callLTexi();
     static void setMinMass(Real minmass);
+    static void setDebugKey(int debugkey);
+    static int getDebugKey();
 
 
     // Overloaded Virtual methods

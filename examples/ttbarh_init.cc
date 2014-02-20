@@ -205,6 +205,8 @@ void TTbarHDiagram::init_global_abbreviations_()
   if (!globabbr.allocated())
     globabbr.allocate(158);
 
+  // diagram 266, helicity4
+
   globabbr ( 1 ) = (NINJA_REAL(1)/powi1(spbl5k2 )); 
   globabbr ( 2 ) = (NINJA_REAL(1)/powi1(spak2l4 )); 
   globabbr ( 3 ) = (NINJA_REAL(1)/powi1(spbl4k2 )); 

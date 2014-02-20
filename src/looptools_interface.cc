@@ -53,6 +53,16 @@ namespace ninja {
     setminmass(minmass);
   }
 
+  void LoopTools::setDebugKey(int debugkey)
+  {
+    setdebugkey(debugkey);
+  }
+  
+  int LoopTools::getDebugKey()
+  {
+    return getdebugkey();
+  }
+
   void LoopTools::init(Real muRsq)
   {
     if (!initialized_) {

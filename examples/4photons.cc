@@ -90,7 +90,6 @@ int main()
   }
 
   // print the result (only for last iteration)
-  std::cout.precision(15);
   std::cout << "Finite:      " << amp[0] << std::endl
             << "Abs. val.:   " << abs(amp[0]) << std::endl
             << "Single pole: " << amp[1] << std::endl

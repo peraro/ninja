@@ -3,14 +3,11 @@
 #include <iostream>
 #include <ninja/ninja.hh>
 #include <ninja/rambo.hh>
-//#include <ninja/looptools.hh>
 #include "mynumhr.hh"
 using namespace ninja;
 
 int main()
 {
-  //setIntegralLibrary(loop_tools);
-
   // External legs of the loop
   const int N_LEGS = 5;
 
@@ -62,10 +59,6 @@ int main()
   const Real ir_threshold = 1.0e-8;
   s_mat.fillFromKinematics(pi,ir_threshold);
   amp.setSMatrix(s_mat);
-
-  std::cout.precision(15);
-  setTest(Test::LOCAL);
-  setVerbosity(Verbose::ALL);
 
   // evaluate the integral
   amp.evaluate(num);

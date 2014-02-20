@@ -9,6 +9,7 @@ syntax: glob
 *.mod
 *.pyc
 *.tar.gz
+*.out
 .DS_Store
 .hg
 .deps

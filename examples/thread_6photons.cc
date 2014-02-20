@@ -90,7 +90,7 @@ namespace {
 
 int main()
 {
-  const int EVENTS_PER_THREAD = 25;
+  const int EVENTS_PER_THREAD = 10;
   const int N_THREADS = 4;
   const Real CM_ENERGY = 100;
 

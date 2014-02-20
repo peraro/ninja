@@ -1,7 +1,5 @@
 // ttbarh.cc
 
-// diagram 266, helicity4
-
 #include <iostream>
 #include <ninja/ninja.hh>
 #include <ninja/rambo.hh>
@@ -53,14 +51,6 @@ int main()
 
   // evaluate the integral
   amp.evaluate(num);
-
-  std::cout.precision(15);
-  for (int i=0; i<5; ++i) {
-    std::cout << "vecs(" << i+1 << ",:) = (/";
-    for (int j=0; j<3; ++j)
-      std::cout << k[i][j] << "_ki, ";
-    std::cout << k[i][3] << "_ki/)\n";
-  }
 
   // print the result
   std::cout << "Finite:      " << amp[0] // or amp.eps0(),  finite part

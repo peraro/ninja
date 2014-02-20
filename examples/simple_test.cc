@@ -3,14 +3,11 @@
 #include <iostream>
 #include <ninja/ninja.hh>
 #include <ninja/rambo.hh>
-//#include <ninja/looptools.hh>
 #include "mynum.hh"
 using namespace ninja;
 
 int main()
 {
-  //setIntegralLibrary(loop_tools);
-
   // External legs of the loop
   const int N_LEGS = 4;
 

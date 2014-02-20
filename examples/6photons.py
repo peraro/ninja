@@ -5,7 +5,7 @@ import ninjanumgen
 
 
 # If this is set to true, test_experimental_feature() is called
-# instead of main
+# instead of main()
 TEST_EXPERIMENTAL_FEATURE = False
 
 
