@@ -30,8 +30,10 @@ library use --with-avholo[=FLAGS] during configuration e.g.
     make
     make install
 
-note: recent versions of OneLoop should be compiled setting
-      "TLEVEL = yes" in the "Config" file.
+NOTE: The OneLoop library can be obtained at
+      http://helac-phegas.web.cern.ch/helac-phegas/OneLOop.html.
+      Recent versions of OneLoop should be compiled setting "TLEVEL =
+      yes" in their "Config" file.
 
 In order to compile the built-in interface to the LoopTools library
 use --with-looptools[=FLAGS] during configuration e.g.
@@ -40,17 +42,22 @@ use --with-looptools[=FLAGS] during configuration e.g.
     make
     make install
 
-note: since LoopTools is a static library, you will also need to link
-      your executables with it.
+NOTE: Ninja requires LoopTools-2.9 or later.  The LoopTools library
+      can be obtained at http://www.feynarts.de/looptools.  Since
+      LoopTools is a static library, you will also need to link your
+      executables with it.
 
 For a full list of available options type
 
     ./configure --help
 
-If you specified the --prefix option, add the directory where the
-library is installed to your LD_LIBRARY_PATH environment variable, if
-not already present (it is usually a sub-directory lib/ or lib64/ of
-the one specified with --prefix).
+See the file INSTALL for more information about the installation
+procedure.
+
+If you specified the --prefix option for the configure scrip, you
+should also add the path where the library is installed to your
+LD_LIBRARY_PATH environment variable, if not already present.  This is
+typically a sub-directory lib/ or lib64/ of the one you specified.
 
 
 
@@ -58,13 +65,12 @@ Installing the package NinjaNumGen
 ----------------------------------
 
 The Python package NinjaNumGen can be used both as a Python module and
-as a script in order to generate the input needed for Ninja.  You can
-install it with
+as a script in order to generate the input needed for Ninja.  It can
+be installed using the command
 
-    cd utils
     python setup.py install
 
-The command
+in the utils/ directory.  The command
     
     python setup.py --help
 
