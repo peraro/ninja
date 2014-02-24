@@ -569,10 +569,8 @@ namespace ninja {
       ht_3cm.clear();
     if (!ht_2cm.empty())
       ht_2cm.clear();
-#if 0 // clearing tadpole-MIs doesn't make much sense
     if (!ht_1cm.empty())
       ht_1cm.clear();
-#endif
 
     if (!ht_4rm.empty())
       ht_4rm.clear();
@@ -580,10 +578,8 @@ namespace ninja {
       ht_3rm.clear();
     if (!ht_2rm.empty())
       ht_2rm.clear();
-#if 0 // clearing tadpole-MIs doesn't make much sense
     if (!ht_1rm.empty())
       ht_1rm.clear();
-#endif
 
     if (!ht_4nm.empty())
       ht_4nm.clear();
