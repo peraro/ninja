@@ -1,6 +1,4 @@
 ! Interface of ninja for Gosam
-!
-! Tiziano Peraro
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>

@@ -129,6 +129,10 @@ AS_IF([test "x$enable_gosam" != xno], [gosam=true],
 AM_CONDITIONAL(GOSAM, test "x$gosam" == xtrue)
 AM_CONDITIONAL(NINJAGOSAMCONTRIB, false)
 
+AC_ARG_VAR([FCINCLUDE],[Additional Fortran include flags, e.g. \
+                        -I<include dir> if you have fortran modules \
+                        installed in a nonstandard directory <include dir>])
+
 # Checks for typedefs, structures, and compiler characteristics.
 # AC_CHECK_HEADER_STDBOOL
 # AC_C_INLINE
