@@ -21,7 +21,7 @@ int main()
   const Real CM_ENERGY = 14;
 
   // fermion mass, with width
-  Complex mass = Complex(0);
+  Complex mass = Complex(10)-I;
 
   // alternatively, use Rambo
   RealMomentum k[4];

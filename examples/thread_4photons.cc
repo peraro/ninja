@@ -1,4 +1,4 @@
-// thread_6photons.cc
+// thread_4photons.cc
 
 #include <algorithm>
 #include <pthread.h>
@@ -26,16 +26,17 @@ typedef ninja::LoopTools BaseIntegralLibrary;
 # error "Sorry, this example only works with OneLoop or LoopTools enabled."
 #endif
 
-#include "6photons_num.hh"
+#include "4photons_num.hh"
 using namespace ninja;
 
 
 namespace {
 
   struct ThreadData {
+    Complex mass;
     const char * helicities;
     const RealMomentum * momenta;
-    Amplitude<Massless> * amp;
+    Amplitude<ComplexMasses> * amp;
     Complex result;
   };
 
@@ -46,35 +47,36 @@ namespace {
     ThreadData * thread_data = static_cast<ThreadData *>(thread_data_in);
     const RealMomentum * k = thread_data->momenta;
     const char * helicities = thread_data->helicities;
-    Amplitude<Massless> & amp = *(thread_data->amp);
+    const Complex mass = thread_data->mass;
+    Amplitude<ComplexMasses> & amp = *(thread_data->amp);
     thread_data->result = 0;
 
     // here we do the same as in the non-threaded version, for one
     // phase space point
-    RealMomentum k_in[6];
-    char hel_in[6];
-    int permutation[6] = {0,1,2,3,4,5};
-    SixPhotons diagram;
+    RealMomentum k_in[4];
+    char hel_in[4];
+    int permutation[4] = {0,1,2,3};
+    FourPhotons diagram;
 
     amp.reset();
     amp.setSMatrix(diagram.getSMatrix());
 
     do {
 
-      if (permutation[1]>permutation[5])
+      if (permutation[1]>permutation[3])
         continue;
     
-      for (int i=0; i<6; ++i) {
+      for (int i=0; i<4; ++i) {
         k_in[i] = k[permutation[i]];
         hel_in[i] = helicities[permutation[i]];
       }
 
-      diagram.init(k_in,hel_in);
+      diagram.init(k_in,mass,hel_in);
       amp.setKinematics(diagram.getInternalMomenta());
+      amp.setInternalMasses(diagram.getInternalMasses());
       amp.evaluate(diagram);
-      amp.onlyCutConstructible();
 
-    } while (std::next_permutation(permutation+1,permutation+6));
+    } while (std::next_permutation(permutation+1,permutation+4));
 
     thread_data->result = amp[0];
 
@@ -88,7 +90,10 @@ int main()
 {
   const int N_THREADS = 4;
   const int EVENTS_PER_THREAD = 100;
-  const Real CM_ENERGY = 100;
+  const Real CM_ENERGY = 14;
+
+  // fermion mass, with width
+  Complex mass = Complex(10)-I;
 
   // either use a thread-safe integral library per thread
 #ifdef NINJA_USE_ONELOOP
@@ -106,21 +111,20 @@ int main()
 
   // thread data: kinematics and helicities
   ThreadData thread_data[N_THREADS];
-  const char helicities[] = "+--++-";
-  RealMomentum k[N_THREADS][6];
+  const char helicities[] = "++++";
+  RealMomentum k[N_THREADS][4];
 
   // phase space generation
-  Rambo gen(CM_ENERGY*CM_ENERGY,6);
-  gen.setSeed(125);
+  Rambo gen(CM_ENERGY*CM_ENERGY,4);
 
   // print the banner and avoid race conditions
   printBanner();
 
   // initialize N_THREADS amplitude objects
-  Amplitude<Massless> amp[N_THREADS];
+  Amplitude<ComplexMasses> amp[N_THREADS];
 
   for (int it=0; it<N_THREADS; ++it) {
-    amp[it].setN(6).setRank(6).setCutStop(3);
+    amp[it].setN(4).setRank(4);
 #ifdef NINJA_USE_ONELOOP
     amp[it].setIntegralLibrary(my_integral_lib[it]);
 #endif
@@ -140,9 +144,10 @@ int main()
     for (int it=0; it<N_THREADS; ++it) {
 
       gen.getMomenta(k[it]);
-      for (int i=2; i<6; ++i)
+      for (int i=2; i<4; ++i)
         k[it][i] *= -1;
 
+      thread_data[it].mass = mass;
       thread_data[it].momenta = k[it];
       thread_data[it].helicities = helicities;
       thread_data[it].amp = & amp[it];
@@ -175,7 +180,8 @@ int main()
 
   // print the result of the last computed p.s.p.
   std::cout << "Finite part:  "
-            << thread_data[N_THREADS-1].result
+            << thread_data[N_THREADS-1].result << std::endl
+            << "Abs. val.:   " << abs(thread_data[N_THREADS-1].result)
             << std::endl;
 
 }
