@@ -34,8 +34,10 @@ AC_DEFINE([NINJA_CONFIG_H_INTERNAL],
 # compiled
 AC_ARG_WITH([avholo],
     AS_HELP_STRING([--with-avholo@<:@=FLAGS@:>@],
-    [Include an interface with AvH's OneLoop integral library,\
-    specifying the corresponding flags for the linker.]),
+    [include an interface with the OneLoop integral library,\
+    specifying the corresponding flags for dynamic linking \
+    (if the Fortran module 'avh_olo' is not in a standard path, \
+    you should add its directory to the FCINCLUDE variable)]),
     [],
     [with_avholo=no])
 AS_IF([test "x$with_avholo" == xyes],
@@ -57,7 +59,7 @@ AM_CONDITIONAL(AVHOLO, test "x$avholo" == xtrue)
 # should be used
 AC_ARG_ENABLE([avholo_cache],
     AS_HELP_STRING([--disable-avholo_cache],
-    [Do not include a cache of Master Integrals for OneLoop.]))
+    [do not include a cache of Master Integrals for OneLoop]))
 AS_IF([test "x$enable_avholo_cache" != xno],
       [AC_DEFINE([NINJA_USE_ONELOOP_WITH_CACHE], [1],
       [Define to 1 if a cache of Master Integrals is implemented for OneLoop.])
@@ -68,11 +70,11 @@ AS_IF([test "x$enable_avholo_cache" != xno],
 # compiled
 AC_ARG_WITH([looptools],
    AS_HELP_STRING([--with-looptools@<:@=FLAGS@:>@],
-                  [Include an interface with the LoopTools library, \
-                  specifying the corresponding flags for the linker. \
-                  If the header file cloopttols.h is not in a global \
-                  include path, one should add its path to the \
-                  CPPFLAGS when using this option.]),
+                  [include an interface with the LoopTools library, \
+                  specifying the corresponding flags for static linking. \
+                  (if the header file cloopttols.h is not in a standard \
+                  path, you should add its directory to the \
+                  CPPFLAGS variable)]),
                   [],
                   [with_looptools=no])
 AS_IF([test "x$with_looptools" == xyes],
@@ -95,7 +97,7 @@ AC_DEFINE([NINJA_MASSLESS], [1],
 # Choose whether to include higher-rank support
 AC_ARG_ENABLE([higher_rank],
     AS_HELP_STRING([--enable-higher_rank],
-                   [Enable support for higher-rank numerators.]))
+                   [enable support for higher-rank numerators]))
 AS_IF([test "x$enable_higher_rank" != xyes],[],
       [AC_DEFINE([NINJA_X1RANK], [1],
       [Define to 1 if higher-rank support is enabled.])])
@@ -103,8 +105,8 @@ AS_IF([test "x$enable_higher_rank" != xyes],[],
 # Choose whether to compile in quadruple precision
 AC_ARG_WITH([quadruple],
     AS_HELP_STRING([--with-quadruple@<:@=FLAGS@:>@],
-    [Compile the library in quadruple precision (requires GCC libquadmath), \
-    specifying the corresponding flags for the linker.]),
+    [compile the library in quadruple precision (requires GCC libquadmath), \
+    specifying the corresponding flags for the linker]),
     [],
     [with_quadruple=no])
 AS_IF([test "x$with_quadruple" == xyes],
@@ -122,14 +124,14 @@ AM_CONDITIONAL(QUADRUPLE, test "x$quadruple" == xtrue)
 
 # Choose whether compiling interfaces: gosam
 AC_ARG_ENABLE([gosam],
-    AS_HELP_STRING([--disable-gosam], [Do not include GoSam interface.]))
+    AS_HELP_STRING([--disable-gosam], [do not include GoSam interface]))
 AS_IF([test "x$enable_gosam" != xno], [gosam=true],
  [gosam=false]
   )
 AM_CONDITIONAL(GOSAM, test "x$gosam" == xtrue)
 AM_CONDITIONAL(NINJAGOSAMCONTRIB, false)
 
-AC_ARG_VAR([FCINCLUDE],[Additional Fortran include flags, e.g. \
+AC_ARG_VAR([FCINCLUDE],[additional Fortran include flags, e.g. \
                         -I<include dir> if you have fortran modules \
                         installed in a nonstandard directory <include dir>])
 

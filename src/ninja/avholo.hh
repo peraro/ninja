@@ -99,6 +99,10 @@ namespace ninja {
     virtual void getTadpoleIntegralRM(Complex rslt[3], Real m0);
     virtual void getTadpoleIntegralCM(Complex rslt[3], const Complex & m0);
 
+
+    // destructor
+    virtual ~AvHOneLoop();
+
   private:
     IntegralCache * cache_;
     Real mur_, mur2_;

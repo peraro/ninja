@@ -52,6 +52,11 @@ namespace ninja {
     }
   }
 
+  AvHOneLoop::~AvHOneLoop()
+  {
+    freeIntegralCache();
+  }
+
   void
   AvHOneLoop::getBubbleIntegralCM(Complex result[3],
                                   Real p1,
@@ -398,6 +403,9 @@ namespace ninja {
 
   void AvHOneLoop::clearIntegralCache()
   {
+    if (!cache_)
+      return;
+
     if (!cache_->ht_4cm.empty())
       cache_->ht_4cm.clear();
     if (!cache_->ht_3cm.empty())
@@ -427,6 +435,10 @@ namespace ninja {
 
   void AvHOneLoop::freeIntegralCache()
   {
+#if 0 // not needed, we delete the pointer (which calls the destructor)
+    if (!cache_)
+      return;
+
     if (!cache_->ht_4cm.empty())
       cache_->ht_4cm.free();
     if (!cache_->ht_3cm.empty())
@@ -451,8 +463,10 @@ namespace ninja {
       cache_->ht_3nm.free();
     if (!cache_->ht_2nm.empty())
       cache_->ht_2nm.free();
+#endif
 
     delete cache_;
+    cache_ = 0;
   }
 
 } // namespace ninja

@@ -39,15 +39,12 @@ int main()
 
   // define the internal momenta of the loop
   num.init(k);
-  //num.printAbbr();
 
   // create an amplitude object
   ninja::Amplitude<RealMasses> amp(N_LEGS,RANK,
                                    num.getInternalMomenta(),
                                    num.getInternalMasses());
   amp.setRenormalizationScale(mT*mT);
-  setTest(Test::GLOBAL);
-  setVerbosity(Verbose::ALL);
 
   // evaluate the integral
   amp.evaluate(num);

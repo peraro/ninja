@@ -23,29 +23,51 @@ Ninja can be compiled and installed with the commands
     make
     make install
 
+
 In order to compile and link the built-in interface to the OneLoop
 library use --with-avholo[=FLAGS] during configuration e.g.
 
-    ./configure --with-avholo='-L/path/to/avh_olo -lavh_olo'
+    ./configure --with-avholo
     make
     make install
 
+if OneLoop is installed in a standard directory, or
+
+    ./configure --with-avholo='-L/path/to/avh_olo/lib -lavh_olo' \
+        FCINCLUDE=-I/path/to/avh_olo/include
+    make
+    make install
+
+if it is installed in /path/to/avh_olo/lib and the corresponding
+Fortran90 module avh_olo is installed in /path/to/avh_olo/include.
+
 NOTE: The OneLoop library can be obtained at
-      http://helac-phegas.web.cern.ch/helac-phegas/OneLOop.html.
-      Recent versions of OneLoop should be compiled setting "TLEVEL =
-      yes" in their "Config" file.
+      http://helac-phegas.web.cern.ch/helac-phegas/OneLOop.html.  You
+      should compile it as a dynamic library (see the file README of
+      OneLoop for instructions).
+
 
 In order to compile the built-in interface to the LoopTools library
 use --with-looptools[=FLAGS] during configuration e.g.
 
-    ./configure --with-looptools='-L/path/to/looptools -looptools'
+    ./configure \
+        --with-looptools='fldflags -L/path/to/looptools/lib -looptools' \
+        CPPFLAGS=-I/path/to/looptools/include
     make
     make install
+
+where /path/to/looptools/ is the directory where LooTools is installed
+and 'fldflags' stands for the additional flags the library requires
+for static linking (you can find them e.g. in the file bin/fcc in the
+main installation directory of LoopTools).  You can omit the FLAGS
+argument of --with-looptools if you do not wish to compile the
+examples.
 
 NOTE: Ninja requires LoopTools-2.9 or later.  The LoopTools library
       can be obtained at http://www.feynarts.de/looptools.  Since
       LoopTools is a static library, you will also need to link your
       executables with it.
+
 
 For a full list of available options type
 
@@ -55,9 +77,10 @@ See the file INSTALL for more information about the installation
 procedure.
 
 If you specified the --prefix option for the configure scrip, you
-should also add the path where the library is installed to your
+should also add the directory where the library is installed to your
 LD_LIBRARY_PATH environment variable, if not already present.  This is
-typically a sub-directory lib/ or lib64/ of the one you specified.
+typically a sub-directory lib/ or lib64/ of the one you specified with
+--prefix.
 
 
 

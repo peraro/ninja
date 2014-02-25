@@ -13,7 +13,7 @@ module ninjago_module
 
   ! subroutines
   public :: ninja_diagram, ninja_diagram_rm, ninja_diagram_cm, ninja_diagram_nm
-  public :: ninja_clear_integral_cache
+  public :: ninja_clear_integral_cache, ninja_free_integral_cache
   public :: ninja_set_test, ninja_set_test_tolerance
   public :: ninja_set_verbosity, ninja_set_output_precision
   public :: ninja_set_integral_library
@@ -307,6 +307,16 @@ module ninjago_module
      subroutine ninja_clear_integral_cache() &
           & bind (c,name='ninjago_clear_integral_cache')
      end subroutine ninja_clear_integral_cache
+  end interface
+
+  ! This completely frees the memory allocated by the internal cache
+  ! of Master Integrals in the Ninja interface of OneLoop (note: you
+  ! usually don't want to call this, call ninja_clear_integral_cache()
+  ! instead, unless you're not computing integrals anymore).
+  interface
+     subroutine ninja_free_integral_cache() &
+          & bind (c,name='ninjago_free_integral_cache')
+     end subroutine ninja_free_integral_cache
   end interface
 
   interface

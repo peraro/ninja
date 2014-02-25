@@ -51,12 +51,6 @@ public:
     return pi;
   }
 
-  void printAbbr()
-  {
-    for (int i=1; i<159; ++i)
-      std::cout << globabbr(i) << std::endl;
-  }
-
   static ninja::Real mH;
   static ninja::Real mT;
 
