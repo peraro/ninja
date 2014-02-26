@@ -44,6 +44,7 @@ int main()
   ninja::Amplitude<RealMasses> amp(N_LEGS,RANK,
                                    num.getInternalMomenta(),
                                    num.getInternalMasses());
+  amp.setSMatrix(num.getSMatrix());
   amp.setRenormalizationScale(mT*mT);
 
   // evaluate the integral

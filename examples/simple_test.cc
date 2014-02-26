@@ -70,9 +70,6 @@ int main()
 
 #endif
 
-  //setTest(Test::GLOBAL);
-  //setVerbosity(Verbose::ALL);
-
   // evaluate the integral
   amp.evaluate(num);
 

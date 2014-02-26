@@ -12,6 +12,11 @@ It is based on:
     Laurent series expansion,"
     JHEP 1206 (2012) 095  [arXiv:1203.0291 [hep-ph]].
 
+    T. Peraro,
+    "Ninja: Automated Integrand Reduction via Laurent Expansion for
+    One-Loop Amplitudes,"
+    arXiv:xxxx.xxxx [hep-ph]
+
 
 
 Installing Ninja

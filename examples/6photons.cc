@@ -74,7 +74,6 @@ int main()
   // We stop the reduction at the triangles
   Amplitude<Massless> amp;
   amp.setN(6).setRank(6).setCutStop(3);
-  amp.setSMatrix(diagram.getSMatrix());
 
   for (int i=0; i<N_EVENTS; ++i) {
 
@@ -106,6 +105,7 @@ int main()
       // compute the diagram (and discard rational part)
       diagram.init(k_in,hel_in);
       amp.setKinematics(diagram.getInternalMomenta());
+      amp.setSMatrix(diagram.getSMatrix());
       amp.evaluate(diagram);
       amp.onlyCutConstructible();
 

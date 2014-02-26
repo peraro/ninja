@@ -57,7 +57,6 @@ namespace {
     SixPhotons diagram;
 
     amp.reset();
-    amp.setSMatrix(diagram.getSMatrix());
 
     do {
 
@@ -71,6 +70,7 @@ namespace {
 
       diagram.init(k_in,hel_in);
       amp.setKinematics(diagram.getInternalMomenta());
+      amp.setSMatrix(diagram.getSMatrix());
       amp.evaluate(diagram);
       amp.onlyCutConstructible();
 

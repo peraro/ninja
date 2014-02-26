@@ -36,7 +36,6 @@ int main()
   Amplitude<ComplexMasses> amp(4,4,
                                diagram.getInternalMomenta(),
                                diagram.getInternalMasses());
-  amp.setSMatrix(diagram.getSMatrix());
 
   for (int i=0; i<N_EVENTS; ++i) {
 
@@ -62,6 +61,7 @@ int main()
 
     // evaluate 1st diagram
     diagram.init(k,mass,helicities);
+    amp.setSMatrix(diagram.getSMatrix());
     amp.evaluate(diagram);
 
     // other diagrams are just permutations of the first
@@ -69,12 +69,14 @@ int main()
     // 2nd diagram
     std::swap(k[0],k[1]);
     diagram.init(k,mass,helicities);
+    amp.setSMatrix(diagram.getSMatrix());
     amp.evaluate(diagram);
 
     // 3rd diagram
     //std::swap(k[0],k[1]);
     std::swap(k[0],k[3]);
     diagram.init(k,mass,helicities);
+    amp.setSMatrix(diagram.getSMatrix());
     amp.evaluate(diagram);
 
 #ifdef NINJA_USE_LOOPTOOLS

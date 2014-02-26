@@ -59,7 +59,6 @@ namespace {
     FourPhotons diagram;
 
     amp.reset();
-    amp.setSMatrix(diagram.getSMatrix());
 
     do {
 
@@ -74,6 +73,7 @@ namespace {
       diagram.init(k_in,mass,hel_in);
       amp.setKinematics(diagram.getInternalMomenta());
       amp.setInternalMasses(diagram.getInternalMasses());
+      amp.setSMatrix(diagram.getSMatrix());
       amp.evaluate(diagram);
 
     } while (std::next_permutation(permutation+1,permutation+4));

@@ -160,31 +160,7 @@ void TTbarHDiagram::init(const ninja::RealMomentum k[])
   // S-matrix
   if (s_mat.isNull())
     s_mat.allocate(5);
-  s_mat(1-1,1-1) = Real(0);
-  s_mat(1-1,2-1) = Real(0);
-  s_mat(2-1,1-1) = s_mat(1-1,2-1);
-  s_mat(1-1,3-1) = Real(es12+mHq-es34+mTq-es45);
-  s_mat(3-1,1-1) = s_mat(1-1,3-1);
-  s_mat(1-1,4-1) = Real(es12);
-  s_mat(4-1,1-1) = s_mat(1-1,4-1);
-  s_mat(1-1,5-1) = Real(0);
-  s_mat(5-1,1-1) = s_mat(1-1,5-1);
-  s_mat(2-1,2-1) = Real(-Real(2)*mTq);
-  s_mat(2-1,3-1) = Real(mHq-Real(2)*mTq);
-  s_mat(3-1,2-1) = s_mat(2-1,3-1);
-  s_mat(2-1,4-1) = Real(es34-mTq);
-  s_mat(4-1,2-1) = s_mat(2-1,4-1);
-  s_mat(2-1,5-1) = Real(es51-mTq);
-  s_mat(5-1,2-1) = s_mat(2-1,5-1);
-  s_mat(3-1,3-1) = Real(-Real(2)*mTq);
-  s_mat(3-1,4-1) = Real(0);
-  s_mat(4-1,3-1) = s_mat(3-1,4-1);
-  s_mat(3-1,5-1) = Real(mHq-es23+es51-es34);
-  s_mat(5-1,3-1) = s_mat(3-1,5-1);
-  s_mat(4-1,4-1) = Real(0);
-  s_mat(4-1,5-1) = Real(0);
-  s_mat(5-1,4-1) = s_mat(4-1,5-1);
-  s_mat(5-1,5-1) = Real(0);
+  s_mat.fillFromKinematics(pi,1.0e-8);
 
   init_global_abbreviations_();
 

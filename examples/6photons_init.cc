@@ -16,12 +16,6 @@ void SixPhotons::init(const ninja::RealMomentum k[],
   p3 = p2+k[2];
   p4 = p3+k[3];
 
-  // SMatrix
-  const Real ir_threshold = 1.0e-07;
-  if (s_mat_.isNull())
-    s_mat_.allocate(6);
-  s_mat_.fillFromKinematics(k,ir_threshold);
-
   // internal momenta of the loop
   pi_[0] = RealMomentum();
   pi_[1] = k1;
@@ -29,6 +23,12 @@ void SixPhotons::init(const ninja::RealMomentum k[],
   pi_[3] = p3;
   pi_[4] = p4;
   pi_[5] = -k6;
+
+  // SMatrix
+  const Real ir_threshold = 1.0e-10;
+  if (s_mat_.isNull())
+    s_mat_.allocate(6);
+  s_mat_.fillFromKinematics(pi_,ir_threshold);
 
   // spinors for external momenta
   Spinor spk[6];
