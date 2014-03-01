@@ -21,8 +21,14 @@ ttbarh_SOURCES = ttbarh.cc ttbarh_num.cc ttbarh_init.cc
 noinst_HEADERS = mynum.hh mynumhr.hh 4photons_num.hh 6photons_num.hh \
 	ttbarh_num.hh
 
+if EXNINJASTATIC
+LIBNINJA = $(libdir)/libninja.a
+else
+LIBNINJA = -L$(libdir) -lninja
+endif
+
 OTHEREXAMPLESCPPFLAGS = -I$(includedir)
-OTHEREXAMPLESLDADD = -L$(libdir) -lninja  $(LTFLAGS)  $(QUADRUPLEFLAGS)
+OTHEREXAMPLESLDADD = $(LIBNINJA)  $(AVHFLAGS)  $(LTFLAGS)  $(QUADRUPLEFLAGS)
 
 simple_test_LDADD = $(OTHEREXAMPLESLDADD)
 simple_test_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)

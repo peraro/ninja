@@ -89,6 +89,12 @@ AS_IF([test "x$with_looptools" == xyes],
         ],
         [looptools=false])
 AM_CONDITIONAL(LOOPTOOLS, test "x$looptools" == xtrue)
+AS_IF([test "x$looptools" == xtrue],
+    [[case $host_os in
+      darwin*)
+         exninjastatic=true
+    esac]])
+AM_CONDITIONAL(EXNINJASTATIC, test "x$exninjastatic" == xtrue)
 
 # Always enable massless specialization
 AC_DEFINE([NINJA_MASSLESS], [1],
