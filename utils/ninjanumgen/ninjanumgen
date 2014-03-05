@@ -38,7 +38,7 @@ def main(args):
     try:
         exp.writeSource()
     except:
-        sys.stderr.write('ERROR IN NINJANUMGEN: Failed to write the source!\n')
+        sys.exit('ERROR IN NINJANUMGEN: Failed to write the source!')
 
 
 if __name__ == "__main__":

@@ -69,9 +69,7 @@ argument of --with-looptools if you do not wish to compile the
 examples.
 
 NOTE: Ninja requires LoopTools-2.9 or later.  The LoopTools library
-      can be obtained at http://www.feynarts.de/looptools.  Since
-      LoopTools is a static library, you will also need to link your
-      executables with it.
+      can be obtained at http://www.feynarts.de/looptools.
 
 
 For a full list of available options type
@@ -83,9 +81,9 @@ procedure.
 
 If you specified the --prefix option for the configure scrip, you
 should also add the directory where the library is installed to your
-LD_LIBRARY_PATH environment variable, if not already present.  This is
-typically a sub-directory lib/ or lib64/ of the one you specified with
---prefix.
+LD_LIBRARY_PATH (and DYLD_LIBRARY_PATH on Mac OS) environment
+variable, if not already present.  This is typically a sub-directory
+lib/ or lib64/ of the one you specified with --prefix.
 
 
 
