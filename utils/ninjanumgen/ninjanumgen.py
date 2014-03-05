@@ -155,6 +155,8 @@ class CPPFormatter(object):
                     in_arg = True
                     old_out = self._out
                     self._out = argbuffer
+                else:
+                    self._out.write('(')
                 balanced_pars += 1
             elif token == ')':
                 balanced_pars -= 1
@@ -174,6 +176,8 @@ class CPPFormatter(object):
                                         .format(-exp,argument))
                     exp = ''
                     return
+                else:
+                    self._out.write(')')
             elif (balanced_pars == 1) and (token == ','):
                 in_exp = True
             elif in_exp:

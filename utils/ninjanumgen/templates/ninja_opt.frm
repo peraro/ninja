@@ -4,7 +4,7 @@ S ninjaMu2;
 V ninjaQ;
 CF ninjaMP;
 S ninjaT, ninjaTi, ninjaX;
-S ninjaP, ninjaP0, ninjaP1, ninjaP2;
+S ninjaP, ninjaP0, ninjaP1, ninjaP2, NINJAZERO;
 V ninjaA, ninjaA0, ninjaA1, ninjaE3, ninjaE4; 
 #ifdef `LOOPPREFIX'
 auto V ninjaAl, ninjaA0l, ninjaA1l; 
@@ -20,14 +20,15 @@ multiply, replace_(`QVAR',ninjaQ,`MU2VAR',ninjaMu2);
 id ninjaA0?.ninjaA1? = ninjaMP(ninjaA0,ninjaA1);
 .sort
 ExtraSymbols,vector,ninjanumabbr;
-Format `LANGUAGE', O`OPTIMIZATIONLEVEL',nospaces,stats=off;
+*Format O`OPTIMIZATIONLEVEL';
+Format `LANGUAGE',nospaces,stats=off;
 #optimize `DIAGNAME';
 .sort
 
 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        NinjaAbbrType ninjanumabbr[`optimmaxvar_'];";
 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "%O";
 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "      ninja_result = ";
-#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "          %e",`DIAGNAME'(ninja_result);
+#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "          %e ;",`DIAGNAME'(ninja_result);
 
 #else
 * Optimize Laurent expansion
@@ -43,7 +44,8 @@ Bracket ninjaT, ninjaX, ninjaMu2;
 
 ExtraSymbols,vector,ninjanumabbr;
 Keep Brackets;
-Format `LANGUAGE', O`OPTIMIZATIONLEVEL',nospaces,stats=off;
+Format O`OPTIMIZATIONLEVEL';
+Format `LANGUAGE',nospaces,stats=off;
 #optimize ninjaDiag`EXPANSIONID';
 Bracket ninjaT, ninjaX, ninjaMu2;
 .sort
@@ -64,7 +66,7 @@ Bracket ninjaT, ninjaX, ninjaMu2;
 #do tpow={3+`DIAGRANK'-`DIAGN'},2,-1
  #do mupow=0,{3+`DIAGRANK'-`DIAGN'}-`tpow',2
 	 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "      ninjaC[ninjaidxt`tpow'mu`mupow'] = ";
-	 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e",ninjaDiagt`tpow'mu`mupow'(ninjaC[ninjaidxt`tpow'mu`mupow']);
+	 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e ;",ninjaDiagt`tpow'mu`mupow'(ninjaC[ninjaidxt`tpow'mu`mupow']);
  #enddo
 #enddo
 
@@ -84,7 +86,7 @@ Bracket ninjaT, ninjaX, ninjaMu2;
 #do tpow=1,0,-1
 	#do mupow=0,{3+`DIAGRANK'-`DIAGN'}-`tpow',2
 	 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "      ninjaC[ninjaidxt`tpow'mu`mupow'] = ";
-	 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e",ninjaDiagt`tpow'mu`mupow'(ninjaC[ninjaidxt`tpow'mu`mupow']);
+	 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e ;",ninjaDiagt`tpow'mu`mupow'(ninjaC[ninjaidxt`tpow'mu`mupow']);
 	#enddo
 #enddo
 
@@ -107,7 +109,7 @@ Bracket ninjaT, ninjaX, ninjaMu2;
 	#do xpow=0,{2+`DIAGRANK'-`DIAGN'}-`tpow'
 		#do mupow=0,{2+`DIAGRANK'-`DIAGN'}-`tpow'-`xpow',2
 			#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "      ninjaC[ninjaidxt`tpow'x`xpow'mu`mupow'] = ";
-			#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e",ninjaDiagt`tpow'x`xpow'mu`mupow'(ninjaC[ninjaidxt`tpow'x`xpow'mu`mupow']);
+			#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e ;",ninjaDiagt`tpow'x`xpow'mu`mupow'(ninjaC[ninjaidxt`tpow'x`xpow'mu`mupow']);
 		#enddo
 	#enddo
 #enddo
@@ -131,7 +133,7 @@ Bracket ninjaT, ninjaX, ninjaMu2;
 	#do xpow=0,{2+`DIAGRANK'-`DIAGN'}-`tpow'
 		#do mupow=0,{2+`DIAGRANK'-`DIAGN'}-`tpow'-`xpow',2
 			#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "      ninjaC[ninjaidxt`tpow'x`xpow'mu`mupow'] = ";
-			#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e",ninjaDiagt`tpow'x`xpow'mu`mupow'(ninjaC[ninjaidxt`tpow'x`xpow'mu`mupow']);
+			#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e ;",ninjaDiagt`tpow'x`xpow'mu`mupow'(ninjaC[ninjaidxt`tpow'x`xpow'mu`mupow']);
 		#enddo
 	#enddo
 #enddo
@@ -149,7 +151,7 @@ Bracket ninjaT, ninjaX, ninjaMu2;
 #write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "%O";
 #do tpow=`DIAGRANK'-`DIAGN',0,-1
 	#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "      ninjaC[ninjaidxt`tpow'] = ";
-	#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e",ninjaDiagt`tpow'(ninjaC[ninjaidxt`tpow']);
+	#write <`TEMPPREFIX'ninja_opt`EXPANSIONID'.out> "        %e ;",ninjaDiagt`tpow'(ninjaC[ninjaidxt`tpow']);
 #enddo
 
 #endif

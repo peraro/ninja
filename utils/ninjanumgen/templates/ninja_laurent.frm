@@ -64,12 +64,12 @@ L ninjaDiag32 = ninjaDiag3[ninjaT^1]*ninjaT^1 + ninjaDiag3[ninjaT^0];
 .sort
 
 #write <`OUTFILE'> "*--#[ ninjaDiag31:"
-#write <`OUTFILE'> "L ninjaDiag31 = %e", ninjaDiag31;
+#write <`OUTFILE'> "L ninjaDiag31 = %E + NINJAZERO ;", ninjaDiag31;
 #write <`OUTFILE'> "*--#] ninjaDiag31:"
 
 #if `DIAGN' >= 3
 #write <`OUTFILE'> "*--#[ ninjaDiag32:"
-#write <`OUTFILE'> "L ninjaDiag32 = %e", ninjaDiag32;
+#write <`OUTFILE'> "L ninjaDiag32 = %E + NINJAZERO ;", ninjaDiag32;
 #write <`OUTFILE'> "*--#] ninjaDiag32:"
 #endif
 
@@ -108,11 +108,11 @@ L ninjaDiag22 = ninjaDiag2[ninjaT^0];
 .sort
 
 #write <`OUTFILE'> "*--#[ ninjaDiag21:"
-#write <`OUTFILE'> "L ninjaDiag21 = %e", ninjaDiag21;
+#write <`OUTFILE'> "L ninjaDiag21 = %E + NINJAZERO ;", ninjaDiag21;
 #write <`OUTFILE'> "*--#] ninjaDiag21:"
 
 #write <`OUTFILE'> "*--#[ ninjaDiag22:"
-#write <`OUTFILE'> "L ninjaDiag22 = %e", ninjaDiag22;
+#write <`OUTFILE'> "L ninjaDiag22 = %E + NINJAZERO ;", ninjaDiag22;
 #write <`OUTFILE'> "*--#] ninjaDiag22:"
 
 .sort
@@ -145,7 +145,7 @@ id ninjaTi = 0;
 .sort
 
 #write <`OUTFILE'> "*--#[ ninjaDiagMu2:"
-#write <`OUTFILE'> "L ninjaDiagMu2 = %e", ninjaDiagMu2;
+#write <`OUTFILE'> "L ninjaDiagMu2 = %E + NINJAZERO ;", ninjaDiagMu2;
 #write <`OUTFILE'> "*--#] ninjaDiagMu2:"
 
 #endif
