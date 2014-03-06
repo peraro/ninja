@@ -20,7 +20,7 @@ multiply, replace_(`QVAR',ninjaQ,`MU2VAR',ninjaMu2);
 id ninjaA0?.ninjaA1? = ninjaMP(ninjaA0,ninjaA1);
 .sort
 ExtraSymbols,vector,ninjanumabbr;
-*Format O`OPTIMIZATIONLEVEL';
+Format O`OPTIMIZATIONLEVEL';
 Format `LANGUAGE',nospaces,stats=off;
 #optimize `DIAGNAME';
 .sort
