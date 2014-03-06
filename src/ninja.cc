@@ -53,7 +53,7 @@ namespace ninja {
       "  |      T. Peraro,                                                |\n"
       "  |      \"Ninja: Automated Integrand Reduction via Laurent         |\n"
       "  |      Expansion for One-Loop Amplitudes,\"                       |\n"
-      "  |      arXiv:xxxx.xxxx [hep-ph]                                  |\n"
+      "  |      arXiv:1403.1229 [hep-ph]                                  |\n"
       "  |                                                                |\n"
       "  +----------------------------------------------------------------+\n";
   }

@@ -16,7 +16,7 @@ syntax: glob
 .libs
 .dirstamp
 autom4te.cache
-COPYING
+#COPYING
 INSTALL
 Makefile
 Makefile.in
