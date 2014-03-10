@@ -418,7 +418,7 @@ namespace ninja {
 
     if (Options::verb) {
       (*Options::out) << endl;
-      if (Verbose::RESULT) {
+      if (Options::verb & Verbose::RESULT) {
         (*Options::out) << "Partial Result:" << endl;
         (*Options::out) << "eps^0  =" << result_temp[0] << endl;
         (*Options::out) << "eps^-1 =" << result_temp[1] << endl;
