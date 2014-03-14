@@ -72,7 +72,7 @@ namespace ninja {
     ///////////////////
   
     // create Pentagons
-    tests = global_test;
+    tests = Options::test;
     bool anyPentagon = (n >= 5) && (min_cut <= 5)
       && (tests || (Options::verb & Verbose::C5) || !use_mu_exp);
     int n5cuts = anyPentagon ? combinations5(n) : 0;

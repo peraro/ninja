@@ -86,6 +86,17 @@ variable, if not already present.  This is typically a sub-directory
 lib/ or lib64/ of the one you specified with --prefix.
 
 
+The examples which come with the distribution can be compiled, after
+installation, using the command
+    
+    make examples
+
+either in the top directory or in the examples/ directory.  Examples
+using POSIX threads can be compiled (if supported) with
+
+    make thread-examples
+
+
 
 Installing the package NinjaNumGen
 ----------------------------------
