@@ -2,6 +2,7 @@ SUBDIRS = src examples
 ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = configure.ac \
+	PACKAGE_DESCRIPTION \
 	utils/setup.py \
 	utils/ninjanumgen/ninjanumgen \
 	utils/ninjanumgen/__init__.py \

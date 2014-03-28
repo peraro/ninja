@@ -18,6 +18,7 @@ syntax: glob
 autom4te.cache
 #COPYING
 INSTALL
+MANIFEST
 Makefile
 Makefile.in
 aclocal.m4

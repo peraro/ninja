@@ -18,6 +18,7 @@ auto V `LOOPPREFIX';
 
 multiply, replace_(`QVAR',ninjaQ,`MU2VAR',ninjaMu2);
 id ninjaA0?.ninjaA1? = ninjaMP(ninjaA0,ninjaA1);
+id 1/ninjaA0?.ninjaA1? = 1/ninjaMP(ninjaA0,ninjaA1);
 .sort
 ExtraSymbols,vector,ninjanumabbr;
 Format O`OPTIMIZATIONLEVEL';
@@ -39,6 +40,7 @@ Hide;
 
 #include `TEMPPREFIX'`EXPANSIONFILE' #ninjaDiag`EXPANSIONID'
 id ninjaA0?.ninjaA1? = ninjaMP(ninjaA0,ninjaA1);
+id 1/ninjaA0?.ninjaA1? = 1/ninjaMP(ninjaA0,ninjaA1);
 Bracket ninjaT, ninjaX, ninjaMu2;
 .sort
 
