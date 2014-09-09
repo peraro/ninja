@@ -6,7 +6,7 @@ libninja_la_SOURCES = basis.cc  cuts_utils.cc  ninja.cc  Xcuts.cc \
 	integral_library.cc avholo_interface.cc \
 	rambo.cc
 if AVHOLO
-libninja_la_SOURCES += avholo_wrapper.F90
+libninja_la_SOURCES += avholo_wrapper.F90 ninjavholo_wraps.cc ninjavholo.F90
 if NINJAGOSAMCONTRIB
 AM_FCFLAGS = -I$(top_builddir)/avh_olo-2.2.1
 else
@@ -39,6 +39,14 @@ nodist_pkginclude_HEADERS = ninjago_module.mod
 libninja_la_LIBADD += -L$(top_builddir)/avh_olo-2.2.1 -lavh_olo
 else
 nodist_library_include_HEADERS = ninjago_module.mod
+endif
+endif
+
+if AVHOLO
+if NINJAGOSAMCONTRIB
+nodist_pkginclude_HEADERS = ninjavholo.mod
+else
+nodist_library_include_HEADERS = ninjavholo.mod
 endif
 endif
 
