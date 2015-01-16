@@ -937,6 +937,9 @@ void Amplitude<MassType>::evaluateBubble(Numerator & num,
   const int rminusn = rank-n;
   const bool lin = rminusn >= -1;
   const bool quad = rminusn >= 0;
+  const bool spurious_terms_needed = (m2[cut1]!=ZERO) || (m2[cut2]!=ZERO)
+    || (Options::test & (Test::GLOBAL | Test::LOCAL_2 | Test::LOCAL_1))
+    || (Options::verb & (Verbose::C2 | Verbose::C1));
 
   // computing external momenta
   RealMomentum p[2] = {V[cut2]-V[cut1],
@@ -1040,10 +1043,11 @@ void Amplitude<MassType>::evaluateBubble(Numerator & num,
   b.c[19] = numexp[jext2x1]/e.mp34()/e.mp34()/e.mp12();
 #endif
 
-  if (lin) {
+  if (lin && spurious_terms_needed) {
 
-    // further expansions are needed only if linear terms are
-    // present
+    // further expansions are needed only if linear terms are present
+    // AND the spurious terms are needed (either as subtraction terms,
+    // for tests, or for printing)
 
     // swap e3 and e4 and repeat
 
