@@ -44,6 +44,13 @@ src/avholo_decls.hh
     extern "C" declarations of procedures defined in src/avholo_wrapper.F90
 src/avholo_interface.cc
     Implementation of the interface with the OneLoop library
+src/ninjavholo_wraps.cc
+    Implements a C wrapper of interface for the OneLoop integral
+    library, which can be exported in Fortran and Fortran-90.
+src/ninjavholo.F90
+    Fortran-90 module which allows to use the Ninja wrapper of the
+    OneLoop integral library (including the cache of Master
+    Integrals).
 src/basis.hh
     Internal header, defining a class Basis representing a basis of
     massless four-momenta
