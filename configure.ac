@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.68])
+AC_PREREQ([2.63])
 AC_INIT([Ninja], [1.0.0], [peraro@mppmu.mpg.de])
 AC_CONFIG_SRCDIR([src/ninja_implem.cxx])
 AC_CONFIG_HEADERS([config.h src/ninja/ninja_config.h])

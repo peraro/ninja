@@ -246,7 +246,7 @@ namespace ninja {
         Real k3 = vecs[i][1]*vecs[i][1] + vecs[i][2]*vecs[i][2]
           + vecs[i][3]*vecs[i][3];
 
-        s1 += k3;
+        s1 += std::sqrt(k3);
         s2 += k3/k0;
         p1 *= std::sqrt(k3)/k0;
       }
