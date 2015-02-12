@@ -2,6 +2,8 @@ syntax: glob
 
 *~
 \#*\#
+.*project
+.settings/*
 *.o
 *.la
 *.lo
