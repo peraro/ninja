@@ -64,7 +64,7 @@ namespace ninja {
       return data[i];
     }
 
-    // Acces to components with: p[0], p[1], p[2], p[3]
+    // Access to components with: p[0], p[1], p[2], p[3]
     Real operator[] (unsigned i) const
     {
       return data[i];
@@ -188,7 +188,7 @@ namespace ninja {
     ComplexMomentum(const RealMomentum & p)
       : data(p.data[0], p.data[1], p.data[2], p.data[3])  {}
 
-    // Acces to components with: p(0), p(1), p(2), p(3)
+    // Access to components with: p(0), p(1), p(2), p(3)
     const Complex operator() (unsigned i) const
     {
       return data[i];
@@ -198,7 +198,7 @@ namespace ninja {
       return data[i];
     }
 
-    // Acces to components with: p[0], p[1], p[2], p[3]
+    // Access to components with: p[0], p[1], p[2], p[3]
     const Complex operator[] (unsigned i) const
     {
       return data[i];

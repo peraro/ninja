@@ -25,7 +25,7 @@ namespace ninja {
 
     Rambo(Real energy, unsigned n, const Real masses[] = 0)
       : m_(masses), rnd_(detail::newRandomGenerator()),
-        s_(energy), n_(n)
+        s_(energy), n_(n), flag_(SUCCESS)
     {}
 
     ~Rambo()
