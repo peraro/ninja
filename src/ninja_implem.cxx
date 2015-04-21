@@ -9,11 +9,6 @@
 // higher-rank implementations.
 
 
-namespace {
-    const Real CUTSTOLL = 1.0e-9;
-}
-
-
 /////////////////
 // Denominator //
 /////////////////
@@ -254,7 +249,7 @@ void Amplitude<MassType>::evaluateBox(Numerator & num,
                        std::abs(s_mat(cut4,cut2))};
 
   Real scale_choice = *max_element(invariants,invariants + 10);
-  if (std::abs(scale_choice) < CUTSTOLL)
+  if (std::abs(scale_choice) < INFRARED_EPS)
     scale_choice = ONE;
 
   // Get basis and other relevant momenta
@@ -498,7 +493,7 @@ void Amplitude<MassType>::evaluateFullBox(Numerator & num,
                        std::abs(s_mat(cut4,cut2))};
 
   Real scale_choice = *max_element(invariants,invariants + 10);
-  if (std::abs(scale_choice) < CUTSTOLL)
+  if (std::abs(scale_choice) < INFRARED_EPS)
     scale_choice = ONE;
 
   // Get basis and other relevant momenta
@@ -909,7 +904,7 @@ void Amplitude<MassType>::evaluateBubbles(Numerator & num,
           && m2[cut1] == ZERO
           && m2[cut2] == ZERO
           && taxicab_norm(real(s_mat(cut2,cut1)))
-          < CUTSTOLL) {
+          < INFRARED_EPS) {
         ++this_cut;
         continue;
       }
@@ -2164,7 +2159,7 @@ int Amplitude<MassType>::local2NeqNtests(Numerator & num,
         && m2[CUT1] == ZERO
         && m2[CUT2] == ZERO
         && taxicab_norm(real(s_mat(CUT2,CUT1)))
-        < CUTSTOLL) {
+        < INFRARED_EPS) {
       continue;
     }
     

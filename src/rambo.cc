@@ -165,7 +165,11 @@ namespace ninja {
   Real Rambo::newton_(RealMomentum * vecs)
   {
     const int n_out = n_-2;
+#ifndef NINJA_QUADRUPLE
     const Real eps = Real(1.0e+3)*std::numeric_limits<Real>::epsilon();
+#else
+    const Real eps = Real(1.0e+3)*FLT128_EPSILON;
+#endif
 
     Real x = Real(0.5);
     Real sqs = std::sqrt(s_);

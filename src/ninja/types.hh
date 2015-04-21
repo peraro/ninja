@@ -44,9 +44,11 @@ namespace ninja {
 #ifndef NINJA_QUADRUPLE
   typedef double Real;
   typedef std::complex<Real> Complex;
+  const Real INFRARED_EPS = 1.0e-09;
 #else
   typedef ninja::Quadruple Real;
   typedef ninja::ComplexQuadruple Complex;
+  const Real INFRARED_EPS = 1.0e+07*FLT128_EPSILON;
 #endif
 
   // typedef for zero, real and complex masses

@@ -31,11 +31,6 @@ using namespace integral_library_wrapper;
 using namespace s_matrix_wrapper;
 
 
-namespace {
-  const Real CUTSTOLL = 1.0e-10;
-}
-
-
 namespace ninja {
 
 
@@ -269,7 +264,8 @@ namespace ninja {
           int i1 = (*i).p[0];
           int i2 = (*i).p[1];
           Real k = s_mat(i2,i1);
-          if ((m2[i1] == ZERO) && (m2[i2] == ZERO) && taxicab_norm(k)<CUTSTOLL)
+          if ((m2[i1] == ZERO) && (m2[i2] == ZERO)
+              && taxicab_norm(k)<INFRARED_EPS)
             continue;
           Complex b111[3];
           Complex b11[3], b1[3], b0[3];

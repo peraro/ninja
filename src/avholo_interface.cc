@@ -7,7 +7,7 @@
 namespace ninja {
 
   AvHOneLoop avh_olo;
-  Real AvHOneLoop::ir_threshold_ = 1.0e-10;
+  Real AvHOneLoop::ir_threshold_ = INFRARED_EPS;
   bool AvHOneLoop::initialized_ = false;
 
 }

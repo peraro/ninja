@@ -12,12 +12,12 @@ namespace ninja {
   
   Spinor::Spinor(const ComplexMomentum & p): ap(0.), ame(0.), bp(0.), bme(0.)
   {
-    if (taxicab_norm(p[0] + p[3]) < SPINOR_TOLLERANCE) {
-      if (taxicab_norm(p[1]+I*p[2]) < SPINOR_TOLLERANCE) {
+    if (taxicab_norm(p[0] + p[3]) < INFRARED_EPS) {
+      if (taxicab_norm(p[1]+I*p[2]) < INFRARED_EPS) {
         ame = TWO*p[0];
         bme = ONE;
         ap = TWO*p[1];
-      } else if (taxicab_norm(p[0]) < SPINOR_TOLLERANCE) {
+      } else if (taxicab_norm(p[0]) < INFRARED_EPS) {
         bp = ONE;
         ame = TWO*p[1];
       } else {
@@ -36,9 +36,9 @@ namespace ninja {
 
   Spinor::Spinor(const RealMomentum & p): ap(0.), ame(0.), bp(0.), bme(0.)
   {
-    if (taxicab_norm(p[0] - p[3]) < SPINOR_TOLLERANCE) {
+    if (taxicab_norm(p[0] - p[3]) < INFRARED_EPS) {
       ap = bp = (p[0] < 0. ? I*std::sqrt(-TWO*p[0]) : std::sqrt(TWO*p[0]));
-    } else if (taxicab_norm( p[0] + p[3]) < SPINOR_TOLLERANCE) {
+    } else if (taxicab_norm( p[0] + p[3]) < INFRARED_EPS) {
       ame = bme = (p[0] < 0. ? I*std::sqrt(-TWO*p[0]) : std::sqrt(TWO*p[0]));
     } else {
       // sqrt(p^+)

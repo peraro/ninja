@@ -85,11 +85,9 @@ namespace ninja {
 } // namespace ninja
 
 
-
-namespace {
-  const Real CUTSTOLL = 1.0e-10;
-  // typedef long double HigherPrecision;
-}
+// namespace {
+//   typedef long double HigherPrecision;
+// }
 
 
 namespace ninja {
@@ -356,7 +354,8 @@ namespace ninja {
           int i1 = (*i).p[0];
           int i2 = (*i).p[1];
           Real k = s_mat(i2,i1);
-          if ((m2[i1] == ZERO) && (m2[i2] == ZERO) && taxicab_norm(k)<CUTSTOLL)
+          if ((m2[i1] == ZERO) && (m2[i2] == ZERO)
+              && taxicab_norm(k)<INFRARED_EPS)
             continue;
           Complex b11[3], b1[3], b0[3];
           wrap_mis.getRank2BubbleIntegral(b11, b1, b0, k, m2[i1], m2[i2]);

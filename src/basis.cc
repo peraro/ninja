@@ -11,9 +11,6 @@
 #include <basis.hh>
 using namespace ninja;
 
-namespace {
-  const Real BASIS_ESPSILON = 1.e-9;
-}
 
 namespace ninja {
 
@@ -27,8 +24,8 @@ namespace ninja {
     : e1(k1), e2(k2), e3(), e4(), r1(0.), r2(0.), mpee12()
   {
     Real k1q = mp2(k1), k2q = mp2(k2), k1k2=mp(k1,k2);
-    bool k1n = std::abs(k1q) < BASIS_ESPSILON;
-    bool k2n = std::abs(k2q) < BASIS_ESPSILON;
+    bool k1n = std::abs(k1q) < INFRARED_EPS;
+    bool k2n = std::abs(k2q) < INFRARED_EPS;
     
     if (k1n && k2n) {
       mpee12 = k1k2;
@@ -64,7 +61,7 @@ namespace ninja {
     RealMomentum k2(  sign(ONE,k[0])     , -sign(INVSQRT3,k[1]),
                      -sign(INVSQRT3,k[2]), -sign(INVSQRT3,k[3])   );
     Real kq = mp2(k), k1k2=mp(k,k2);
-    bool kn = std::abs(kq) < BASIS_ESPSILON;
+    bool kn = std::abs(kq) < INFRARED_EPS;
     if (kn) {
       e2 = k2;
       mpee12 = k1k2;

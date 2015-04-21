@@ -8,6 +8,13 @@
 # define KI_NIN c_double
 #else
 # define KI_NIN c_float128
+# ifndef NINJA_GOSAM
+#  define AVH_ONSHELL_KIND(x) real(x,kind(1d0))
+# endif
+#endif
+
+#ifndef AVH_ONSHELL_KIND
+# define AVH_ONSHELL_KIND(x) x
 #endif
 
       subroutine ninjavholo_onshell(thrs)  bind (c)
@@ -15,7 +22,7 @@
       use avh_olo
       implicit none
       real(KI_NIN), intent(in) :: thrs
-      call olo_onshell(thrs)
+      call olo_onshell(AVH_ONSHELL_KIND(thrs))
       end subroutine
 
       subroutine ninjavholo_d0_cm(rslt,p1,p2,p3,p4,p12,p23,m1,m2,m3,m4,rmu) &
