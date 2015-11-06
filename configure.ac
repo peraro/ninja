@@ -137,6 +137,14 @@ AS_IF([test "x$enable_gosam" != xno], [gosam=true],
 AM_CONDITIONAL(GOSAM, test "x$gosam" == xtrue)
 AM_CONDITIONAL(NINJAGOSAMCONTRIB, false)
 
+# Choose whether compiling interfaces: f90 module
+AC_ARG_ENABLE([f90module],
+    AS_HELP_STRING([--disable-f90module], [do not include Fortran-90 interface]))
+AS_IF([test "x$enable_f90module" != xno], [f90module=true],
+ [f90module=false]
+  )
+AM_CONDITIONAL(F90MODULE, test "x$f90module" == xtrue)
+
 AC_ARG_VAR([FCINCLUDE],[additional Fortran include flags, e.g. \
                         -I<include dir> if you have fortran modules \
                         installed in a nonstandard directory <include dir>])

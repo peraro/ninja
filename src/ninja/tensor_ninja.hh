@@ -12,7 +12,12 @@ namespace ninja {
     enum {val = (R+1)*(R+2)*(R+3)*(R+4)/12 };
   };
   
-  
+
+  // This class represents a generic symmetric tensor numerator of n
+  // internal legs and rank r.  The numerator is defined by a
+  // unidimensional array of coefficients, which must follow the
+  // convention of the representation of Eq. (C.15) in
+  // http://arxiv.org/abs/1405.0301, and is passed to the constructor.
   class TensorNumerator : public Numerator {
   public:
 

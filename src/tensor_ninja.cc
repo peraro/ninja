@@ -1,11 +1,15 @@
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 // The coefficients of a tensor numerator are stored in a contigous
 // array of complex numbers.  For generic rannk-r functions (with
 // terms of rank=0,...,r) we use the representation of
-// http://arxiv.org/pdf/1405.0301.pdf, see in particular Eq. (C.15).
-// For homogeneous tensors (i.e. with rank-r terms only) we use a
-// similar representation but removing the lower rank coefficients.
-// This way, a tensor numerator can also be seen as a contigous array
-// of homogeneous tensors.
+// http://arxiv.org/abs/1405.0301, see in particular Eq. (C.15).  For
+// homogeneous tensors (i.e. with rank-r terms only) we use a similar
+// representation but removing the lower rank coefficients.  This way,
+// a tensor numerator can also be seen as a contigous array of
+// homogeneous tensors.
 
 #include <ninja/tensor_ninja.hh>
 
@@ -203,45 +207,6 @@ namespace ninja {
     }
 
 
-    // build a tensor t3 = v0^(r-3) v1^2 v2, from tensors
-    // t1=v0^(r-3)v1^2, and t2=v0^(r-3)v1*v2, for r=0,...,r_.  Assumes
-    // r_>=3.
-    void n3lr_ten(unsigned r_,
-                  const Complex * t1_,
-                  const Complex * t2_,
-                  const ComplexMomentum & v0,
-                  const ComplexMomentum & v1,
-                  const ComplexMomentum & v2,
-                  Complex * t3_)
-    {
-      // for r<=2, t3_ = 0
-      for (unsigned i=0; i<ten_ncoeff(2); ++i)
-        t3_[i] = 0;
-
-      // for r=3, t3_ = v1*v2 + v2*v1
-      Complex * t3 = t3_ + ten_ncoeff(1);
-      const Complex * t1low = t1_+ten_ncoeff(0);
-      const Complex * t2low = t2_+ten_ncoeff(0);
-      ten_build(2,t1low,v2,t3);
-      ten_build_add(2,t2low,v1,t3);
-      t1low += ten_ncoeff_r(1);
-      t2low += ten_ncoeff_r(1);
-      t3 += ten_ncoeff_r(2);
-
-      // for r>2, t1_ = t1*v2 + t2*v1 + t3*v0
-      const Complex * t3low = t3_+ten_ncoeff(1);
-      for (unsigned r=3; r<=r_; ++r) {
-        ten_build(r,t1low,v2,t3);
-        ten_build_add(r,t2low,v1,t3);
-        ten_build_add(r,t3low,v0,t3);
-        t1low += ten_ncoeff_r(r-1);
-        t2low += ten_ncoeff_r(r-1);
-        t3low = t3;
-        t3 += ten_ncoeff_r(r);
-      }
-    }
-
-
     // contract all the components of two tensors from rank=rmin up to
     // rank=rmax
     inline Complex ten_contract(unsigned rmin, unsigned rmax,
@@ -260,17 +225,6 @@ namespace ninja {
                                 const Complex * t1, const Complex * t2)
     {
       return ten_contract(0,rmax,t1,t2);
-    }
-
-    // same as above, but for homogeneous tensors
-    inline Complex ten_contract_r(unsigned r,
-                                  const Complex * t1, const Complex * t2)
-    {
-      Complex res = 0;
-      const unsigned imax = ten_ncoeff_r(r);
-      for (unsigned i=0; i<imax; ++i)
-        res += t1[i]*t2[i];
-      return res;
     }
     
   } // namespace

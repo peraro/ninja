@@ -4,7 +4,7 @@ libninja_la_SOURCES = basis.cc  cuts_utils.cc  ninja.cc  Xcuts.cc \
 	cuts.cc Xninja.cc spinors.cc tensor_ninja.cc \
 	coefficient_level_subs.cc	\
 	integral_library.cc avholo_interface.cc \
-	rambo.cc
+	rambo.cc ninja_wraps.cc
 if AVHOLO
 libninja_la_SOURCES += avholo_wrapper.F90 ninjavholo_wraps.cc ninjavholo.F90
 if NINJAGOSAMCONTRIB
@@ -18,6 +18,9 @@ libninja_la_SOURCES +=  looptools_interface.cc
 endif
 if GOSAM
 libninja_la_SOURCES +=  gosam_interface.cc  ninjago.F90
+endif
+if F90MODULE
+libninja_la_SOURCES +=  mninja.F90
 endif
 
 noinst_HEADERS = ninja_implem.cxx  polys_implem.cxx basis.hh \
@@ -33,20 +36,34 @@ nodistdir=$(includedir)
 
 libninja_la_LIBADD=
 
+if NINJAGOSAMCONTRIB
+nodist_pkginclude_HEADERS =
+else
+nodist_library_include_HEADERS = 
+endif
+
 if GOSAM
 if NINJAGOSAMCONTRIB
-nodist_pkginclude_HEADERS = ninjago_module.mod
+nodist_pkginclude_HEADERS += ninjago_module.mod
 libninja_la_LIBADD += -L$(top_builddir)/avh_olo-2.2.1 -lavh_olo
 else
-nodist_library_include_HEADERS = ninjago_module.mod
+nodist_library_include_HEADERS += ninjago_module.mod
 endif
 endif
 
 if AVHOLO
 if NINJAGOSAMCONTRIB
-nodist_pkginclude_HEADERS = ninjavholo.mod
+nodist_pkginclude_HEADERS += ninjavholo.mod
 else
-nodist_library_include_HEADERS = ninjavholo.mod
+nodist_library_include_HEADERS += ninjavholo.mod
+endif
+endif
+
+if F90MODULE
+if NINJAGOSAMCONTRIB
+nodist_pkginclude_HEADERS += mninja.mod
+else
+nodist_library_include_HEADERS += mninja.mod
 endif
 endif
 
