@@ -3,7 +3,7 @@ ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = ninja_config.h.in
 
 library_includedir=$(includedir)/ninja
-library_include_HEADERS = ninja.hh ninja_in.hh \
+library_include_HEADERS = ninja.hh ninja_in.hh tensor_ninja.hh \
 	zero_float.hh types.hh  s_mat.hh \
 	momentum.hh  num_defs.hh spinors.hh  \
 	static_arrays.hh \

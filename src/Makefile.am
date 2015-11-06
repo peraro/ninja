@@ -1,7 +1,7 @@
 lib_LTLIBRARIES = libninja.la
 
 libninja_la_SOURCES = basis.cc  cuts_utils.cc  ninja.cc  Xcuts.cc \
-	cuts.cc Xninja.cc spinors.cc \
+	cuts.cc Xninja.cc spinors.cc tensor_ninja.cc \
 	coefficient_level_subs.cc	\
 	integral_library.cc avholo_interface.cc \
 	rambo.cc

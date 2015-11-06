@@ -1,4 +1,5 @@
-EXAMPLES = simple_test simple_higher_rank_test 4photons 6photons ttbarh
+EXAMPLES = simple_test simple_higher_rank_test 4photons 6photons ttbarh \
+	tensor_test tensor_higher_rank_test
 
 THREADEXAMPLES = thread_6photons thread_4photons
 
@@ -17,6 +18,8 @@ simple_higher_rank_test_SOURCES = simple_higher_rank_test.cc mynumhr.cc
 thread_6photons_SOURCES = thread_6photons.cc 6photons_num.cc 6photons_init.cc
 thread_4photons_SOURCES = thread_4photons.cc 4photons_num.cc 4photons_init.cc
 ttbarh_SOURCES = ttbarh.cc ttbarh_num.cc ttbarh_init.cc
+tensor_higher_rank_test_SOURCES = tensor_higher_rank_test.cc
+tensor_test_SOURCES = tensor_test.cc
 
 noinst_HEADERS = mynum.hh mynumhr.hh 4photons_num.hh 6photons_num.hh \
 	ttbarh_num.hh
@@ -50,6 +53,12 @@ thread_4photons_CXXFLAGS = $(OTHEREXAMPLESCPPFLAGS) $(PTHREAD_CFLAGS)
 
 ttbarh_LDADD = $(OTHEREXAMPLESLDADD)
 ttbarh_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)
+
+tensor_higher_rank_test_LDADD = $(OTHEREXAMPLESLDADD)
+tensor_higher_rank_test_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)
+
+tensor_test_LDADD = $(OTHEREXAMPLESLDADD)
+tensor_test_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)
 
 .PHONY: examples
 examples: $(EXAMPLES)
