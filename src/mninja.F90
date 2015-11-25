@@ -102,14 +102,14 @@ module mninja
   private
 
   
-  ! This routines in this interface evaluate tensor integrals of n
-  ! internal legs and rank r, with a symmetric tensor numerator .  The
+  ! The routines in this interface evaluate tensor integrals of n
+  ! internal legs and rank r, with a symmetric tensor numerator.  The
   ! tensor numerator is defined by a unidimensional array of
   ! coefficients, which must follow the convention of the
   ! representation of Eq. (C.15) in http://arxiv.org/abs/1405.0301,
   ! and is passed as input
   !
-  ! The routines in these interface differ by the type of the internal
+  ! The routines in this interface differ by the type of the internal
   ! masses (real, complex or null) and the presence of the s_mat input
   ! parameter
   !

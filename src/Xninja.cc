@@ -269,8 +269,9 @@ namespace ninja {
             continue;
           Complex b111[3];
           Complex b11[3], b1[3], b0[3];
+          Complex ke2 = mp(V[i2]-V[i1] ,(*i).e2);
 
-          if (abs((*i).c[13])>Real(1.0e-9)) {
+          if (abs((*i).c[13]*ke2*ke2*ke2)>INFRARED_EPS) {
             //           Rank3BubbleIntegral(b111,k,m2[i1],m2[i2],b0);
             wrap_mis.getRank3BubbleIntegral(b111, b11, b1, b0,
                                             k, m2[i1], m2[i2]);
@@ -280,7 +281,7 @@ namespace ninja {
           }
 
           if (Options::verb & Verbose::INTEGRALS) {
-            if (abs((*i).c[13])>Real(1.0e-9)) {
+            if (abs((*i).c[13]*ke2*ke2*ke2)>INFRARED_EPS) {
               (*Options::out) << "B111(" << i1 << "," << i2 << ") = "
                               << b111[0] << b111[1] << b111[2] << endl;
             }
@@ -292,7 +293,6 @@ namespace ninja {
                             << b0[0] << b0[1] << b0[2] << endl;
           }
 
-          Complex ke2 = mp(V[i2]-V[i1] ,(*i).e2);
           Complex B06 = -( k-THREE*(m2[i1]+m2[i2]) )/SIX;
           result_temp[0] += (*i).c[0]*b0[0] + (*i).c[1]*ke2*b1[0]
             + (*i).c[2]*ke2*ke2*b11[0] + (*i).c[13]*ke2*ke2*ke2*b111[0];
