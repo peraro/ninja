@@ -2,8 +2,8 @@
 // and the LoopTools integral library.
 
 
-#ifndef LOOPTOOLS_INTERFACE_HH
-#define LOOPTOOLS_INTERFACE_HH
+#ifndef NINJA_LOOPTOOLS_INTERFACE_HH
+#define NINJA_LOOPTOOLS_INTERFACE_HH
 
 #include <ninja/integral_library.hh>
 
@@ -109,4 +109,4 @@ namespace ninja {
 
 } // namespace ninja
 
-#endif
+#endif // NINJA_LOOPTOOLS_INTERFACE_HH

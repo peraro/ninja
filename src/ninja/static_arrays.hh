@@ -1,8 +1,8 @@
 // -*- C++ -*- wrapper for static arrays.
 
 
-#ifndef STATIC_ARRAYS_HH
-#define STATIC_ARRAYS_HH
+#ifndef NINJA_STATIC_ARRAYS_HH
+#define NINJA_STATIC_ARRAYS_HH
 
 
 #if !defined(HAVE_INIT_LIST) && !defined(NINJA_CONFIG_H_INTERNAL)
@@ -137,4 +137,4 @@ namespace ninja {
 
 #endif // ! HAVE_INIT_LIST
 
-#endif // STATIC_ARRAYS_HH
+#endif // NINJA_STATIC_ARRAYS_HH

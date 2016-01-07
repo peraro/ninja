@@ -2,8 +2,8 @@
 // the Ninja library.
 
 
-#ifndef TYPES_HH
-#define TYPES_HH
+#ifndef NINJA_TYPES_HH
+#define NINJA_TYPES_HH
 
 #include <ninja/ninja_config.h>
 
@@ -164,4 +164,4 @@ namespace ninja {
 
 } // namespace ninja
 
-#endif // TYPES_HH
+#endif // NINJA_TYPES_HH
