@@ -7,6 +7,7 @@ AC_CONFIG_SRCDIR([src/ninja_implem.cxx])
 AC_CONFIG_HEADERS([config.h src/ninja/ninja_config.h])
 AC_CONFIG_MACRO_DIR([m4])
 m4_include([m4/m4_ax_cxx_compile_stdcxx_11.m4])
+m4_include([m4/m4_ax_cxx_tryandadd_flag.m4])
 AM_INIT_AUTOMAKE
 LT_INIT
 
@@ -24,6 +25,15 @@ ACX_PTHREAD
 AX_CXX_COMPILE_STDCXX_11
 AX_CXX_COMPILE_STDCXX_11_INIT_LIST
 AX_CXX_COMPILE_STDCXX_11_RANDOM
+
+# Check support for optional compiler flags
+AC_ARG_ENABLE([autoflags],
+    AS_HELP_STRING([--disable-autoflags],
+    [do not add automatic compiler flags]))
+AS_IF([test "x$enable_autoflags" != xno],
+            [AX_CXX_TRYANDADD_FLAG("-fcx-fortran-rules")
+            AX_CXX_TRYANDADD_FLAG("-complex-limited-range")]
+)
 
 # this is only defined in config.h
 AC_DEFINE([NINJA_CONFIG_H_INTERNAL],
@@ -102,9 +112,9 @@ AC_DEFINE([NINJA_MASSLESS], [1],
 
 # Choose whether to include higher-rank support
 AC_ARG_ENABLE([higher_rank],
-    AS_HELP_STRING([--enable-higher_rank],
-                   [enable support for higher-rank numerators]))
-AS_IF([test "x$enable_higher_rank" != xyes],[],
+    AS_HELP_STRING([--disable-higher_rank],
+                   [disable support for higher-rank numerators]))
+AS_IF([test "x$enable_higher_rank" != xno],
       [AC_DEFINE([NINJA_X1RANK], [1],
       [Define to 1 if higher-rank support is enabled.])])
 
