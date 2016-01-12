@@ -4,8 +4,8 @@
 // evaluations of the same functions.
 
 
-#ifndef NIINJA_AVHOLO_INTERFACE_HH
-#define NIINJA_AVHOLO_INTERFACE_HH
+#ifndef NINJA_AVHOLO_INTERFACE_HH
+#define NINJA_AVHOLO_INTERFACE_HH
 
 #include <ninja/integral_library.hh>
 
@@ -115,4 +115,4 @@ namespace ninja {
 
 } // namespace ninja
 
-#endif // NIINJA_AVHOLO_INTERFACE_HH
+#endif // NINJA_AVHOLO_INTERFACE_HH

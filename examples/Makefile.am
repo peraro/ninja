@@ -1,5 +1,8 @@
 EXAMPLES = simple_test simple_higher_rank_test 4photons 6photons ttbarh \
 	tensor_test tensor_higher_rank_test
+if QUADNINJA
+EXAMPLES += quadninja_test
+endif
 
 THREADEXAMPLES = thread_6photons thread_4photons
 
@@ -20,9 +23,15 @@ thread_4photons_SOURCES = thread_4photons.cc 4photons_num.cc 4photons_init.cc
 ttbarh_SOURCES = ttbarh.cc ttbarh_num.cc ttbarh_init.cc
 tensor_higher_rank_test_SOURCES = tensor_higher_rank_test.cc
 tensor_test_SOURCES = tensor_test.cc
+if QUADNINJA
+quadninja_test_SOURCES = quadninja_test.cc quadmynum.cc mynum.cc
+endif
 
 noinst_HEADERS = mynum.hh mynumhr.hh 4photons_num.hh 6photons_num.hh \
 	ttbarh_num.hh
+if QUADNINJA
+noinst_HEADERS += quadmynum.hh
+endif
 
 if EXNINJASTATIC
 LIBNINJA = $(libdir)/libninja.a
@@ -35,6 +44,11 @@ OTHEREXAMPLESLDADD = $(LIBNINJA)  $(AVHFLAGS)  $(LTFLAGS)  $(QUADRUPLEFLAGS)
 
 simple_test_LDADD = $(OTHEREXAMPLESLDADD)
 simple_test_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)
+
+if QUADNINJA
+quadninja_test_LDADD = $(OTHEREXAMPLESLDADD)
+quadninja_test_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)
+endif
 
 simple_higher_rank_test_LDADD = $(OTHEREXAMPLESLDADD)
 simple_higher_rank_test_CPPFLAGS = $(OTHEREXAMPLESCPPFLAGS)

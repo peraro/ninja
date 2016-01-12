@@ -14,12 +14,20 @@ module mninja
 
   ! precision
   public :: ki_nin
+#ifdef QUADNINJA
+  public :: ki_qnin
+#endif
 
   ! subroutines
   public :: ninja_tensor_evaluate
   public :: ninja_tensor_evaluate_rm, ninja_tensor_evaluate_smat_rm
   public :: ninja_tensor_evaluate_cm, ninja_tensor_evaluate_smat_cm
   public :: ninja_tensor_evaluate_nm, ninja_tensor_evaluate_smat_nm
+#ifdef QUADNINJA
+  public :: quadninja_tensor_evaluate_rm, quadninja_tensor_evaluate_smat_rm
+  public :: quadninja_tensor_evaluate_cm, quadninja_tensor_evaluate_smat_cm
+  public :: quadninja_tensor_evaluate_nm, quadninja_tensor_evaluate_smat_nm
+#endif
   public :: ninja_clear_integral_cache, ninja_free_integral_cache
   public :: ninja_set_test, ninja_set_test_tolerance
   public :: ninja_set_verbosity, ninja_set_output_precision
@@ -59,7 +67,14 @@ module mninja
 #else
 # define KI_NIN c_float128
 #endif
+#ifdef QUADNINJA
+# define KI_QNIN c_float128
+#endif
+  
   integer, parameter :: ki_nin = KI_NIN
+#ifdef QUADNINJA
+  integer, parameter :: ki_qnin = KI_QNIN
+#endif
 
   ! Return status parameters of ninja
   integer(c_int), parameter :: NINJA_SUCCESS = 0
@@ -255,6 +270,117 @@ module mninja
        complex(KI_NIN), intent(out) :: totr
        integer(c_int), intent(out) :: return_status
      end subroutine ninja_tensor_evaluate_smat_nm
+
+#if QUADNINJA
+     ! Real masses without s_mat
+     subroutine quadninja_tensor_evaluate_rm(tensor,&
+       & n, r,&
+            & pi, m2, mur2,&
+            & tot, totr, return_status) &
+            & bind(c, name="quadninja_tensor_evaluate_rm_")
+       use, intrinsic :: iso_c_binding
+       implicit none
+       complex(KI_QNIN), dimension(*), intent(in):: tensor
+       integer(c_int), intent(in) :: n, r
+       real(KI_QNIN), dimension(0:3,*), intent(in) :: pi
+       real(KI_QNIN), dimension(*), intent(in) :: m2
+       real(KI_QNIN), intent(in) :: mur2
+       complex(KI_QNIN), dimension(0:2), intent(out) :: tot
+       complex(KI_QNIN), intent(out) :: totr
+       integer(c_int), intent(out) :: return_status
+     end subroutine quadninja_tensor_evaluate_rm
+
+     ! Complex masses without s_mat
+     subroutine quadninja_tensor_evaluate_cm(tensor,&
+       & n, r,&
+            & pi, m2, mur2,&
+            & tot, totr, return_status) &
+            & bind(c, name="quadninja_tensor_evaluate_cm_")
+       use, intrinsic :: iso_c_binding
+       implicit none
+       complex(KI_QNIN), dimension(*), intent(in):: tensor
+       integer(c_int), intent(in) :: n, r
+       real(KI_QNIN), dimension(0:3,*), intent(in) :: pi
+       complex(KI_QNIN), dimension(*), intent(in) :: m2
+       real(KI_QNIN), intent(in) :: mur2
+       complex(KI_QNIN), dimension(0:2), intent(out) :: tot
+       complex(KI_QNIN), intent(out) :: totr
+       integer(c_int), intent(out) :: return_status
+     end subroutine quadninja_tensor_evaluate_cm
+
+     ! Massless loop without s_mat
+     subroutine quadninja_tensor_evaluate_nm(tensor,&
+       & n, r,&
+            & pi, mur2,&
+            & tot, totr, return_status) &
+            & bind(c, name="quadninja_tensor_evaluate_nm_")
+       use, intrinsic :: iso_c_binding
+       implicit none
+       complex(KI_QNIN), dimension(*), intent(in):: tensor
+       integer(c_int), intent(in) :: n, r
+       real(KI_QNIN), dimension(0:3,*), intent(in) :: pi
+       real(KI_QNIN), intent(in) :: mur2
+       complex(KI_QNIN), dimension(0:2), intent(out) :: tot
+       complex(KI_QNIN), intent(out) :: totr
+       integer(c_int), intent(out) :: return_status
+     end subroutine quadninja_tensor_evaluate_nm
+
+     ! Real masses with s_mat
+     subroutine quadninja_tensor_evaluate_smat_rm(tensor,&
+       & n, r, s_mat,&
+            & pi, m2, mur2,&
+            & tot, totr, return_status) &
+            & bind(c, name="quadninja_tensor_evaluate_smat_rm_")
+       use, intrinsic :: iso_c_binding
+       implicit none
+       complex(KI_QNIN), dimension(*), intent(in):: tensor
+       integer(c_int), intent(in) :: n, r
+       real(KI_QNIN), dimension(n,n), intent(in) :: s_mat
+       real(KI_QNIN), dimension(0:3,*), intent(in) :: pi
+       real(KI_QNIN), dimension(*), intent(in) :: m2
+       real(KI_QNIN), intent(in) :: mur2
+       complex(KI_QNIN), dimension(0:2), intent(out) :: tot
+       complex(KI_QNIN), intent(out) :: totr
+       integer(c_int), intent(out) :: return_status
+     end subroutine quadninja_tensor_evaluate_smat_rm
+
+     ! Complex masses with s_mat
+     subroutine quadninja_tensor_evaluate_smat_cm(tensor,&
+       & n, r, s_mat,&
+            & pi, m2, mur2,&
+            & tot, totr, return_status) &
+            & bind(c, name="quadninja_tensor_evaluate_smat_cm_")
+       use, intrinsic :: iso_c_binding
+       implicit none
+       complex(KI_QNIN), dimension(*), intent(in):: tensor
+       integer(c_int), intent(in) :: n, r
+       real(KI_QNIN), dimension(n,n), intent(in) :: s_mat
+       real(KI_QNIN), dimension(0:3,*), intent(in) :: pi
+       complex(KI_QNIN), dimension(*), intent(in) :: m2
+       real(KI_QNIN), intent(in) :: mur2
+       complex(KI_QNIN), dimension(0:2), intent(out) :: tot
+       complex(KI_QNIN), intent(out) :: totr
+       integer(c_int), intent(out) :: return_status
+     end subroutine quadninja_tensor_evaluate_smat_cm
+
+     ! Massless loop with s_mat
+     subroutine quadninja_tensor_evaluate_smat_nm(tensor,&
+       & n, r, s_mat,&
+            & pi, mur2,&
+            & tot, totr, return_status) &
+            & bind(c, name="quadninja_tensor_evaluate_smat_nm_")
+       use, intrinsic :: iso_c_binding
+       implicit none
+       complex(KI_QNIN), dimension(*), intent(in):: tensor
+       integer(c_int), intent(in) :: n, r
+       real(KI_QNIN), dimension(n,n), intent(in) :: s_mat
+       real(KI_QNIN), dimension(0:3,*), intent(in) :: pi
+       real(KI_QNIN), intent(in) :: mur2
+       complex(KI_QNIN), dimension(0:2), intent(out) :: tot
+       complex(KI_QNIN), intent(out) :: totr
+       integer(c_int), intent(out) :: return_status
+     end subroutine quadninja_tensor_evaluate_smat_nm     
+#endif
 
   end interface ninja_tensor_evaluate
 

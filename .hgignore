@@ -43,6 +43,8 @@ build
 m4/l*.m4
 
 src/ninja/ninja_config.h
+src/quadsources
+src/quadninja
 run*.sh
 
 # ignore executables of the examples
@@ -55,6 +57,7 @@ examples/thread_6photons
 examples/thread_4photons
 examples/tensor_test
 examples/tensor_higher_rank_test
+examples/quadninja_test
 
 
 syntax: regexp

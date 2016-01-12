@@ -32,6 +32,17 @@ using namespace integral_library_wrapper;
 using namespace s_matrix_wrapper;
 
 
+//quadninja//#define QUADNINJA_NINJA_CC 1
+#ifndef QUADNINJA_NINJA_CC
+namespace quadninja {
+  void printBanner(std::ostream & banner_out, bool force_print)
+  {
+    ninja::printBanner(banner_out, force_print);
+  }
+}
+#endif
+
+
 namespace ninja {
 
   namespace {
@@ -58,6 +69,7 @@ namespace ninja {
       "  +----------------------------------------------------------------+\n";
   }
 
+#ifndef QUADNINJA_NINJA_CC
   // Print the banner
   void printBanner(std::ostream & banner_out, bool force_print)
   {
@@ -68,6 +80,7 @@ namespace ninja {
     }
     Options::quiet = true;
   }
+#endif
 
   // Initialize Options
   std::ostream * Options::out = & std::cout;

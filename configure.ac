@@ -8,10 +8,11 @@ AC_CONFIG_HEADERS([config.h src/ninja/ninja_config.h])
 AC_CONFIG_MACRO_DIR([m4])
 m4_include([m4/m4_ax_cxx_compile_stdcxx_11.m4])
 m4_include([m4/m4_ax_cxx_tryandadd_flag.m4])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 LT_INIT
 
 # Checks for programs.
+AC_PROG_SED
 AC_PROG_CXX
 AC_PROG_FC
 
@@ -138,6 +139,49 @@ AS_IF([test "x$with_quadruple" == xyes],
        [quadruple=false])
 AM_CONDITIONAL(QUADRUPLE, test "x$quadruple" == xtrue)
 
+# Choose whether to compile in quadruple precision
+AC_ARG_ENABLE([quadninja],
+    AS_HELP_STRING([--enable-quadninja@<:@=FLAGS@:>@],
+    [build quadninja, a copy of ninja in quadruple precision \
+    (requires GCC libquadmath) alongside ninja, \
+    specifying the corresponding flags for the linker]),
+    [],
+    [enable_quadninja=no])
+AS_IF([test "x$enable_quadninja" == xyes],
+       AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
+       AC_DEFINE([QUADNINJA], [1],
+       [Define to 1 if QuadNinja is built.])
+       [quadninja=true],
+       [test "x$enable_quadninja" != xno],
+       AC_SUBST([QUADRUPLEFLAGS], ["$enable_quadninja"])
+       AC_DEFINE([QUADNINJA], [1],
+       [Define to 1 if QuadNinja is built.])
+       [quadninja=true],
+       [quadninja=false])
+AM_CONDITIONAL(QUADNINJA, test "x$quadninja" == xtrue)
+
+# Set up macros for QuadNinja
+AS_IF([test "x$enable_quadninja" != xno],
+    AS_IF([test "x$with_quadruple" != xno],
+    AC_MSG_ERROR(Option --with-quadruple is not compatible with option --enable-quadninja))
+    AC_DEFINE([QUADNINJA_CONFIG_H_INTERNAL], [NINJA_CONFIG_H_INTERNAL],
+              [Macro for QuadNinja])
+    AS_IF([test "x$with_avholo" != xno],
+    AC_DEFINE([QUADNINJA_USE_ONELOOP], [1],
+              [Macro for QuadNinja]))
+    AS_IF([test "x$enable_avholo_cache" != xno],
+    AC_DEFINE([QUADNINJA_USE_ONELOOP_WITH_CACHE], [NINJA_USE_ONELOOP_WITH_CACHE],
+              [Macro for QuadNinja]))
+    #AS_IF([test "x$with_looptools" != xno],
+    #AC_DEFINE([QUADNINJA_USE_LOOPTOOLS], [NINJA_USE_LOOPTOOLS],
+    #          [Macro for QuadNinja]))
+    AC_DEFINE([QUADNINJA_MASSLESS], [1],
+              [Macro for QuadNinja])
+    AS_IF([test "x$enable_higher_rank" != xno],
+    AC_DEFINE([QUADNINJA_X1RANK], [NINJA_X1RANK],
+              [Macro for QuadNinja]))
+)
+
 # Choose whether compiling interfaces: gosam
 AC_ARG_ENABLE([gosam],
     AS_HELP_STRING([--disable-gosam], [do not include GoSam interface]))
@@ -171,5 +215,6 @@ AC_ARG_VAR([FCINCLUDE],[additional Fortran include flags, e.g. \
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/ninja/Makefile
+                 src/quadninja/Makefile
 				 examples/Makefile])
 AC_OUTPUT

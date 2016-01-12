@@ -222,6 +222,40 @@ class F90(ProgrammingLanguage):
 TPATH = os.path.join(os.path.dirname(os.path.realpath(__file__)),'templates')
 
 
+# QuadNinja stuff
+quadninja_regs_ = [(r"#[ ]*include[ ]*<ninja/", "#include <quadninja/"),
+                   (r"namespace +ninja", "namespace quadninja"),
+                   (r"ninja::", "quadninja::"),
+                   (r"(?<=[^A-Za-z0-9])NINJA_", "QUADNINJA_"),
+                   (r"ninjavholo_", "quadninjavholo_"),
+                   (r"//quadninja//", "")]
+    
+def quadninja_translate(fname, outfile, cdname, header=None):
+    "Translate a ninja file in a quadninja file"
+    with open(fname, "r") as infile:
+        with open(outfile, "w") as outfile:
+            for line in infile:
+                outline = line
+                if header:
+                    outline = outline.replace('"%s"' % header,
+                                              '"quad%s"' % header)
+                outline = re.sub(r"\b%s\b" % cdname,
+                                 "Quad%s" % cdname, outline)
+                for reg in quadninja_regs_:
+                    outline = re.sub(reg[0],reg[1],outline)
+                outfile.write(outline)
+
+def quadninja_translate_hguard(fname, outfile):
+    "Prepends QUAD to headerguards"
+    content = ''
+    with open(fname, "r") as infile:
+        content = infile.read()
+    with open(outfile, "w") as out:    
+        out.write(re.sub(r'# *ifndef +([A-Za-z0-9_]+)\n *# *define +\1',
+                         r'#ifndef QUAD\1\n#define QUAD\1',
+                         content))
+
+        
 class DiagramExpansion(object):
     '''Class for building the Laurent-expansion methods needed by
     Ninja.
@@ -342,6 +376,7 @@ class DiagramExpansion(object):
                       '-D', 'MU2VAR='+self._mu2] + self._formflags
         if (loop_prefix):
             self._args += ['-D', 'LOOPPREFIX='+loop_prefix]
+        self._done = False
             
 
     def _performExpansions(self):
@@ -504,6 +539,7 @@ class DiagramExpansion(object):
 
     def writeSource(self):
         "Perform the expansions and writes the source code"
+        self._done = False
         try:
             self._writeSource()
         except:
@@ -513,6 +549,19 @@ class DiagramExpansion(object):
             raise
         finally:
             self._cleanup()
-
-
-
+        self._done = True
+        
+    def writeQuadSource(self, existing=False):
+        "Writes to source for QuadNinja"
+        prefix = "quad"
+        if not existing and not self._done:
+            self.writeSource()
+        if self._header is None:
+            self._header = make_extension(self._out,'.hh')
+        quadninja_translate(self._out, prefix + self._out,
+                            self._cdname, self._header)
+        if not os.path.exists(prefix + self._header):
+            quadninja_translate(self._header, prefix + self._header,
+                                self._cdname)
+            quadninja_translate_hguard(prefix + self._header,
+                                       prefix + self._header)

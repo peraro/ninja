@@ -7,7 +7,9 @@
 
 #include <ninja/ninja_config.h>
 
-#ifdef NINJA_QUADRUPLE
+//quadninja//#define QUADNINJA_TYPES_HH_INSIDE 1
+
+#if defined(NINJA_QUADRUPLE) || defined(QUADNINJA_TYPES_HH_INSIDE)
 # include <ninja/quadruple.hh>
 #else
 # include <cmath>
@@ -19,8 +21,7 @@
 #include <ninja/static_arrays.hh>
 #include <ninja/zero_float.hh>
 
-
-#ifdef NINJA_NO_EXCEPTIONS
+#if defined(NINJA_NO_EXCEPTIONS)
 # define NINJA_THROW(exception) (std::terminate())
 #else
 # define NINJA_THROW(exception) throw exception
@@ -28,7 +29,7 @@
 
 #define NINJA_REAL(x) (ninja::Real(x))
 
-#ifndef NINJA_QUADRUPLE
+#if !defined(NINJA_QUADRUPLE) && !defined(QUADNINJA_TYPES_HH_INSIDE)
 # define NINJA_REAL_DEF(x) (ninja::Real(x))
 # define NINJA_COMPLEX_DEF(r,i) (ninja::Complex(r,i))
 #else
@@ -41,7 +42,7 @@
 namespace ninja {
 
   // typedefs for Real and Complex floating-point types
-#ifndef NINJA_QUADRUPLE
+#if !defined(NINJA_QUADRUPLE) && !defined(QUADNINJA_TYPES_HH_INSIDE)
   typedef double Real;
   typedef std::complex<Real> Complex;
   const Real INFRARED_EPS = 1.0e-09;
@@ -156,12 +157,14 @@ namespace ninja {
   const Real INVSQRT3 = 1./std::sqrt(THREE);
   const Real INVSQRT6 = 1./std::sqrt(Real(6.));
 
-#ifndef NINJA_QUADRUPLE
+#if !defined(NINJA_QUADRUPLE) && !defined(QUADNINJA_TYPES_HH_INSIDE)
   const ninja::Real PI = M_PI;
 #else
   const ninja::Real PI = M_PIq;
 #endif
 
 } // namespace ninja
+
+#undef QUADNINJA_TYPES_HH_INSIDE
 
 #endif // NINJA_TYPES_HH

@@ -39,6 +39,8 @@ def main(args):
         exp.writeSource()
     except:
         sys.exit('ERROR IN NINJANUMGEN: Failed to write the source!')
+    if args.quadninja:
+        exp.writeQuadSource()
 
 
 if __name__ == "__main__":
@@ -54,6 +56,8 @@ if __name__ == "__main__":
     parser.add_argument('--diagname','-d',default='Diagram',
                         help='name of the numerator expression'
                         ' in the form file [default=Diagram]')
+    parser.add_argument("--quadninja", help="write QuadNinja source as well",
+                        action="store_true")
     parser.add_argument('--formexec',default='form',
                         help='name of the form executable [default=form]')
     parser.add_argument('--formflags',default='',

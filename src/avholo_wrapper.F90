@@ -4,6 +4,7 @@
 #include <config.h>
 #endif
 
+!!quadninja!!#define NINJA_QUADRUPLE 1
 #ifndef NINJA_QUADRUPLE
 # define KI_NIN c_double
 #else

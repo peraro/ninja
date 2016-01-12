@@ -8,6 +8,8 @@
 # include <config.h>
 #endif
 
+//quadninja//#define QUADNINJA_WRAPS 1
+
 #include <ctime>
 #include <iostream>
 #include <fstream>
@@ -16,9 +18,18 @@
 #include <ninja/ninja.hh>
 #include <ninja/tensor_ninja.hh>
 
+#if defined(QUADNINJA) && !defined(QUADNINJA_WRAPS)
+#include <quadninja/ninja.hh>
+#include <quadninja/tensor_ninja.hh>
+#endif
+
 #ifdef NINJA_USE_ONELOOP
 # include <ninja/avholo.hh>
+#if defined(QUADNINJA) && !defined(QUADNINJA_WRAPS)
+# include <quadninja/avholo.hh>
 #endif
+#endif
+
 #ifdef NINJA_USE_LOOPTOOLS
 # include <ninja/looptools.hh>
 #endif
@@ -27,8 +38,10 @@ using namespace ninja;
 
 
 namespace  {
-  
+
+#ifndef QUADNINJA_WRAPS
   std::ofstream ninja_out;
+#endif
 
   template <typename MassType>
   inline
@@ -139,7 +152,9 @@ extern "C" {
 #endif
 
 
-    void ninja_clear_integral_cache_()
+#ifndef QUADNINJA_WRAPS
+
+  void ninja_clear_integral_cache_()
   {
 #if defined(NINJA_USE_ONELOOP) && defined(NINJA_USE_ONELOOP_WITH_CACHE)
     if (ninja::getIntegralLibrary() == (& ninja::avh_olo))
@@ -149,12 +164,26 @@ extern "C" {
     if (ninja::getIntegralLibrary() == (& ninja::loop_tools))
       loop_tools.clearIntegralCache();
 #endif
+
+#if QUADNINJA
+#if defined(NINJA_USE_ONELOOP) && defined(NINJA_USE_ONELOOP_WITH_CACHE)
+    if (quadninja::getIntegralLibrary() == (& quadninja::avh_olo))
+      quadninja::avh_olo.clearIntegralCache();
+#endif
+//#ifdef NINJA_USE_LOOPTOOLS
+//    if (quadninja::getIntegralLibrary() == (& quadninja::loop_tools))
+//      quadninja::loop_tools.clearIntegralCache();
+//#endif
+#endif
   }
 
   void ninja_free_integral_cache_()
   {
 #if defined(NINJA_USE_ONELOOP) && defined(NINJA_USE_ONELOOP_WITH_CACHE)
     avh_olo.freeIntegralCache();
+#if QUADNINJA
+    quadninja::avh_olo.freeIntegralCache();
+#endif
 #endif
   }
 
@@ -180,16 +209,25 @@ extern "C" {
                 << asctime(timeinfo) << "\n" << endl;
     }
     setOutputStream(ninja_out);
+#if QUADNINJA
+    quadninja::setOutputStream(ninja_out);
+#endif
   }
 
   void ninja_set_test_(const int & val)
   {
     setTest(val);
+#if QUADNINJA
+    quadninja::setTest(val);
+#endif
   }
 
   void ninja_set_test_tolerance_(const Real & val)
   {
     ninja::setTestTolerance(val);
+#if QUADNINJA
+    quadninja::setTestTolerance(val);
+#endif
   }
 
   void ninja_set_output_precision_(const int & val)
@@ -203,11 +241,17 @@ extern "C" {
 #ifdef NINJA_USE_ONELOOP
     case 1:
       ninja::setDefaultIntegralLibrary(ninja::avh_olo);
+#if QUADNINJA
+      quadninja::setDefaultIntegralLibrary(quadninja::avh_olo);
+#endif
       break;
 #endif
 #ifdef NINJA_USE_LOOPTOOLS
     case 2:
       ninja::setDefaultIntegralLibrary(ninja::loop_tools);
+//#if QUADNINJA
+//      quadninja::setDefaultIntegralLibrary(ninja::loop_tools);
+//#endif
       break;
 #endif
     default:
@@ -218,6 +262,7 @@ extern "C" {
       std::terminate();      
     }
   }
-  
+
+#endif // !QUADNINJA_WRAPS
 
 } // extern "C"
