@@ -8,7 +8,7 @@
 #ifndef NINJA_QUADRUPLE
 # define KI_NIN c_double
 #else
-# define KI_NIN c_float128
+# define KI_NIN 16
 # ifndef NINJA_GOSAM
 #  define AVH_ONSHELL_KIND(x) real(x,kind(1d0))
 # endif

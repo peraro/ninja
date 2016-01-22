@@ -8,6 +8,7 @@ AC_CONFIG_HEADERS([config.h src/ninja/ninja_config.h])
 AC_CONFIG_MACRO_DIR([m4])
 m4_include([m4/m4_ax_cxx_compile_stdcxx_11.m4])
 m4_include([m4/m4_ax_cxx_tryandadd_flag.m4])
+m4_include([m4/m4_ax_cxx_quadmath.m4])
 AM_INIT_AUTOMAKE([subdir-objects])
 LT_INIT
 
@@ -139,7 +140,7 @@ AS_IF([test "x$with_quadruple" == xyes],
        [quadruple=false])
 AM_CONDITIONAL(QUADRUPLE, test "x$quadruple" == xtrue)
 
-# Choose whether to compile in quadruple precision
+# Choose whether to compile quadninja
 AC_ARG_ENABLE([quadninja],
     AS_HELP_STRING([--enable-quadninja@<:@=FLAGS@:>@],
     [build quadninja, a copy of ninja in quadruple precision \
@@ -160,17 +161,23 @@ AS_IF([test "x$enable_quadninja" == xyes],
        [quadninja=false])
 AM_CONDITIONAL(QUADNINJA, test "x$quadninja" == xtrue)
 
+# Check support for quadruple precision
+AS_IF([test "x$with_quadruple" != xno] || [test "x$enable_quadninja" != xno],
+    [AX_CXX_COMPILE_LIBQUADMATH]
+    [AX_CXX_COMPILE_STDCXX_11_FLOAT128_RANDOM]
+)
+
 # Set up macros for QuadNinja
 AS_IF([test "x$enable_quadninja" != xno],
     AS_IF([test "x$with_quadruple" != xno],
     AC_MSG_ERROR(Option --with-quadruple is not compatible with option --enable-quadninja))
-    AC_DEFINE([QUADNINJA_CONFIG_H_INTERNAL], [NINJA_CONFIG_H_INTERNAL],
+    AC_DEFINE([QUADNINJA_CONFIG_H_INTERNAL], [1],
               [Macro for QuadNinja])
     AS_IF([test "x$with_avholo" != xno],
     AC_DEFINE([QUADNINJA_USE_ONELOOP], [1],
               [Macro for QuadNinja]))
     AS_IF([test "x$enable_avholo_cache" != xno],
-    AC_DEFINE([QUADNINJA_USE_ONELOOP_WITH_CACHE], [NINJA_USE_ONELOOP_WITH_CACHE],
+    AC_DEFINE([QUADNINJA_USE_ONELOOP_WITH_CACHE], [1],
               [Macro for QuadNinja]))
     #AS_IF([test "x$with_looptools" != xno],
     #AC_DEFINE([QUADNINJA_USE_LOOPTOOLS], [NINJA_USE_LOOPTOOLS],
@@ -178,7 +185,7 @@ AS_IF([test "x$enable_quadninja" != xno],
     AC_DEFINE([QUADNINJA_MASSLESS], [1],
               [Macro for QuadNinja])
     AS_IF([test "x$enable_higher_rank" != xno],
-    AC_DEFINE([QUADNINJA_X1RANK], [NINJA_X1RANK],
+    AC_DEFINE([QUADNINJA_X1RANK], [1],
               [Macro for QuadNinja]))
 )
 

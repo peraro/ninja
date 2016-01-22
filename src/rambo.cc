@@ -15,6 +15,12 @@
 #include <ninja_scoped_array.hh>
 #include <ninja/rambo.hh>
 
+//quadninja//#define QUADNINJA_RAMBO_CC 1
+#if defined(NINJA_QUADRUPLE) || defined(QUADNINJA_RAMBO_CC)
+# ifndef HAVE_CXX11_FLOAT128_RANDOM
+#  undef HAVE_CXX11_RANDOM
+# endif
+#endif
 
 #if HAVE_CXX11_RANDOM
 

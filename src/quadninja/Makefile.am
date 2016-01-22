@@ -28,7 +28,7 @@ $(QUADNINJAHEADERS): %.hh : ../ninja/%.hh $(GENQUADSCRIPT)
 ninja_config.h : ../ninja/ninja_config.h $(GENQUADSCRIPT)
 	$(SED) -f $(GENQUADSCRIPT) < $< > $@
 	cat $< >> $@
-	echo "\n#undef QUADNINJA_USE_LOOPTOOLS\n" >> $@
+	printf "\n#undef QUADNINJA_USE_LOOPTOOLS\n" >> $@
 
 clean-local:
 	rm -rf *.hh ninja_config.h

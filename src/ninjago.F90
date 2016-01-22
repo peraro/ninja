@@ -50,7 +50,7 @@ module ninjago_module
 #ifndef NINJA_QUADRUPLE
 # define KI_NIN c_double
 #else
-# define KI_NIN c_float128
+# define KI_NIN 16
 #endif
   integer, parameter :: ki_nin = KI_NIN
 

@@ -65,10 +65,10 @@ module mninja
 #ifndef NINJA_QUADRUPLE
 # define KI_NIN c_double
 #else
-# define KI_NIN c_float128
+# define KI_NIN 16
 #endif
 #ifdef QUADNINJA
-# define KI_QNIN c_float128
+# define KI_QNIN 16
 #endif
   
   integer, parameter :: ki_nin = KI_NIN
