@@ -2,14 +2,14 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([Ninja], [1.0.0], [tiziano.peraro@ed.ac.uk])
+AC_INIT([Ninja], [1.1.0], [tiziano.peraro@ed.ac.uk])
 AC_CONFIG_SRCDIR([src/ninja_implem.cxx])
 AC_CONFIG_HEADERS([config.h src/ninja/ninja_config.h])
 AC_CONFIG_MACRO_DIR([m4])
 m4_include([m4/m4_ax_cxx_compile_stdcxx_11.m4])
 m4_include([m4/m4_ax_cxx_tryandadd_flag.m4])
 m4_include([m4/m4_ax_cxx_quadmath.m4])
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([subdir-objects foreign])
 LT_INIT
 
 # Checks for programs.

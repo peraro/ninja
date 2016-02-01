@@ -1,8 +1,11 @@
 lib_LTLIBRARIES = libninja.la
+bin_PROGRAMS = ninja-config
 
 GENQUADSCRIPT=$(top_builddir)/src/quadsources/genquadsources.sed
 
 EXTRA_DIST = $(GENQUADSCRIPT)
+
+ninja_config_SOURCES = ninja_config.cc
 
 libninja_la_SOURCES = basis.cc  cuts_utils.cc  ninja.cc  Xcuts.cc \
 	cuts.cc Xninja.cc spinors.cc tensor_ninja.cc \

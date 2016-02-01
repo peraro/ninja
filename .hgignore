@@ -59,5 +59,7 @@ examples/tensor_test
 examples/tensor_higher_rank_test
 examples/quadninja_test
 
+# ignore other generated executables
+src/ninja-config
 
 syntax: regexp
