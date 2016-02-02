@@ -194,7 +194,7 @@ extern "C" {
       ninja_out.open("ninja.out", std::ofstream::app);
       if (ninja_out.fail()) {
         std::cerr << "ERROR IN NINJA: "
-                  << "ninja_gosam.out could not be opened for appending."
+                  << "ninja.out could not be opened for appending."
                   << std::endl;
         std::terminate();
       }
