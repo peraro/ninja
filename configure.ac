@@ -127,6 +127,25 @@ AC_ARG_WITH([quadruple],
     specifying the corresponding flags for the linker]),
     [],
     [with_quadruple=no])
+
+# Choose whether to compile quadninja
+AC_ARG_ENABLE([quadninja],
+    AS_HELP_STRING([--enable-quadninja@<:@=FLAGS@:>@],
+    [build quadninja, a copy of ninja in quadruple precision \
+    (requires GCC libquadmath) alongside ninja, \
+    specifying the corresponding flags for the linker]),
+    [],
+    [enable_quadninja=no])
+
+# Check support for quadruple precision if needed
+AS_IF([test "x$with_quadruple" != xno] || [test "x$enable_quadninja" != xno],
+    [AX_CXX_COMPILE_LIBQUADMATH]
+)
+AS_IF([test "x$with_quadruple" != xno] || [test "x$enable_quadninja" != xno],
+    [AX_CXX_COMPILE_STDCXX_11_FLOAT128_RANDOM]
+)
+
+# Quadruple precision
 AS_IF([test "x$with_quadruple" == xyes],
        AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
        AC_DEFINE([NINJA_QUADRUPLE], [1],
@@ -140,14 +159,7 @@ AS_IF([test "x$with_quadruple" == xyes],
        [quadruple=false])
 AM_CONDITIONAL(QUADRUPLE, test "x$quadruple" == xtrue)
 
-# Choose whether to compile quadninja
-AC_ARG_ENABLE([quadninja],
-    AS_HELP_STRING([--enable-quadninja@<:@=FLAGS@:>@],
-    [build quadninja, a copy of ninja in quadruple precision \
-    (requires GCC libquadmath) alongside ninja, \
-    specifying the corresponding flags for the linker]),
-    [],
-    [enable_quadninja=no])
+# Quadninja
 AS_IF([test "x$enable_quadninja" == xyes],
        AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
        AC_DEFINE([QUADNINJA], [1],
@@ -160,12 +172,6 @@ AS_IF([test "x$enable_quadninja" == xyes],
        [quadninja=true],
        [quadninja=false])
 AM_CONDITIONAL(QUADNINJA, test "x$quadninja" == xtrue)
-
-# Check support for quadruple precision
-AS_IF([test "x$with_quadruple" != xno] || [test "x$enable_quadninja" != xno],
-    [AX_CXX_COMPILE_LIBQUADMATH]
-    [AX_CXX_COMPILE_STDCXX_11_FLOAT128_RANDOM]
-)
 
 # Set up macros for QuadNinja
 AS_IF([test "x$enable_quadninja" != xno],
