@@ -6,7 +6,7 @@ m4_define([_AX_CXX_COMPILE_LIBQUADMATH_testbody], [[
     {
       return sqrtq(2.0q);
     }
-    __complex128 testcfloat()ppp
+    __complex128 testcfloat()
     {
       return csqrtq(2.0q + (__extension__ 1.0iQ)*1.0q);
     }
