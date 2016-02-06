@@ -6,7 +6,7 @@ m4_define([_AX_CXX_COMPILE_LIBQUADMATH_testbody], [[
     {
       return sqrtq(2.0q);
     }
-    __complex128 testcfloat()
+    __complex128 testcfloat()ppp
     {
       return csqrtq(2.0q + (__extension__ 1.0iQ)*1.0q);
     }
@@ -41,10 +41,10 @@ AC_DEFUN([AX_CXX_COMPILE_LIBQUADMATH], [dnl
   fi
   if test x$ac_success != xyes; then
     if test "x$with_quadruple" != xno; then
-      AC_MSG_ERROR(Quadruple precision is not supported by your compiler.  You can still use Ninja in double precision by removing the --with-quadruple otion or use a version of g++ which supports libquamath.)
+      AC_MSG_ERROR([Quadruple precision is not supported by your compiler.  You can still use Ninja in double precision by removing the --with-quadruple otion or use a version of g++ which supports libquamath.])
     fi
     if test "x$enable_quadninja" != xno; then
-      AC_MSG_WARN(Quadruple precision is not supported by your compiler.  The --enable-quadninja option will be removed and you can still use Ninja in double precision.  Alternatively, configure again with version of g++ which supports libquamath.)
+      AC_MSG_WARN([Quadruple precision is not supported by your compiler.  The --enable-quadninja option will be removed and you can still use Ninja in double precision.  Alternatively, configure again with a version of g++ which supports libquamath.])
       enable_quadninja=no
     fi
   fi
