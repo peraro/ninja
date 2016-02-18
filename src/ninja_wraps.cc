@@ -263,6 +263,18 @@ extern "C" {
     }
   }
 
+  void ninja_set_floating_point_threshold_(const Real & thr)
+  {
+    ninja::setDefaultFloatingPointThreshold(thr);
+  }
+
+#if defined(QUADNINJA)
+  void quadninja_set_floating_point_threshold_(const Real & thr)
+  {
+    quadninja::setDefaultFloatingPointThreshold(thr);
+  }
+#endif
+
 #endif // !QUADNINJA_WRAPS
 
 } // extern "C"

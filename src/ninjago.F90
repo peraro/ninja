@@ -17,9 +17,11 @@ module ninjago_module
   public :: ninja_set_test, ninja_set_test_tolerance
   public :: ninja_set_verbosity, ninja_set_output_precision
   public :: ninja_set_integral_library
+  public :: ninja_fp_check_default_threshold, ninja_fp_check_threshold
+  public :: ninja_fp_check
 
   ! parameter flags
-  public :: NINJA_SUCCESS, NINJA_TEST_FAILED
+  public :: NINJA_SUCCESS, NINJA_TEST_FAILED, NINJA_UNSTABLE_KINEMATICS
   public :: NINJA_ONELOOP, NINJA_LOOPTOOLS
   public :: NINJA_TEST_NONE
   public :: NINJA_TEST_ALL
@@ -57,6 +59,7 @@ module ninjago_module
   ! Return status parameters of ninja
   integer(c_int), parameter :: NINJA_SUCCESS = 0
   integer(c_int), parameter :: NINJA_TEST_FAILED = 1
+  integer(c_int), parameter :: NINJA_UNSTABLE_KINEMATICS = 2 ! 1 << 1
 
   ! Flags corresponding to the Integral Libraries.  Used by the
   ! subrotine ninja_set_integral_library
@@ -358,5 +361,20 @@ module ninjago_module
        integer(c_int), intent(in), value :: libflag
      end subroutine ninja_set_integral_library
   end interface
+
+  interface ninja_fp_check
+     
+     subroutine ninja_fp_check_default_threshold() &
+          bind (c,name='ninjago_fp_check_default_threshold')
+       use, intrinsic :: iso_c_binding
+     end subroutine ninja_fp_check_default_threshold
+
+     subroutine ninja_fp_check_threshold(val) &
+          bind (c,name='ninjago_fp_check_threshold')
+       use, intrinsic :: iso_c_binding
+       real(KI_NIN), intent(in) :: val
+     end subroutine ninja_fp_check_threshold
+     
+  end interface ninja_fp_check
 
 end module ninjago_module

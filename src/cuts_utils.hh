@@ -28,6 +28,13 @@ namespace ninja {
     };
 
 
+    inline Real gram_det(const RealMomentum & k1, const RealMomentum & k2)
+    {
+      Real k12 = mp(k1,k2);
+      return mp2(k1)*mp2(k2) - k12*k12;
+    }
+
+
     ////////////////
     // Partitions //
     ////////////////

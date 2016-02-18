@@ -34,7 +34,7 @@ module mninja
   public :: ninja_set_integral_library
 
   ! parameter flags
-  public :: NINJA_SUCCESS, NINJA_TEST_FAILED
+  public :: NINJA_SUCCESS, NINJA_TEST_FAILED, NINJA_UNSTABLE_KINEMATICS
   public :: NINJA_ONELOOP, NINJA_LOOPTOOLS
   public :: NINJA_TEST_NONE
   public :: NINJA_TEST_ALL
@@ -79,6 +79,7 @@ module mninja
   ! Return status parameters of ninja
   integer(c_int), parameter :: NINJA_SUCCESS = 0
   integer(c_int), parameter :: NINJA_TEST_FAILED = 1
+  integer(c_int), parameter :: NINJA_UNSTABLE_KINEMATICS = 2 ! 1 << 1
 
   ! Flags corresponding to the Integral Libraries.  Used by the
   ! subrotine ninja_set_integral_library
@@ -444,5 +445,23 @@ module mninja
        integer(c_int), intent(in) :: libflag
      end subroutine ninja_set_integral_library
   end interface
+
+  interface
+     subroutine ninja_set_floating_point_threshold(thr) &
+          bind (c,name='ninja_set_floating_point_threshold_')
+       use, intrinsic :: iso_c_binding
+       real(KI_NIN), intent(in) :: thr
+     end subroutine ninja_set_floating_point_threshold
+  end interface
+
+#if QUADNINJA
+  interface
+     subroutine quadninja_set_floating_point_threshold(thr) &
+          bind (c,name='quadninja_set_floating_point_threshold_')
+       use, intrinsic :: iso_c_binding
+       real(KI_QNIN), intent(in) :: thr
+     end subroutine quadninja_set_floating_point_threshold
+  end interface
+#endif
   
 end module mninja

@@ -60,7 +60,7 @@ namespace ninja {
     // data options
     static std::ostream * out;
     static IntegralLibrary * mis;
-    static Real chop_tol, test_tol;
+    static Real chop_tol, test_tol, fp_threshold;
     static unsigned verb, test;
     static bool quiet;
 
@@ -77,6 +77,7 @@ namespace ninja {
     friend void setTestTolerance(Real test_tolerance);
     friend void setOutputStream(std::ostream & outs);
     friend void setVerbosity(unsigned flag);
+    friend void setDefaultFloatingPointThreshold(Real threshold);
     template<typename MassType> friend class Amplitude;
     friend void cuts::print (const CutsVector<cuts::Pentagon> & pentagon);
     friend void cuts::print (const CutsVector<cuts::Box> & box);

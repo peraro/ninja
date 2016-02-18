@@ -115,12 +115,27 @@ namespace {
 
   std::ofstream ninjago_out;
 
+  // other flags
+  bool ninjago_first = true;
+  inline void ninjago_init_impl()
+  {
+    if (ninjago_first == true) {
+      setDefaultFloatingPointThreshold(0);
+      ninjago_first = false;
+    }
+  }
+
 } // namespace
 
 
-extern "C" {
+extern "C" {  
 
   // Definition of the routines to be called by the Fortran code in GoSam
+
+  void ninjago_init()
+  {
+    ninjago_init_impl();
+  }
 
   void ninjago_diag_rm(gosam_interface::Numerator numerator,
                        gosam_interface::Numerator_t3 numerator_t3,
@@ -136,6 +151,7 @@ extern "C" {
                        Complex tot[3], Complex & totr,
                        int & return_status)
   {
+    ninjago_init_impl();
 
     // define the numerator
     GoSamNumerator gosam_numerator(numerator,numerator_t3,numerator_t2,
@@ -196,6 +212,7 @@ extern "C" {
                        Complex tot[3], Complex & totr,
                        int & return_status)
   {
+    ninjago_init_impl();
 
     // define the numerator
     GoSamNumerator gosam_numerator(numerator,numerator_t3,numerator_t2,
@@ -260,6 +277,7 @@ extern "C" {
                        Complex tot[3], Complex & totr,
                        int & return_status)
   {
+    ninjago_init_impl();
     
     // define the numerator
     GoSamNumerator gosam_numerator(numerator,numerator_t3,numerator_t2,
@@ -383,6 +401,18 @@ extern "C" {
                 << std::endl;
       std::terminate();      
     }
+  }
+
+  void ninjago_fp_check_default_threshold()
+  {
+    ninjago_init_impl();
+    ninja::setDefaultFloatingPointThreshold(REAL_MIN);
+  }
+
+  void ninjago_fp_check_threshold(const Real & thr)
+  {
+    ninjago_init_impl();
+    ninja::setDefaultFloatingPointThreshold(thr);
   }
 
 } // extern "C"

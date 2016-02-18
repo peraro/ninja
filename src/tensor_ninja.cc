@@ -415,7 +415,6 @@ namespace ninja {
                                     ninja::Complex c[])
   {
     (void)(cut); (void)(part);
-    (void)(a0); (void)(a1); (void)(e3); (void)(e4); (void)(param); (void)(mindeg); (void)(c);
 
     // lr terms
     ten_from_mom(r_,e3,t0_);
@@ -503,7 +502,7 @@ namespace ninja {
             + param[0]*term_t3_e4x1 + param[1]*term_t3_e4;
           c[10] = term_t3_e4x1;
 
-          // t7_ = e3^(r-3) a0^2 a1  <--- CHECK!!!
+          // t7_ = e3^(r-3) a0^2 a1
           n2lr_ten(r_,2,t3_,t4_,e3,a0,a1,t7_);
           c[9] += ten_contract(r_,r_,num_,t7_);
 

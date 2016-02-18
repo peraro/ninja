@@ -59,7 +59,8 @@ namespace ninja {
     bool tests;
     bool local_test;
     bool global_test = Options::test & Test::GLOBAL;
-    int ret = Amplitude::SUCCESS;
+    
+    return_val = Amplitude::SUCCESS;
 
 
     ///////////////////
@@ -76,6 +77,7 @@ namespace ninja {
     // store the results
     if (anyPentagon) {
       evaluatePentagons(num, pentagons);
+      if (unstable_kinematics()) return return_val;
       if (Options::verb & Verbose::C5)
         print(pentagons);
     }
@@ -96,12 +98,14 @@ namespace ninja {
     if (anyBox) {
       if (tests || (Options::verb & Verbose::C4)) {
         evaluateFullBoxes(num, pentagons, boxes);
+        if (unstable_kinematics()) return return_val;
         if (Options::verb & Verbose::C4)
           print(boxes);
         if (local_test)
-          ret = local4NeqNtests(num, pentagons, boxes) | ret;
+          local4NeqNtests(num, pentagons, boxes);
       }
       else evaluateBoxes(num, pentagons, boxes);
+      if (unstable_kinematics()) return return_val;
     }
 
 
@@ -119,10 +123,11 @@ namespace ninja {
     // store the results
     if (anyTriangle) {
       evaluateTriangles(num, triangles);
+      if (unstable_kinematics()) return return_val;
       if (Options::verb & Verbose::C3)
         print(triangles);
       if (Options::test & Test::LOCAL_3)
-        ret = local3NeqNtests(num, pentagons, boxes, triangles) | ret;
+        local3NeqNtests(num, pentagons, boxes, triangles);
     }
 
 
@@ -140,11 +145,11 @@ namespace ninja {
     // store the results
     if (anyBubble) {
       evaluateBubbles(num, triangles, bubbles);
+      if (unstable_kinematics()) return return_val;
       if (Options::verb & Verbose::C2)
         print(bubbles);
       if (local_test)
-        ret = local2NeqNtests(num, pentagons, boxes, triangles,
-                              bubbles) | ret;
+        local2NeqNtests(num, pentagons, boxes, triangles, bubbles);
     }
 
 
@@ -163,13 +168,14 @@ namespace ninja {
     if (anyTadpole) {
       if (tests || (Options::verb & Verbose::C1)) {
         evaluateFullTadpoles(num, triangles, bubbles, tadpoles);
+        if (unstable_kinematics()) return return_val;
         if (Options::verb & Verbose::C1)
           print(tadpoles);
         if (local_test)
-          ret = local1NeqNtests(num, pentagons, boxes, triangles, bubbles,
-                                tadpoles) | ret;
+          local1NeqNtests(num, pentagons, boxes, triangles, bubbles, tadpoles);
       }
       else evaluateTadpoles(num, triangles, bubbles, tadpoles);
+      if (unstable_kinematics()) return return_val;
     }
 
 
@@ -355,7 +361,7 @@ namespace ninja {
         (*Options::out) << "rat.   =" << rational_part_temp << endl;
         (*Options::out) << endl;
       }
-      if (ret == Amplitude::SUCCESS) {
+      if (return_val == Amplitude::SUCCESS) {
         (*Options::out) << "ninja::Amplitude is returning SUCCESS" << endl;
       } else {
         (*Options::out) << "ninja::Amplitude is returning TEST_FAILED" << endl;
@@ -364,7 +370,7 @@ namespace ninja {
                       << "----------------------------" << endl;
     }
 
-    return ret;
+    return return_val;
   }
 
   using namespace cuts_utils;

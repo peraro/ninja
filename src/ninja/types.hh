@@ -17,6 +17,7 @@
 #endif
 
 #include <iostream>
+#include <limits>
 
 #include <ninja/static_arrays.hh>
 #include <ninja/zero_float.hh>
@@ -46,10 +47,14 @@ namespace ninja {
   typedef double Real;
   typedef std::complex<Real> Complex;
   const Real INFRARED_EPS = 1.0e-09;
+  const Real REAL_EPS = Real(1.0e+3)*std::numeric_limits<Real>::epsilon();
+  const Real REAL_MIN = Real(1.0e+20)*std::numeric_limits<Real>::min();
 #else
   typedef ninja::Quadruple Real;
   typedef ninja::ComplexQuadruple Complex;
   const Real INFRARED_EPS = 1.0e+07*FLT128_EPSILON;
+  const Real REAL_EPS = Real(1.0e+3)*FLT128_EPSILON;
+  const Real REAL_MIN = Real(1.0e+20)*FLT128_MIN;
 #endif
 
   // typedef for zero, real and complex masses

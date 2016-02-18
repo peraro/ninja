@@ -117,6 +117,13 @@ namespace ninja {
     Options::test_tol = test_tolerance;
   }
 
+  // Set the default floating-point threshold used to detect unstable
+  // kinematics to be used when not specified for an Amplitude object.
+  inline void setDefaultFloatingPointThreshold(Real threshold)
+  {
+    Options::fp_threshold = threshold;
+  }
+
   // Set the output stream, used when the verbosity is true.
   inline void setOutputStream(std::ostream & outs)
   {
@@ -130,7 +137,7 @@ namespace ninja {
   class Amplitude {
   public:
 
-    enum {SUCCESS = 0, TEST_FAILED=1};
+    enum {SUCCESS = 0, TEST_FAILED=1, UNSTABLE_KINEMATICS=1 << 1};
 
     typedef typename const_pointer<MassType>::type MassConstPtr;
 
@@ -145,8 +152,10 @@ namespace ninja {
         m2(static_cast<MassType*>(0)),
         cut_constr(),
         scale(1.),
+        fp_threshold(Options::fp_threshold),
         n(0), rank(0), 
         min_cut(0),
+        return_val(SUCCESS),
         use_mu_exp(true) {}
 
     // copy
@@ -158,8 +167,10 @@ namespace ninja {
         m2(amp.m2),
         cut_constr(amp.cut_constr),
         scale(amp.scale),
+        fp_threshold(amp.fp_threshold),
         n(amp.n), rank(amp.rank), 
         min_cut(amp.min_cut),
+        return_val(SUCCESS),
         use_mu_exp(amp.use_mu_exp)
     {
       if (!amp.s_mat.isNull())
@@ -178,8 +189,10 @@ namespace ninja {
         m2(mass_sq),
         cut_constr(),
         scale(1.),
+        fp_threshold(Options::fp_threshold),
         n(nn), rank(rr), 
         min_cut(0),
+        return_val(SUCCESS),
         use_mu_exp(true) {}
 
     // this can only be used for MassType == Massless
@@ -306,6 +319,14 @@ namespace ninja {
       return result[i];
     }
 
+    // set floating-point threshold used to detect unstable
+    // kinematics.  If an unstable kinematics is detected in the
+    // 'evaluate' method, UNSTABLE_KINEMATICS is returned and the
+    // result is left unchanged.
+    void setFloatingPointThreshold(Real threshold)
+    {
+      fp_threshold = threshold;
+    }
 
   private:
 
@@ -359,7 +380,7 @@ namespace ninja {
                              cuts::Tadpole & tadpole);
 
     // Global N = N test
-    int NeqNtest(Numerator & num,
+    void NeqNtest(Numerator & num,
                  const CutsVector<cuts::Pentagon> & pentagon,
                  const CutsVector<cuts::Box> & box,
                  const CutsVector<cuts::Triangle> & triangle,
@@ -367,19 +388,19 @@ namespace ninja {
                  const CutsVector<cuts::Tadpole> & tadpole,
                  const ComplexMomentum & q, const Complex & muq);
     // Local N = N tests
-    int local4NeqNtests(Numerator & num,
+    void local4NeqNtests(Numerator & num,
                         const CutsVector<cuts::Pentagon> & pentagon,
                         const CutsVector<cuts::Box> & box);
-    int local3NeqNtests(Numerator & num,
+    void local3NeqNtests(Numerator & num,
                         const CutsVector<cuts::Pentagon> & pentagon,
                         const CutsVector<cuts::Box> & box,
                         const CutsVector<cuts::Triangle> & triangle);
-    int local2NeqNtests(Numerator & num,
+    void local2NeqNtests(Numerator & num,
                         const CutsVector<cuts::Pentagon> & pentagon,
                         const CutsVector<cuts::Box> & box,
                         const CutsVector<cuts::Triangle> & triangle,
                         const CutsVector<cuts::Bubble> & bubble);
-    int local1NeqNtests(Numerator & num,
+    void local1NeqNtests(Numerator & num,
                         const CutsVector<cuts::Pentagon> & pentagon,
                         const CutsVector<cuts::Box> & box,
                         const CutsVector<cuts::Triangle> & triangle,
@@ -440,8 +461,34 @@ namespace ninja {
                              const CutsVector<x1cuts::Bubble> & bubble,
                              x1cuts::Tadpole & tadpole);
 
+    // If the argument is too small, set the kinematics as unstable
+    // and returns false.  Returns true otherwise
+    template <typename T>
+    bool stability_check(const T & z)
+    {
+      if (taxicab_norm(z) < fp_threshold) {
+        return_val = return_val | UNSTABLE_KINEMATICS;
+        return false;
+      }
+      return true;
+    }
+
+    // check if the kinematics has been detected as unstable
+    bool unstable_kinematics() const
+    {
+      if (return_val & UNSTABLE_KINEMATICS) {
+        if (Options::verb) {
+          (*Options::out) << std::endl
+                          << "ninja::Amplitude is returning "
+                          << "UNSTABLE_KINEMATICS" << std::endl;
+        }
+        return true;
+      }
+      return false;
+    }
+    
     // Global N = N test
-    int NeqNtest(Numerator & num,
+    void NeqNtest(Numerator & num,
                  const CutsVector<x1cuts::Pentagon> & pentagon,
                  const CutsVector<x1cuts::Box> & box,
                  const CutsVector<x1cuts::Triangle> & triangle,
@@ -449,19 +496,19 @@ namespace ninja {
                  const CutsVector<x1cuts::Tadpole> & tadpole,
                  const ComplexMomentum & q, const Complex & muq);
     // Local N = N tests
-    int local4NeqNtests(Numerator & num,
+    void local4NeqNtests(Numerator & num,
                         const CutsVector<x1cuts::Pentagon> & pentagon,
                         const CutsVector<x1cuts::Box> & box);
-    int local3NeqNtests(Numerator & num,
+    void local3NeqNtests(Numerator & num,
                         const CutsVector<x1cuts::Pentagon> & pentagon,
                         const CutsVector<x1cuts::Box> & box,
                         const CutsVector<x1cuts::Triangle> & triangle);
-    int local2NeqNtests(Numerator & num,
+    void local2NeqNtests(Numerator & num,
                         const CutsVector<x1cuts::Pentagon> & pentagon,
                         const CutsVector<x1cuts::Box> & box,
                         const CutsVector<x1cuts::Triangle> & triangle,
                         const CutsVector<x1cuts::Bubble> & bubble);
-    int local1NeqNtests(Numerator & num,
+    void local1NeqNtests(Numerator & num,
                         const CutsVector<x1cuts::Pentagon> & pentagon,
                         const CutsVector<x1cuts::Box> & box,
                         const CutsVector<x1cuts::Triangle> & triangle,
@@ -475,9 +522,10 @@ namespace ninja {
     IntegralLibrary * mis;
     MassConstPtr m2;
     Complex cut_constr;
-    Real scale;
+    Real scale, fp_threshold;
     int n, rank;
     int min_cut;
+    int return_val;
     bool use_mu_exp;
 
   }; // template<typename MassType> class Amplitude
@@ -492,8 +540,10 @@ namespace ninja {
       m2(static_cast<const MassType*>(0)),
       cut_constr(),
       scale(1.),
+      fp_threshold(Options::fp_threshold),
       n(nn), rank(rr), 
       min_cut(0),
+      return_val(SUCCESS),
       use_mu_exp(true)
   {
     // this makes sure it is only called for Massless types
