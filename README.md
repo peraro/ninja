@@ -74,7 +74,7 @@ For a full list of available options type
 See the file `INSTALL` for more information about the installation
 procedure.
 
-If you specified the --prefix option for the configure scrip, you
+If you specified the `--prefix` option for the configure scrip, you
 should also add the directory where the library is installed to your
 `LD_LIBRARY_PATH` (and `DYLD_LIBRARY_PATH` on Mac OS) environment
 variable, if not already present.  This is typically a sub-directory
