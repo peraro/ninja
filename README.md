@@ -109,5 +109,5 @@ will give a list of installation options.  If you specified the
 `--prefix` option during installation, update your `PATH` and
 `PYTHONPATH` environment variables accordingly.
 
-The packege NinjaNumGen requires [Form-4](http://www.nikhef.nl/~form)
+The package NinjaNumGen requires [Form-4](http://www.nikhef.nl/~form)
 or later.
