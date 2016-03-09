@@ -25,8 +25,8 @@ namespace ninja{
   class Basis {
   public:
 
-    // Default constructor --> declared but not defined
-    Basis();
+    // Default constructor
+    Basis() : e1(), e2(), e3(), e4(), r1(0), r2(0), mpee12(0) {}
 
     // Copy constructor
     Basis(const Basis & e)
@@ -59,6 +59,10 @@ namespace ninja{
 
     Real mpee12;
   };
+
+
+  // choose reference vectors for tadpoles
+  Basis tadpole_basis(const RealMomentum v[], unsigned icut, unsigned n);
 
 } // namespace ninja
 

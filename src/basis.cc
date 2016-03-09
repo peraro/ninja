@@ -78,4 +78,48 @@ namespace ninja {
     e4 = momentumFromSpinors(sp2,sp1);
   }
 
+
+  namespace {
+
+    bool check_ref_vecs(const RealMomentum v[], unsigned icut, unsigned n,
+                        const RealMomentum & ref1, const RealMomentum & ref2)
+    {
+      const Real eps = std::sqrt(INFRARED_EPS);
+      for (unsigned i=0; i<n; ++i)
+        if (i != icut) {
+          RealMomentum vdiff = v[i]-v[icut];
+          Real norm = std::sqrt(eucl_mp2(vdiff));
+          if (std::abs(mp(vdiff,ref1))/norm < eps ||
+              std::abs(mp(vdiff,ref2))/norm < eps)
+            return false;
+        }
+      return true;
+    }
+
+  } // namespace
+  
+  Basis tadpole_basis(const RealMomentum v[], unsigned icut, unsigned n)
+  {
+    Basis e;
+    RealMomentum ref1(TWO, INVSQRT3, -INVSQRT3, INVSQRT3);
+    RealMomentum ref2(SQRT3, INVSQRT3, -INVSQRT2, INVSQRT2);
+    e = Basis(ref1,ref2);
+    if (check_ref_vecs(v,icut,n,e.e1,e.e2))
+      return e;
+
+    ref1 = RealMomentum (TWO, HALF*(1+INVSQRT3), HALF*(1-INVSQRT3), INVSQRT3);
+    ref2 = RealMomentum(SQRT3, HALF*(SQRT3*INVSQRT2+INVSQRT3),
+                        HALF*(1-INVSQRT2), INVSQRT2);
+    e = Basis(ref1,ref2);
+    if (check_ref_vecs(v,icut,n,e.e1,e.e2))
+      return e;
+
+    ref1 = RealMomentum (TWO, HALF*(1-INVSQRT3), -HALF*(1+INVSQRT3), INVSQRT3);
+    ref2 = RealMomentum(SQRT3, HALF*(1-INVSQRT2),
+                        -HALF*(SQRT3*INVSQRT2+INVSQRT3), INVSQRT2);
+    e = Basis(ref1,ref2);
+    return e;
+  }
+  
+
 } // namespace ninja

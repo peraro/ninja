@@ -1161,19 +1161,9 @@ void Amplitude<MassType>::evaluateTadpole(Numerator & num,
   const PartitionInt cut1 = a.p[0];
 
   int rminusn =  rank-n;
-
-  // Get basis from two reference vectors
-  // The same basis is used for all the cuts
-  // const RealMomentum refe1(ONE, INVSQRT3, INVSQRT3, INVSQRT3),
-  // refe2(ONE,-INVSQRT3, -INVSQRT2, -INVSQRT6);
-  const RealMomentum refe1(TWO, INVSQRT3, -INVSQRT3, INVSQRT3);
-  const RealMomentum refe2(SQRT3, INVSQRT3, -INVSQRT2, INVSQRT2);
-  const Basis e(refe1,refe2);
+  const Basis e = tadpole_basis(V,cut1,n);
 
   // Store the relevant vectors
-  // NOTE: Since all the tadpoles have the same basis, we could
-  // use it as a static data member in their class.  For the sake
-  // of generality this has not been done yet.
   a.e1 = e.e1;
   a.e2 = e.e2;
   a.e3 = e.e3;
@@ -1287,12 +1277,7 @@ void Amplitude<MassType>::evaluateFullTadpole(Numerator & num,
 
   // check if linear terms are present
   bool lin = rminusn >= 0;
-
-  // Get basis from two reference vectors
-  // The same basis is used for all the cuts
-  const RealMomentum refe1(TWO, INVSQRT3, -INVSQRT3, INVSQRT3);
-  const RealMomentum refe2(SQRT3, INVSQRT3, -INVSQRT2, INVSQRT2);
-  const Basis e(refe1,refe2);
+  const Basis e = tadpole_basis(V,cut1,n);
 
   // Store the relevant vectors
   a.e1 = e.e1;
@@ -1552,19 +1537,9 @@ void Amplitude<MassType>::evaluateTadpole(Numerator & num,
                                           Tadpole & a)
 {
   const PartitionInt cut1 = a.p[0];
-
-  // Get basis from two reference vectors
-  // The same basis is used for all the cuts
-  // const RealMomentum refe1(ONE, INVSQRT3, INVSQRT3, INVSQRT3),
-  // refe2(ONE,-INVSQRT3, -INVSQRT2, -INVSQRT6);
-  const RealMomentum refe1(TWO, INVSQRT3, -INVSQRT3, INVSQRT3);
-  const RealMomentum refe2(SQRT3, INVSQRT3, -INVSQRT2, INVSQRT2);
-  const Basis e(refe1,refe2);
+  const Basis e = tadpole_basis(V,cut1,n);
 
   // Store the relevant vectors
-  // NOTE: Since all the tadpoles have the same basis, we could
-  // use it as a static data member in their class.  For the sake
-  // of generality this has not been done yet.
   a.e1 = e.e1;
   a.e2 = e.e2;
   a.e3 = e.e3;
@@ -1729,19 +1704,9 @@ void Amplitude<MassType>::evaluateFullTadpole(Numerator & num,
                                               Tadpole & a)
 {
   const PartitionInt cut1 = a.p[0];
-
-  // Get basis from two reference vectors
-  // The same basis is used for all the cuts
-  // const RealMomentum refe1(ONE, INVSQRT3, INVSQRT3, INVSQRT3),
-  // refe2(ONE,-INVSQRT3, -INVSQRT2, -INVSQRT6);
-  const RealMomentum refe1(TWO, INVSQRT3, -INVSQRT3, INVSQRT3);
-  const RealMomentum refe2(SQRT3, INVSQRT3, -INVSQRT2, INVSQRT2);
-  const Basis e(refe1,refe2);
+  const Basis e = tadpole_basis(V,cut1,n);
 
   // Store the relevant vectors
-  // NOTE: Since all the tadpoles have the same basis, we could
-  // use it as a static data member in their class.  For the sake
-  // of generality this has not been done yet.
   a.e1 = e.e1;
   a.e2 = e.e2;
   a.e3 = e.e3;
@@ -2311,11 +2276,7 @@ void Amplitude<MassType>::local1NeqNtests(Numerator & num,
     Real x1 = 0.0, x2 = 0.0, t = 2.;
     Real muq = 1.1;
 #endif
-    // Get basis from two reference vectors
-    // The same basis is used for all the cuts
-    const RealMomentum refe1(TWO, INVSQRT3, -INVSQRT3, INVSQRT3);
-    const RealMomentum refe2(SQRT3, INVSQRT3, -INVSQRT2, INVSQRT2);
-    const Basis e(refe1,refe2);
+    const Basis e = tadpole_basis(V,cut1,n);
     // get the parametric solutions for the loop momentum
     ComplexMomentum amu;
 #ifndef NINJA_IMPLEMENTING_X1RANK

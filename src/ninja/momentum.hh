@@ -138,6 +138,7 @@ namespace ninja {
     friend RealMomentum operator /(const RealMomentum & p, const Real & s );
     friend Real mp(const RealMomentum & p1, const RealMomentum & p2);
     friend Real mp2(const RealMomentum & p);
+    friend Real eucl_mp2(const RealMomentum & p);
     friend class ComplexMomentum;
     friend ComplexMomentum operator+(const RealMomentum & p1,
                                      const ComplexMomentum & p2);
@@ -417,6 +418,13 @@ namespace ninja {
     // but 1 less multiplication
     return p.data[0]*p.data[0]
       -p.data[1]*p.data[1] - p.data[2]*p.data[2] - p.data[3]*p.data[3];
+  }
+
+  // euclidean p^2
+  inline Real eucl_mp2(const RealMomentum & p)
+  {
+    return p.data[0]*p.data[0]
+      +p.data[1]*p.data[1] + p.data[2]*p.data[2] + p.data[3]*p.data[3];
   }
 
 
