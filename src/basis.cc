@@ -84,13 +84,13 @@ namespace ninja {
     bool check_ref_vecs(const RealMomentum v[], unsigned icut, unsigned n,
                         const RealMomentum & ref1, const RealMomentum & ref2)
     {
-      const Real eps = std::sqrt(INFRARED_EPS);
+      const Real eps = INFRARED_EPS;
       for (unsigned i=0; i<n; ++i)
         if (i != icut) {
           RealMomentum vdiff = v[i]-v[icut];
-          Real norm = std::sqrt(eucl_mp2(vdiff));
-          if (std::abs(mp(vdiff,ref1))/norm < eps ||
-              std::abs(mp(vdiff,ref2))/norm < eps)
+          Real norm = eucl_mp2(vdiff);
+          if (norm2(mp(vdiff,ref1))/norm < eps ||
+              norm2(mp(vdiff,ref2))/norm < eps)
             return false;
         }
       return true;

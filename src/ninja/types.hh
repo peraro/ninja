@@ -93,6 +93,11 @@ namespace ninja {
     return std::abs(z);
   }
 
+  inline Real norm2(Real x)
+  {
+    return x*x;
+  }
+
   // The taxicab norm (or Manhattan norm) in the complex plane
   // 
   //    ||z|| = |real(z)| + |imag(z)|
