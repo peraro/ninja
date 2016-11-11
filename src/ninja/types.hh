@@ -52,7 +52,7 @@ namespace ninja {
 #else
   typedef ninja::Quadruple Real;
   typedef ninja::ComplexQuadruple Complex;
-  const Real INFRARED_EPS = 1.0e+07*FLT128_EPSILON;
+  const Real INFRARED_EPS = 1.0e+15*FLT128_EPSILON;
   const Real REAL_EPS = Real(1.0e+3)*FLT128_EPSILON;
   const Real REAL_MIN = Real(1.0e+20)*FLT128_MIN;
 #endif

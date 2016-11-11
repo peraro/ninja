@@ -42,7 +42,7 @@ namespace ninja {
       ame = bme = (p[0] < 0. ? I*std::sqrt(-TWO*p[0]) : std::sqrt(TWO*p[0]));
     } else {
       // sqrt(p^+)
-      ap = (p[0] < 0. ? I*std::sqrt(-p[0]-p[3])    : std::sqrt(p[0]+p[3]));
+      ap = (p[0]+p[3] < 0. ? I*std::sqrt(-p[0]-p[3])    : std::sqrt(p[0]+p[3]));
       ame = (p[1]+I*p[2])/ap;
       // sqrt(p^+)
       bp = ap;
