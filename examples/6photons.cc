@@ -37,7 +37,7 @@ namespace {
 #  endif
     Real energy = 0;
     for (int i=2; i<6; ++i) {
-      k[i][0] = std::sqrt(-mp2(k[i]));
+      k[i][0] = ninja::sqrt(-mp2(k[i]));
       energy += k[i][0];
     }
     energy /= 2;
