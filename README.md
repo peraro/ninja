@@ -1,7 +1,7 @@
 Ninja
 =====
 
-- Ninja - version 1.1.0
+- Ninja - version 1.2.0
 - Author: Tiziano Peraro
 
 *Ninja* implements the *Laurent series expansion* method for the
