@@ -25,6 +25,8 @@ It is based on:
 Installing Ninja
 ----------------
 
+### Install from source
+
 Ninja can be compiled and installed with the commands
 
     ./configure
@@ -82,7 +84,7 @@ variable, if not already present.  This is typically a sub-directory
 
 The examples which come with the distribution can be compiled, after
 installation, using the command
-    
+
     make examples
 
 either in the top directory or in the examples/ directory.  Examples
@@ -91,6 +93,24 @@ using POSIX threads can be compiled (if supported) with
     make thread-examples
 
 
+### Install from conda-forge
+
+Ninja is packaged and distributed on [conda-forge](https://github.com/conda-forge/ninja-hep-ph-feedstock/) for the following platforms:
+
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/ninja-hep-ph.svg)](https://anaconda.org/conda-forge/ninja-hep-ph)
+[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/ninja-hep-ph.svg)](https://anaconda.org/conda-forge/ninja-hep-ph)
+
+To install and add Ninja to a project with [`pixi`](https://pixi.sh/), from the project directory run
+
+```
+pixi add ninja-hep-ph
+```
+
+and to install into a particular conda environment with [`conda`](https://docs.conda.io/projects/conda/), in the activated environment run
+
+```
+conda install --channel conda-forge ninja-hep-ph
+```
 
 Installing the package NinjaNumGen
 ----------------------------------
@@ -102,7 +122,7 @@ can be installed using the command
     python setup.py install
 
 in the `utils/` directory.  The command
-    
+
     python setup.py --help
 
 will give a list of installation options.  If you specified the
