@@ -1,4 +1,4 @@
-name: Fortran CI on Fedora 
+name: CI on Fedora 
 
 on: [push, pull_request]
 
@@ -14,6 +14,12 @@ jobs:
           - platform: linux/arm64
             runner: ubuntu-22.04-arm
             build_system: autotools
+          - platform: macos/amd64
+            runner: macos-13
+            build_system: autotools
+          - platform: macos/arm64
+            runner: macos-14
+            build_system: autotools
     runs-on: ${{ matrix.runner || 'ubuntu-22.04' }}
     container:
       image: fedora:latest
@@ -21,11 +27,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install gfortran
+      - name: Install dependencies on Fedora
+        if: startsWith(matrix.runner, 'ubuntu')
         run: |
-           dnf install -y gcc-gfortran gcc-c++ autogen autoconf automake libtool
-           dnf install -y libquadmath-devel || echo "OK" 
-            
+          dnf install -y gcc-gfortran gcc-c++ autogen autoconf automake libtool
+          dnf install -y libquadmath-devel || echo "OK"
+
+      - name: Install dependencies on macOS
+        if: startsWith(matrix.runner, 'macos')
+        run: |
+          brew update
+          brew install gcc autoconf automake libtool
+  
       - name: Compile and run
         run: |
            if [ "${{ matrix.build_system }}" = "autotools" ]; then
