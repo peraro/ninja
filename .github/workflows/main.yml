@@ -30,7 +30,7 @@ jobs:
         run: |
            if [ "${{ matrix.build_system }}" = "autotools" ]; then
            autoreconf -i 
-           ./configure  --prefix=$(pwd)/MINSTALL --with-avholo=no --enable-quadninja=yes  --with-quadruple=no --disable-f90module --disable-gosam --disable-avholo_cache --with-looptools=no
+           ./configure  --prefix=$(pwd)/MINSTALL --with-avholo=no --enable-quadninja=no  --with-quadruple=no --disable-f90module --disable-gosam --disable-avholo_cache --with-looptools=no
            make -j
            make install
            make examples
