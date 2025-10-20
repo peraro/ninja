@@ -1,0 +1,38 @@
+name: Fortran CI on Fedora 
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Compile Fortran on ${{ matrix.platform }} with ${{ matrix.build_system }}
+    strategy:
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-22.04
+            build_system: autotools
+          - platform: linux/arm64
+            runner: ubuntu-22.04-arm
+            build_system: autotools
+    runs-on: ${{ matrix.runner || 'ubuntu-22.04' }}
+    container:
+      image: fedora:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install gfortran
+        run: |
+           dnf install -y gcc-gfortran gcc-c++ autogen autoconf automake libtool
+           dnf install -y libquadmath-devel || echo "OK" 
+            
+      - name: Compile and run on 
+        run: |
+           if [ "${{ matrix.build_system }}" = "autotools" ]; then
+           autoreconf -i 
+           ./configure  --prefix=$(pwd)/MINSTALL --with-avholo=no --enable-quadninja=yes  --with-quadruple=no --disable-f90module --disable-gosam --disable-avholo_cache --with-looptools=no
+           make -j
+           make install
+           make examples
+           make thread-examples
+           fi
