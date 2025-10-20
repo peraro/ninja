@@ -26,7 +26,7 @@ jobs:
            dnf install -y gcc-gfortran gcc-c++ autogen autoconf automake libtool
            dnf install -y libquadmath-devel || echo "OK" 
             
-      - name: Compile and run on 
+      - name: Compile and run
         run: |
            if [ "${{ matrix.build_system }}" = "autotools" ]; then
            autoreconf -i 
