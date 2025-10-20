@@ -35,7 +35,6 @@ jobs:
       - name: Install dependencies on macOS
         if: startsWith(matrix.runner, 'macos')
         run: |
-          brew update
           brew install gcc autoconf automake libtool
   
       - name: Compile and run
