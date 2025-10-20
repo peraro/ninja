@@ -3,13 +3,38 @@
 
 #include <iostream>
 
+#ifdef __aarch64__
+
+#include <limits>
+#include <complex>
+#include <cmath>
+
+#else
+
 extern "C" {
 #include <quadmath.h>
 }
 
+#endif
+
+#ifdef __aarch64__
+# define NINJA_FLT128_EPSILON (std::numeric_limits<long double>::epsilon())
+# define NINJA_FLT128_MIN (std::numeric_limits<long double>::epsilon())
+#else
+# define NINJA_FLT128_EPSILON FLT128_EPSILON
+# define NINJA_FLT128_MIN FLT128_MIN
+#endif
+
 namespace ninja {
 
+#ifdef __aarch64__
+  typedef long double Quadruple;
+#else
   typedef __float128 Quadruple;
+#endif
+
+
+#ifndef __aarch64__
 
   class ComplexQuadruple {
   public:
@@ -394,6 +419,330 @@ namespace ninja {
   {
     return os << "(" << real(a) << "," << imag(a) << ")";
   }
+
+#else // __aarch64__
+
+  typedef std::complex<long double> ComplexQuadruple;
+
+  // Real functions
+
+  inline ninja::Quadruple acos (const ninja::Quadruple & x)
+  {
+    return std::acos (x);
+  }
+
+  inline ninja::Quadruple acosh (const ninja::Quadruple & x)
+  {
+    return std::acosh(x);
+  }
+
+  inline ninja::Quadruple asin (const ninja::Quadruple & x)
+  {
+    return std::asin(x);
+  }
+
+  inline ninja::Quadruple asinh (const ninja::Quadruple & x)
+  {
+    return std::asinh(x);
+  }
+
+  inline ninja::Quadruple atan (const ninja::Quadruple & x)
+  {
+    return std::atan(x);
+  }
+
+  inline ninja::Quadruple atanh (const ninja::Quadruple & x)
+  {
+    return std::atanh(x);
+  }
+
+  inline ninja::Quadruple atan2 (const ninja::Quadruple & x,
+                                 const ninja::Quadruple & y)
+  {
+    return std::atan2(x,y);
+  }
+
+  inline ninja::Quadruple cbrt (const ninja::Quadruple & x)
+  {
+    return std::cbrt(x);
+  }
+
+  inline ninja::Quadruple ceil (const ninja::Quadruple & x)
+  {
+    return std::ceil(x);
+  }
+
+  inline ninja::Quadruple copysign (const ninja::Quadruple & x,
+                                    const ninja::Quadruple & y)
+  {
+    return std::copysign(x,y);
+  }
+
+  inline ninja::Quadruple cosh (const ninja::Quadruple & x)
+  {
+    return std::cosh(x);
+  }
+
+  inline ninja::Quadruple cos (const ninja::Quadruple & x)
+  {
+    return std::cos(x);
+  }
+
+  inline ninja::Quadruple erf (const ninja::Quadruple & x)
+  {
+    return std::erf(x);
+  }
+
+  inline ninja::Quadruple erfc (const ninja::Quadruple & x)
+  {
+    return std::erfc(x);
+  }
+
+  inline ninja::Quadruple exp (const ninja::Quadruple & x)
+  {
+    return std::exp(x);
+  }
+
+  inline ninja::Quadruple expm1 (const ninja::Quadruple & x)
+  {
+    return std::expm1(x);
+  }
+
+  inline ninja::Quadruple abs(const ninja::Quadruple & r)
+  {
+    return std::fabs (r);
+  }
+
+  inline ninja::Quadruple fabs (const ninja::Quadruple & x)
+  {
+    return std::fabs(x);
+  }
+
+  inline ninja::Quadruple floor (const ninja::Quadruple & x)
+  {
+    return std::floor(x);
+  }
+
+
+  inline ninja::Quadruple hypot (const ninja::Quadruple & x,
+                                 const ninja::Quadruple & y)
+  {
+    return std::hypot(x,y);
+  }
+
+  inline ninja::Quadruple ldexp (const ninja::Quadruple & x, int n)
+  {
+    return std::ldexp(x,n);
+  }
+
+  inline ninja::Quadruple lgamma (const ninja::Quadruple & x)
+  {
+    return std::lgamma(x);
+  }
+
+  inline ninja::Quadruple log (const ninja::Quadruple & x)
+  {
+    return std::log(x);
+  }
+
+  inline ninja::Quadruple log10 (const ninja::Quadruple & x)
+  {
+    return std::log10(x);
+  }
+
+  inline ninja::Quadruple log2 (const ninja::Quadruple & x)
+  {
+    return std::log2(x);
+  }
+
+  inline ninja::Quadruple log1p (const ninja::Quadruple & x)
+  {
+    return std::log1p(x);
+  }
+
+  inline ninja::Quadruple nearbyint (const ninja::Quadruple & x)
+  {
+    return std::nearbyint(x);
+  }
+
+  inline ninja::Quadruple nextafter (const ninja::Quadruple & x,
+                                     const ninja::Quadruple & y)
+  {
+    return std::nextafter(x,y);
+  }
+
+  inline ninja::Quadruple pow (const ninja::Quadruple & x,
+                               const ninja::Quadruple & y)
+  {
+    return std::pow(x,y);
+  }
+
+  inline ninja::Quadruple remainder (const ninja::Quadruple & x,
+                                     const ninja::Quadruple & y)
+  {
+    return std::remainder(x,y);
+  }
+
+  inline ninja::Quadruple rint (const ninja::Quadruple & x)
+  {
+    return std::rint(x);
+  }
+
+  inline ninja::Quadruple round (const ninja::Quadruple & x)
+  {
+    return std::round(x);
+  }
+
+  inline ninja::Quadruple sinh (const ninja::Quadruple & x)
+  {
+    return std::sinh(x);
+  }
+
+  inline ninja::Quadruple sin (const ninja::Quadruple & x)
+  {
+    return std::sin(x);
+  }
+
+  inline ninja::Quadruple sqrt (const ninja::Quadruple & x)
+  {
+    return std::sqrt(x);
+  }
+
+  inline ninja::Quadruple tan (const ninja::Quadruple & x)
+  {
+    return std::tan(x);
+  }
+
+  inline ninja::Quadruple tanh (const ninja::Quadruple & x)
+  {
+    return std::tanh(x);
+  }
+
+  inline ninja::Quadruple tgamma (const ninja::Quadruple & x)
+  {
+    return std::tgamma(x);
+  }
+
+  inline ninja::Quadruple trunc (const ninja::Quadruple & x)
+  {
+    return std::trunc(x);
+  }
+
+
+  // ComplexFunctions
+
+  inline ninja::Quadruple abs(const ninja::ComplexQuadruple & z)
+  {
+    return std::abs(z);
+  }
+
+  inline ninja::Quadruple real(const ninja::ComplexQuadruple & z)
+  {
+    return std::real(z);
+  }
+
+  inline ninja::Quadruple imag(const ninja::ComplexQuadruple & z)
+  {
+    return std::imag(z);
+  }
+
+  inline ninja::Quadruple arg(const ninja::ComplexQuadruple & z)
+  {
+    return std::arg(z);
+  }
+
+  inline ninja::ComplexQuadruple conj(const ninja::ComplexQuadruple & z)
+  {
+    return std::conj(z);
+  }
+
+  inline ninja::ComplexQuadruple acos(const ninja::ComplexQuadruple & z)
+  {
+    return std::acos(z);
+  }
+
+  inline ninja::ComplexQuadruple acosh(const ninja::ComplexQuadruple & z)
+  {
+    return std::acosh(z);
+  }
+
+  inline ninja::ComplexQuadruple asin(const ninja::ComplexQuadruple & z)
+  {
+    return std::asin(z);
+  }
+
+  inline ninja::ComplexQuadruple asinh(const ninja::ComplexQuadruple & z)
+  {
+    return std::asinh(z);
+  }
+
+  inline ninja::ComplexQuadruple atan(const ninja::ComplexQuadruple & z)
+  {
+    return std::atan(z);
+  }
+
+  inline ninja::ComplexQuadruple atanh(const ninja::ComplexQuadruple & z)
+  {
+    return std::atanh(z);
+  }
+
+  inline ninja::ComplexQuadruple cos(const ninja::ComplexQuadruple & z)
+  {
+    return std::cos(z);
+  }
+
+  inline ninja::ComplexQuadruple cosh(const ninja::ComplexQuadruple & z)
+  {
+    return std::cosh(z);
+  }
+
+  inline ninja::ComplexQuadruple exp(const ninja::ComplexQuadruple & z)
+  {
+    return std::exp(z);
+  }
+
+  inline ninja::ComplexQuadruple log(const ninja::ComplexQuadruple & z)
+  {
+    return std::log(z);
+  }
+
+  inline ninja::ComplexQuadruple log10(const ninja::ComplexQuadruple & z)
+  {
+    return std::log10(z);
+  }
+
+  inline ninja::ComplexQuadruple pow(const ninja::ComplexQuadruple & base,
+                                     const ninja::ComplexQuadruple & exponent)
+  {
+    return std::pow(base,exponent);
+  }
+
+  inline ninja::ComplexQuadruple sin(const ninja::ComplexQuadruple & z)
+  {
+    return std::sin(z);
+  }
+
+  inline ninja::ComplexQuadruple sinh(const ninja::ComplexQuadruple & z)
+  {
+    return std::sinh(z);
+  }
+
+  inline ninja::ComplexQuadruple sqrt(const ninja::ComplexQuadruple & z)
+  {
+    return std::sqrt(z);
+  }
+
+  inline ninja::ComplexQuadruple tan(const ninja::ComplexQuadruple & z)
+  {
+    return std::tan(z);
+  }
+
+  inline ninja::ComplexQuadruple tanh(const ninja::ComplexQuadruple & z)
+  {
+    return std::tanh(z);
+  }
+
+#endif
 
 } // namespace ninja
 

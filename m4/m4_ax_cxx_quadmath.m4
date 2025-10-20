@@ -1,4 +1,6 @@
 m4_define([_AX_CXX_COMPILE_LIBQUADMATH_testbody], [[
+    #ifndef __aarch64__
+
     extern "C" {
     #include <quadmath.h>
     }
@@ -10,9 +12,22 @@ m4_define([_AX_CXX_COMPILE_LIBQUADMATH_testbody], [[
     {
       return csqrtq(2.0q + (__extension__ 1.0iQ)*1.0q);
     }
+
+    #else
+
+    #include <limits>
+
+    // see if we have at least 28 digits
+    int assert_long_double_is_quadruple[
+      std::numeric_limits<long double>::digits10 >= 28 ? 1 : -1
+    ];
+
+    #endif
 ]])
 
 m4_define([_AX_CXX_COMPILE_STDCXX_11_FLOAT128_RANDOM_testbody], [[
+
+    #ifndef __aarch64__
 
     extern "C" {
     #include <quadmath.h>
@@ -25,7 +40,20 @@ m4_define([_AX_CXX_COMPILE_STDCXX_11_FLOAT128_RANDOM_testbody], [[
       gen_.seed(n);
       return rnd_(gen_);
     }
-	
+
+    #else
+
+    #include <random>
+    long double testfunc(int n)
+    {
+	  std::mt19937 gen_;
+	  std::uniform_real_distribution<long double> rnd_(0,1);
+      gen_.seed(n);
+      return rnd_(gen_);
+    }
+
+    #endif
+
 ]])
 
 AC_DEFUN([AX_CXX_COMPILE_LIBQUADMATH], [dnl

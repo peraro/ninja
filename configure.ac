@@ -5,6 +5,7 @@ AC_PREREQ([2.63])
 AC_INIT([Ninja], [1.2.0], [tiziano.peraro@ed.ac.uk])
 AC_CONFIG_SRCDIR([src/ninja_implem.cxx])
 AC_CONFIG_HEADERS([config.h src/ninja/ninja_config.h])
+AC_CANONICAL_HOST
 AC_CONFIG_MACRO_DIR([m4])
 m4_include([m4/m4_ax_cxx_compile_stdcxx_11.m4])
 m4_include([m4/m4_ax_cxx_tryandadd_flag.m4])
@@ -147,7 +148,11 @@ AS_IF([test "x$with_quadruple" != xno] || [test "x$enable_quadninja" != xno],
 
 # Quadruple precision
 AS_IF([test "x$with_quadruple" = xyes],
-       AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
+       AS_CASE([$host_cpu],
+         [aarch64],
+         AC_SUBST([QUADRUPLEFLAGS], [""]),
+         AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
+       )
        AC_DEFINE([NINJA_QUADRUPLE], [1],
        [Define to 1 if Ninja is compiled in quadruple precision.])
        [quadruple=true],
@@ -161,7 +166,11 @@ AM_CONDITIONAL(QUADRUPLE, test "x$quadruple" = xtrue)
 
 # Quadninja
 AS_IF([test "x$enable_quadninja" = xyes],
-       AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
+       AS_CASE([$host_cpu],
+         [aarch64],
+         AC_SUBST([QUADRUPLEFLAGS], [""]),
+         AC_SUBST([QUADRUPLEFLAGS], ["-lquadmath"])
+       )
        AC_DEFINE([QUADNINJA], [1],
        [Define to 1 if QuadNinja is built.])
        [quadninja=true],

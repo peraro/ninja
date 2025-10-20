@@ -52,9 +52,9 @@ namespace ninja {
 #else
   typedef ninja::Quadruple Real;
   typedef ninja::ComplexQuadruple Complex;
-  const Real INFRARED_EPS = 1.0e+15*FLT128_EPSILON;
-  const Real REAL_EPS = Real(1.0e+3)*FLT128_EPSILON;
-  const Real REAL_MIN = Real(1.0e+20)*FLT128_MIN;
+  const Real INFRARED_EPS = 1.0e+15 * NINJA_FLT128_EPSILON;
+  const Real REAL_EPS = Real(1.0e+3) * NINJA_FLT128_EPSILON;
+  const Real REAL_MIN = Real(1.0e+20) * NINJA_FLT128_MIN;
 #endif
 
   // typedef for zero, real and complex masses
@@ -201,6 +201,8 @@ namespace ninja {
 
 #if !defined(NINJA_QUADRUPLE) && !defined(QUADNINJA_TYPES_HH_INSIDE)
   const ninja::Real PI = M_PI;
+#elif defined(__aarch64__)
+  const ninja::Real PI = 3.141592653589793238462643383279502884197l;
 #else
   const ninja::Real PI = M_PIq;
 #endif
