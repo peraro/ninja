@@ -21,8 +21,7 @@ jobs:
             runner: macos-14
             build_system: autotools
     runs-on: ${{ matrix.runner || 'ubuntu-22.04' }}
-    container:
-      image: fedora:latest
+    container: ${{ startsWith(matrix.runner, 'ubuntu') && 'fedora:latest' || null }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
