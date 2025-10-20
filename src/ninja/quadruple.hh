@@ -19,7 +19,7 @@ extern "C" {
 
 #ifdef __aarch64__
 # define NINJA_FLT128_EPSILON (std::numeric_limits<long double>::epsilon())
-# define NINJA_FLT128_MIN (std::numeric_limits<long double>::epsilon())
+# define NINJA_FLT128_MIN (std::numeric_limits<long double>::min())
 #else
 # define NINJA_FLT128_EPSILON FLT128_EPSILON
 # define NINJA_FLT128_MIN FLT128_MIN
