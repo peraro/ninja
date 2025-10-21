@@ -42,7 +42,7 @@ namespace {
         numerator_t3(gosam_numerator_t3),
         numerator_t2(gosam_numerator_t2),
         numerator_d(gosam_numerator_d) {}
-    
+
 
     Complex evaluate(const ninja::ComplexMomentum & q,
                      const ninja::Complex & muq,
@@ -128,7 +128,7 @@ namespace {
 } // namespace
 
 
-extern "C" {  
+extern "C" {
 
   // Definition of the routines to be called by the Fortran code in GoSam
 
@@ -278,7 +278,7 @@ extern "C" {
                        int & return_status)
   {
     ninjago_init_impl();
-    
+
     // define the numerator
     GoSamNumerator gosam_numerator(numerator,numerator_t3,numerator_t2,
                                    numerator_d);
@@ -397,9 +397,9 @@ extern "C" {
     default:
       std::cerr << "ERROR IN NINJA: "
                 << "The flag specified in ninjago_set_integral_library"
-                <<" does not correpond to a valid Integral Library."
+                <<" does not correspond to a valid Integral Library."
                 << std::endl;
-      std::terminate();      
+      std::terminate();
     }
   }
 

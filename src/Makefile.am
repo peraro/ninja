@@ -19,7 +19,8 @@ nodist_libninja_la_SOURCES = quadsources/basis.cc  quadsources/cuts_utils.cc \
 	quadsources/tensor_ninja.cc \
 	quadsources/coefficient_level_subs.cc	\
 	quadsources/integral_library.cc quadsources/avholo_interface.cc \
-	quadsources/rambo.cc quadsources/ninja_wraps.cc
+	quadsources/rambo.cc quadsources/ninja_wraps.cc \
+	quadsources/gosam_interface.cc
 endif
 
 if AVHOLO
@@ -60,8 +61,8 @@ nodist_noinst_HEADERS = quadsources/ninja_implem.cxx \
 	quadsources/ninja_scoped_array.hh  quadsources/cuts_vector.hh \
 	quadsources/integral_library_wrapper.hh \
 	quadsources/s_mat_wrapper.hh quadsources/avholo_decls.hh \
-	quadsources/ninja_hash_table.hh quadsources/integral_cache.hh
-#	quadsources/gosam_interface.hh
+	quadsources/ninja_hash_table.hh quadsources/integral_cache.hh \
+	quadsources/gosam_interface.hh
 endif
 
 library_includedir=$(includedir)
@@ -72,15 +73,24 @@ libninja_la_LIBADD=
 if NINJAGOSAMCONTRIB
 nodist_pkginclude_HEADERS =
 else
-nodist_library_include_HEADERS = 
+nodist_library_include_HEADERS =
 endif
 
 if GOSAM
+if QUADNINJA
+nodist_libninja_la_SOURCES += quadsources/ninjago.F90
+endif
 if NINJAGOSAMCONTRIB
 nodist_pkginclude_HEADERS += ninjago_module.mod
+if QUADNINJA
+nodist_pkginclude_HEADERS += quadninjago_module.mod
+endif
 libninja_la_LIBADD += -L$(top_builddir)/avh_olo-2.2.1 -lavh_olo
 else
 nodist_library_include_HEADERS += ninjago_module.mod
+if QUADNINJA
+nodist_library_include_HEADERS += quadninjago_module.mod
+endif
 endif
 endif
 
