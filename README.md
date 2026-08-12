@@ -1,11 +1,9 @@
 Ninja
 =====
 
-- Ninja - version 1.2.0
-- Author: Tiziano Peraro
-
-*Ninja* implements the *Laurent series expansion* method for the
-computation of *one-loop integrals*.
+*Ninja* is a library developed by Tiziano Peraro that implements the
+*Laurent series expansion* method for the computation of *one-loop
+integrals*.
 
 It is based on:
 
